@@ -116,7 +116,7 @@ const Signup = ({ onSwitchToLogin }) => {
             Sign Up
           </button>
         </form>
-
+        //adding random line
         {/* Bottom toggle prompt */}
         <p className="mt-6 text-center text-gray-600 text-sm">
           Already have an account?{" "}
