@@ -1,10 +1,12 @@
-const { googleLogin } = require("../controllers/authController");
+import express from "express";
+import { googleLogin , signupController, loginController , verifyOtpController } from "../controllers/authController.js";
 
-const router = require("express").Router();
+const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("Auth Backend is running");
-});
 
 router.get("/google", googleLogin);
-module.exports = router;
+router.post("/signup", signupController);
+router.post("/login", loginController);
+router.post("/verify-otp", verifyOtpController);
+
+export default router;

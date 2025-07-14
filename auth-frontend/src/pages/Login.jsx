@@ -1,24 +1,51 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "../components/GoogleLogin.jsx"; // Adjust path if needed
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Logging in with: " + JSON.stringify(form));
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/auth/login",
+        form
+      );
+      // Example: Save token to localStorage or context
+      localStorage.setItem("token", response.data.token);
+
+      // Redirect or show success
+      navigate("/dashboard"); // or wherever you want to redirect after login
+    } catch (err) {
+      if (err.response) {
+        setError(err.response.data.message || "Login failed");
+      } else {
+        setError("Network error. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
           <div>
             <label
               htmlFor="email"
@@ -69,9 +96,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-black to-gray-800 text-white font-semibold rounded-md shadow-md hover:from-gray-900 hover:to-black transition"
+            disabled={loading}
+            className={`w-full py-3 text-white font-semibold rounded-md shadow-md transition ${
+              loading
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black"
+            }`}
           >
-            Log In
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

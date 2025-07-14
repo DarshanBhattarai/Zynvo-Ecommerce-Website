@@ -5,20 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
+
   const responseGoogle = async (authResult) => {
     try {
-      if (authResult["code"]) {
-        const result = await googleAuth(authResult["code"]);
-        const { email, name, picture } = result.data.user;
-        const token = result.data.token;
-        const obj = { email, name, picture, token };
-        localStorage.setItem("user-info", JSON.stringify(obj));
-        console.log("User logged in successfully", result.data.user);
-        console.log("Token:", token);
-        navigate("/dashboard");
+      if (authResult.code) {
+        const response = await googleAuth(authResult.code);
+        const { email, name, picture, isVerified } = response.data.user;
+        const token = response.data.token;
+
+        const userInfo = { email, name, picture, isVerified, token };
+        localStorage.setItem("user-info", JSON.stringify({ user: userInfo, token }));
+
+        console.log("User logged in successfully:", userInfo);
+        console.log("User email:", userInfo.email);
+        // ✅ Only navigate if the user is verified
+        if (isVerified) {
+          navigate("/dashboard");
+        } else {
+          navigate("/verify-otp",{ state: { email: userInfo.email } });
+        }
       }
-    } catch {
-      console.error("Login failed", authResult);
+    } catch (error) {
+      console.error("Google login failed", error);
     }
   };
 

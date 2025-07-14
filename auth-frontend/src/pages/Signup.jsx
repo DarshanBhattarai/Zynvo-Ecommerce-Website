@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios"; // <-- import axios here
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = ({ onSwitchToLogin }) => {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -12,24 +14,65 @@ const Signup = ({ onSwitchToLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-    alert("Signing up with: " + JSON.stringify(form));
-    // Add your signup logic here
+
+    try {
+      // Replace with your backend signup API URL
+      const response = await axios.post("http://localhost:5000/auth/signup", {
+        name: form.username,
+        email: form.email,
+        password: form.password,
+      });
+
+      alert("Signup successful! Please verify your email.");
+      navigate("/verify-otp", { state: { email: form.email } });
+
+      // Optionally redirect or clear form here
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert(
+        error.response?.data?.message ||
+          "Signup failed. Please try again later."
+      );
+    }
   };
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Username */}
+          <div>
+            <label
+              htmlFor="username"
+              className="block mb-2 text-gray-700 font-medium"
+            >
+              Username
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              placeholder="Enter your username"
+              value={form.username}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+            />
+          </div>
+
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -49,6 +92,7 @@ const Signup = ({ onSwitchToLogin }) => {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
@@ -78,6 +122,7 @@ const Signup = ({ onSwitchToLogin }) => {
             </div>
           </div>
 
+          {/* Confirm Password */}
           <div>
             <label
               htmlFor="confirmPassword"
@@ -109,6 +154,7 @@ const Signup = ({ onSwitchToLogin }) => {
             </div>
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="w-full py-3 bg-gradient-to-r from-black to-gray-800 text-white font-semibold rounded-md shadow-md hover:from-gray-900 hover:to-black transition"
@@ -116,7 +162,7 @@ const Signup = ({ onSwitchToLogin }) => {
             Sign Up
           </button>
         </form>
-        //adding random line
+
         {/* Bottom toggle prompt */}
         <p className="mt-6 text-center text-gray-600 text-sm">
           Already have an account?{" "}

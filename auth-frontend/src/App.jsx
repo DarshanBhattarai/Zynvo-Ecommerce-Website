@@ -8,6 +8,7 @@ import {
 
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
+import VerifyOtp from "./pages/verifyOtp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import PageNotFound from "./PageNotFound.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -16,9 +17,13 @@ import RefreshHandler from "./RefreshHandler.jsx";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Private route wrapper
+  // ✅ Enhanced PrivateRoute checks token and verification
   const PrivateRoute = ({ element }) => {
-    return isAuthenticated ? element : <Navigate to="/login" />;
+    const userInfo = JSON.parse(localStorage.getItem("user-info"));
+    const token = userInfo?.token;
+    const isVerified = userInfo?.user?.isVerified;
+
+    return token && isVerified ? element : <Navigate to="/login" />;
   };
 
   return (
@@ -26,11 +31,9 @@ function App() {
       <BrowserRouter>
         <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
         <Routes>
-          {/* Show your full Login page (manual + Google) here */}
           <Route path="/login" element={<Login />} />
-
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/" element={<Navigate to="/login" />} />
 
           <Route
