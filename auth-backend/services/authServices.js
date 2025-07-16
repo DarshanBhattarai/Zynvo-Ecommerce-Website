@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import { sendOtpEmail } from "../utils/sendEmail.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRY = process.env.JWT_EXPIRY || "1d";
@@ -61,6 +62,7 @@ export const loginUser = async ({ email, password }) => {
       name: user.name,
       email: user.email,
       image: user.image,
+      isVerified: user.isVerified,
     },
   };
 };
@@ -68,22 +70,29 @@ export const verifyOtp = async ({ email, otp }) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
 
-  if (!user.otp || !user.otp.code) throw new Error("No OTP found, please request a new one");
+  if (!user.otp || !user.otp.code)
+    throw new Error("No OTP found, please request a new one");
 
   const { code, expiresAt, verified } = user.otp;
 
   if (verified) throw new Error("OTP already verified");
-  
+
   if (!otp || code.trim() !== otp.trim()) throw new Error("Invalid OTP");
-  
-  if (!expiresAt || Date.now() > new Date(expiresAt).getTime()) throw new Error("OTP expired");
+
+  if (!expiresAt || Date.now() > new Date(expiresAt).getTime())
+    throw new Error("OTP expired");
 
   user.otp.verified = true;
   user.isVerified = true;
   await user.save();
 
+  const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, {
+    expiresIn: JWT_EXPIRY,
+  });
+
   return {
     message: "OTP verified successfully",
+    token, // include the token
     user: {
       name: user.name,
       email: user.email,
@@ -133,3 +142,35 @@ export const handleGoogleAuth = async ({ email, name, picture }) => {
   };
 };
 
+// adjust path if needed
+
+export const resendOtpService = async (email) => {
+  // 1. Find user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("User with this email does not exist");
+  }
+
+  // 2. Skip if already verified
+  if (user.isVerified) {
+    throw new Error("User is already verified");
+  }
+
+  // 3. Generate 6-digit OTP
+  const otpCode = crypto.randomInt(100000, 999999).toString();
+
+  // 4. Update OTP fields in user model
+  user.otp = {
+    code: otpCode,
+    expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
+    isverified: false, // should be false until verified
+  };
+
+  await user.save();
+
+  // 5. Send email
+  await sendOtpEmail(email, otpCode);
+
+  // 6. Return confirmation
+  return { email: user.email };
+};

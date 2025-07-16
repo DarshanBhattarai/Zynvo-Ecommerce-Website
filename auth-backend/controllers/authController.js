@@ -5,6 +5,8 @@ import { loginUser } from "../services/authServices.js";
 import { sendOtpEmail } from "../utils/sendEmail.js";
 import { verifyOtp } from "../services/authServices.js";
 import { handleGoogleAuth } from "../services/authServices.js";
+import { resendOtpService } from "../services/authServices.js";
+
 import axios from "axios";
 import jwt from "jsonwebtoken";
 
@@ -34,9 +36,15 @@ export const googleLogin = async (req, res) => {
       expiresIn: process.env.JWT_TIMEOUT,
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "Strict",
+    });
+
     return res.status(200).json({
       message: "User logged in successfully",
-      token,
       user: {
         name,
         email,
@@ -87,9 +95,15 @@ export const loginController = async (req, res) => {
 
     const result = await loginUser({ email, password });
 
+    res.cookie("token", result.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      sameSite: "Strict",
+    });
+
     return res.status(200).json({
       message: "Login successful",
-      token: result.token,
       user: result.user,
     });
   } catch (error) {
@@ -106,7 +120,23 @@ export const verifyOtpController = async (req, res) => {
     }
 
     const result = await verifyOtp({ email, otp });
-    res.status(200).json(result);
+     // ✅ STEP: Insert this ONLY IF result contains a token
+    if (result.token) {
+      res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "Strict",
+      });
+    }
+
+    // ✅ Send success response with user data
+    return res.status(200).json({
+      message: "Email verified successfully",
+      user: result.user,
+    });
+
+  
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -120,5 +150,24 @@ export const googleAuthController = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+export const resendOtpController = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const result = await resendOtpService(email);
+
+    return res.status(200).json({
+      message: "OTP resent successfully",
+      otpSentTo: result.email,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message || "Failed to resend OTP" });
   }
 };

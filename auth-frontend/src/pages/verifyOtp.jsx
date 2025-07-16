@@ -1,14 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+
+const RESEND_COOLDOWN = 30; // seconds
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const email = location.state?.email || ""; // Passed from signup
+  const email = location.state?.email || "";
+
+  const cooldownRef = useRef(null);
+
+  useEffect(() => {
+    if (cooldown === 0 && cooldownRef.current) {
+      clearInterval(cooldownRef.current);
+      cooldownRef.current = null;
+    }
+  }, [cooldown]);
+
+  const startCooldown = () => {
+    setCooldown(RESEND_COOLDOWN);
+
+    cooldownRef.current = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(cooldownRef.current);
+          cooldownRef.current = null;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +45,7 @@ const VerifyOtp = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/auth/verify-otp", {
+      const res = await axios.post("http://localhost:5000/api/auth/verify-otp", {
         email,
         otp,
       });
@@ -30,6 +59,24 @@ const VerifyOtp = () => {
     }
   };
 
+  const handleResend = async () => {
+    if (cooldown > 0) return; // cooldown active, do nothing
+
+    try {
+      setResendLoading(true);
+      const res = await axios.post("http://localhost:5000/api/auth/resend-otp", {
+        email,
+      });
+
+      alert(res.data.message || "OTP resent successfully");
+      startCooldown();
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to resend OTP.");
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
@@ -38,10 +85,7 @@ const VerifyOtp = () => {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label
-              htmlFor="otp"
-              className="block mb-2 text-gray-700 font-medium"
-            >
+            <label htmlFor="otp" className="block mb-2 text-gray-700 font-medium">
               Enter the 6-digit OTP sent to your email
             </label>
             <input
@@ -69,19 +113,23 @@ const VerifyOtp = () => {
         <p className="mt-6 text-center text-gray-600 text-sm">
           Didn't receive the code?{" "}
           <button
-            onClick={() => alert("Resend OTP feature coming soon.")}
-            className="font-semibold text-gray-900 hover:underline focus:outline-none"
+            onClick={handleResend}
+            disabled={cooldown > 0 || resendLoading}
+            className={`font-semibold text-gray-900 hover:underline focus:outline-none ${
+              cooldown > 0 || resendLoading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Resend OTP
+            {resendLoading
+              ? "Resending..."
+              : cooldown > 0
+              ? `Resend OTP in ${cooldown}s`
+              : "Resend OTP"}
           </button>
         </p>
 
         <p className="mt-2 text-center text-gray-600 text-sm">
           Back to{" "}
-          <Link
-            to="/signup"
-            className="font-semibold text-gray-900 hover:underline"
-          >
+          <Link to="/signup" className="font-semibold text-gray-900 hover:underline">
             Sign Up
           </Link>
         </p>

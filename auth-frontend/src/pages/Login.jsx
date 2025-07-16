@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
-import GoogleLoginButton from "../components/GoogleLogin.jsx"; // Adjust path if needed
+import GoogleLoginButton from "../components/GoogleLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
+import { AuthContext } from "../context/AuthContext.jsx";
+
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
+
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,14 +26,22 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/auth/login",
-        form
+        "http://localhost:5000/api/auth/login",
+        form,
+        { withCredentials: true }
       );
-      // Example: Save token to localStorage or context
-      localStorage.setItem("token", response.data.token);
+      const { token, user } = response.data;
 
-      // Redirect or show success
-      navigate("/dashboard"); // or wherever you want to redirect after login
+      // Update context state (and localStorage via effect)
+      setAuth({ token, user });
+      console.log("Login successful:", token, user);
+      console.log("User email:", form);
+
+      if (user?.isVerified) {
+        navigate("/home");
+      } else {
+        navigate("/verify-otp", { state: { email: user?.email } });
+      }
     } catch (err) {
       if (err.response) {
         setError(err.response.data.message || "Login failed");

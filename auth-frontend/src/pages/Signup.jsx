@@ -29,7 +29,7 @@ const Signup = ({ onSwitchToLogin }) => {
 
     try {
       // Replace with your backend signup API URL
-      const response = await axios.post("http://localhost:5000/auth/signup", {
+      const response = await axios.post("http://localhost:5000/api/auth/signup", {
         name: form.username,
         email: form.email,
         password: form.password,
