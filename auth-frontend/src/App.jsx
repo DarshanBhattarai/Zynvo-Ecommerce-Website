@@ -9,19 +9,19 @@ import Home from "./pages/Home.jsx";
 import PageNotFound from "../src/components/PageNotFound.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+
 import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated, isVerified } = useContext(AuthContext);
 
- 
   return children;
 };
 
 function App() {
   return (
     <AuthProvider>
-      <GoogleOAuthProvider clientId="YOUR_CLIENT_ID_HERE">
+      <GoogleOAuthProvider clientId="728027270401-qdo9l75vkeihvf3tjsvovqm6r24rjhtb.apps.googleusercontent.com">
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />

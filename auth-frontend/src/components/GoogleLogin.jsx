@@ -1,32 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { googleAuth } from "../api.js";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
 
   const responseGoogle = async (authResult) => {
     try {
       if (authResult.code) {
         const response = await googleAuth(authResult.code);
-        const { email, name, picture, isVerified } = response.data.user;
+
+        const { email, name, picture } = response.data.user;
         const token = response.data.token;
 
-        const userInfo = { email, name, picture, isVerified, token };
-        localStorage.setItem("user-info", JSON.stringify({ user: userInfo, token }));
+        const userInfo = { email, name, picture };
+        const fullAuth = { token, user: { ...userInfo, isVerified: true } };
 
-        console.log("User logged in successfully:", userInfo);
-        console.log("User email:", userInfo.email);
-        // ✅ Only navigate if the user is verified
-        if (isVerified) {
-          navigate("/dashboard");
-        } else {
-          navigate("/verify-otp",{ state: { email: userInfo.email } });
-        }
+        // Save to localStorage
+        localStorage.setItem("user-info", JSON.stringify(fullAuth));
+
+        // Update context
+        setAuth(fullAuth);
+
+        console.log("✅ Google login successful:", userInfo);
+
+        // Navigate to dashboard
+        navigate("/home");
       }
     } catch (error) {
-      console.error("Google login failed", error);
+      console.error("❌ Google login failed", error);
     }
   };
 

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "../components/GoogleLogin.jsx";
+import GithubLogin from "../components/GitHubLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext.jsx";
@@ -124,8 +125,10 @@ const Login = () => {
           <span className="mx-3 font-medium text-sm">OR</span>
           <hr className="flex-grow border-gray-300" />
         </div>
-
-        <GoogleLoginButton />
+        <div className="flex flex-col gap-4">
+          <GoogleLoginButton />
+          <GithubLogin />
+        </div>
 
         <p className="mt-6 text-center text-gray-600 text-sm">
           Don&apos;t have an account yet?{" "}

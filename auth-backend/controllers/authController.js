@@ -28,6 +28,7 @@ export const googleLogin = async (req, res) => {
         name,
         email,
         image: picture,
+        isVerified: true,
       });
     }
 
@@ -49,6 +50,7 @@ export const googleLogin = async (req, res) => {
         name,
         email,
         image: picture,
+
       },
     });
   } catch (error) {
