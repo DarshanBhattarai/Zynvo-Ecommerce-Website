@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios"; // <-- import axios here
+import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signup = ({ onSwitchToLogin }) => {
   const [form, setForm] = useState({
@@ -23,25 +24,25 @@ const Signup = ({ onSwitchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     try {
-      // Replace with your backend signup API URL
-      const response = await axios.post("http://localhost:5000/api/auth/signup", {
-        name: form.username,
-        email: form.email,
-        password: form.password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        {
+          name: form.username,
+          email: form.email,
+          password: form.password,
+        }
+      );
 
-      alert("Signup successful! Please verify your email.");
+      toast.success("Signup successful! Please verify your email.");
       navigate("/verify-otp", { state: { email: form.email } });
-
-      // Optionally redirect or clear form here
     } catch (error) {
       console.error("Signup error:", error);
-      alert(
+      toast.error(
         error.response?.data?.message ||
           "Signup failed. Please try again later."
       );
@@ -163,7 +164,6 @@ const Signup = ({ onSwitchToLogin }) => {
           </button>
         </form>
 
-        {/* Bottom toggle prompt */}
         <p className="mt-6 text-center text-gray-600 text-sm">
           Already have an account?{" "}
           <Link

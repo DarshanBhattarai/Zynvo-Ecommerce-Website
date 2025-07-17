@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const RESEND_COOLDOWN = 30; // seconds
+const RESEND_COOLDOWN = 30;
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const cooldownRef = useRef(null);
 
   const email = location.state?.email || "";
-
-  const cooldownRef = useRef(null);
+  const mode = location.state?.mode || "signup"; // 'signup' or 'reset-password'
 
   useEffect(() => {
     if (cooldown === 0 && cooldownRef.current) {
@@ -26,7 +28,6 @@ const VerifyOtp = () => {
 
   const startCooldown = () => {
     setCooldown(RESEND_COOLDOWN);
-
     cooldownRef.current = setInterval(() => {
       setCooldown((prev) => {
         if (prev <= 1) {
@@ -41,37 +42,59 @@ const VerifyOtp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!otp || !email) return alert("OTP or email is missing!");
+
+    if (!otp || !email) {
+      toast.error("OTP or email is missing!");
+      return;
+    }
+
+    if (mode === "reset-password" && !newPassword) {
+      toast.error("Please enter your new password");
+      return;
+    }
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/api/auth/verify-otp", {
-        email,
-        otp,
-      });
 
-      alert(res.data.message);
-      navigate("/login");
+      if (mode === "reset-password") {
+        await axios.post("http://localhost:5000/api/auth/reset-password", {
+          email,
+          otp,
+          newPassword,
+        });
+        toast.success("Password reset successful. Please login.");
+        navigate("/login");
+      } else {
+        await axios.post("http://localhost:5000/api/auth/verify-otp", {
+          email,
+          otp,
+        });
+        toast.success("Email verified successfully.");
+        navigate("/login");
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Verification failed.");
+      toast.error(err.response?.data?.message || "Verification failed.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleResend = async () => {
-    if (cooldown > 0) return; // cooldown active, do nothing
+    if (cooldown > 0) return;
 
     try {
       setResendLoading(true);
-      const res = await axios.post("http://localhost:5000/api/auth/resend-otp", {
-        email,
-      });
+      const endpoint =
+        mode === "reset-password"
+          ? "http://localhost:5000/api/auth/forgot-password"
+          : "http://localhost:5000/api/auth/resend-otp";
 
-      alert(res.data.message || "OTP resent successfully");
+      const res = await axios.post(endpoint, { email });
+
+      toast.success(res.data.message || "OTP resent successfully");
       startCooldown();
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to resend OTP.");
+      toast.error(err.response?.data?.message || "Failed to resend OTP.");
     } finally {
       setResendLoading(false);
     }
@@ -81,11 +104,15 @@ const VerifyOtp = () => {
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-          Verify OTP
+          {mode === "reset-password" ? "Reset Password" : "Verify OTP"}
         </h2>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="otp" className="block mb-2 text-gray-700 font-medium">
+            <label
+              htmlFor="otp"
+              className="block mb-2 text-gray-700 font-medium"
+            >
               Enter the 6-digit OTP sent to your email
             </label>
             <input
@@ -101,12 +128,39 @@ const VerifyOtp = () => {
             />
           </div>
 
+          {mode === "reset-password" && (
+            <div>
+              <label
+                htmlFor="newPassword"
+                className="block mb-2 text-gray-700 font-medium"
+              >
+                New Password
+              </label>
+              <input
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Enter your new password"
+                className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+              />
+            </div>
+          )}
+
           <button
             type="submit"
             disabled={loading}
             className="w-full py-3 bg-gradient-to-r from-black to-gray-800 text-white font-semibold rounded-md shadow-md hover:from-gray-900 hover:to-black transition"
           >
-            {loading ? "Verifying..." : "Verify OTP"}
+            {loading
+              ? mode === "reset-password"
+                ? "Resetting Password..."
+                : "Verifying..."
+              : mode === "reset-password"
+              ? "Reset Password"
+              : "Verify OTP"}
           </button>
         </form>
 
@@ -116,7 +170,9 @@ const VerifyOtp = () => {
             onClick={handleResend}
             disabled={cooldown > 0 || resendLoading}
             className={`font-semibold text-gray-900 hover:underline focus:outline-none ${
-              cooldown > 0 || resendLoading ? "opacity-50 cursor-not-allowed" : ""
+              cooldown > 0 || resendLoading
+                ? "opacity-50 cursor-not-allowed"
+                : ""
             }`}
           >
             {resendLoading
@@ -129,7 +185,10 @@ const VerifyOtp = () => {
 
         <p className="mt-2 text-center text-gray-600 text-sm">
           Back to{" "}
-          <Link to="/signup" className="font-semibold text-gray-900 hover:underline">
+          <Link
+            to="/signup"
+            className="font-semibold text-gray-900 hover:underline"
+          >
             Sign Up
           </Link>
         </p>

@@ -6,6 +6,8 @@ import { sendOtpEmail } from "../utils/sendEmail.js";
 import { verifyOtp } from "../services/authServices.js";
 import { handleGoogleAuth } from "../services/authServices.js";
 import { resendOtpService } from "../services/authServices.js";
+import { forgotPasswordService } from "../services/authServices.js";
+import { resetPasswordService } from "../services/authServices.js";
 
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -171,5 +173,39 @@ export const resendOtpController = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({ message: error.message || "Failed to resend OTP" });
+  }
+};
+
+// FORGOT PASSWORD CONTROLLER
+export const forgotPasswordController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email)
+      return res.status(400).json({ message: "Email is required" });
+
+    const result = await forgotPasswordService(email);
+
+    res.status(200).json({
+      message: "OTP sent to your email for password reset.",
+      email: result.email,
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// RESET PASSWORD CONTROLLER
+export const resetPasswordController = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword)
+      return res.status(400).json({ message: "All fields are required" });
+
+    const result = await resetPasswordService({ email, otp, newPassword });
+
+    res.status(200).json({ message: result.message });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };

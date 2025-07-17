@@ -174,3 +174,49 @@ export const resendOtpService = async (email) => {
   // 6. Return confirmation
   return { email: user.email };
 };
+
+
+
+// FORGOT PASSWORD SERVICE
+export const forgotPasswordService = async (email) => {
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("User not found");
+
+  const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
+  const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+
+  user.otp = {
+    code: hashedOtp,
+    expiresAt: Date.now() + 10 * 60 * 1000, // 10 min expiry
+    verified: false,
+    type: "forgot-password",
+  };
+
+  await user.save();
+  await sendOtpEmail(email, otp, "Password Reset");
+
+  return { email };
+};
+
+// RESET PASSWORD SERVICE
+export const resetPasswordService = async ({ email, otp, newPassword }) => {
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("User not found");
+
+  const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+
+  const isValid =
+    user.otp &&
+    user.otp.code === hashedOtp &&
+    user.otp.type === "forgot-password" &&
+    user.otp.expiresAt > Date.now();
+
+  if (!isValid) throw new Error("Invalid or expired OTP");
+
+  user.password = await bcrypt.hash(newPassword, 10);
+  user.otp = undefined; // clear OTP
+
+  await user.save();
+
+  return { message: "Password reset successful" };
+};

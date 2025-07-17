@@ -4,21 +4,32 @@ import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "../components/GoogleLogin.jsx";
 import GithubLogin from "../components/GitHubLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
 
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    rememberMe: false,
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +44,8 @@ const Login = () => {
       );
       const { token, user } = response.data;
 
-      // Update context state (and localStorage via effect)
       setAuth({ token, user });
-      console.log("Login successful:", token, user);
-      console.log("User email:", form);
+      toast.success("Login successful!");
 
       if (user?.isVerified) {
         navigate("/home");
@@ -44,11 +53,9 @@ const Login = () => {
         navigate("/verify-otp", { state: { email: user?.email } });
       }
     } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message || "Login failed");
-      } else {
-        setError("Network error. Please try again.");
-      }
+      toast.error(
+        err.response?.data?.message || "Network error. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -56,9 +63,13 @@ const Login = () => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+      <ToastContainer position="top-center" />
+
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
+
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -78,6 +89,7 @@ const Login = () => {
             />
           </div>
 
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
@@ -107,6 +119,27 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Remember Me + Forgot Password */}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-2 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                name="rememberMe"
+                checked={form.rememberMe}
+                onChange={handleChange}
+                className="rounded"
+              />
+              Remember me
+            </label>
+            <Link
+              to="/forgot-password"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
@@ -120,16 +153,20 @@ const Login = () => {
           </button>
         </form>
 
+        {/* Divider */}
         <div className="flex items-center my-8 text-gray-400">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-3 font-medium text-sm">OR</span>
           <hr className="flex-grow border-gray-300" />
         </div>
+
+        {/* Social Login */}
         <div className="flex flex-col gap-4">
           <GoogleLoginButton />
           <GithubLogin />
         </div>
 
+        {/* Footer */}
         <p className="mt-6 text-center text-gray-600 text-sm">
           Don&apos;t have an account yet?{" "}
           <Link
