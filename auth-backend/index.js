@@ -2,12 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import { errorHandler } from "./middleware/errorMiddleware.js";
+
 
 dotenv.config();
 const app = express();
 app.use(cookieParser());
+app.use(errorHandler);
 
-import "./models/dbConnection.js"; // make sure to add .js if using ES modules
+import "./config/dbConnection.js"; // make sure to add .js if using ES modules
 import authRouter from "./routes/authRouter.js";
 
 const port = process.env.PORT || 5000;

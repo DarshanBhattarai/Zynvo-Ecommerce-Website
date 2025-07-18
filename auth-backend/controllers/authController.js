@@ -1,211 +1,105 @@
-import oauth2Client from "../utils/googleConfig.js";
-import UserModel from "../models/userModel.js";
-import { createUser } from "../services/authServices.js";
-import { loginUser } from "../services/authServices.js";
+import asyncHandler from "../middleware/asyncHandler.js";
+import { createUser, loginUser, verifyOtp, handleGoogleAuth, resendOtpService, forgotPasswordService, resetPasswordService } from "../services/authServices.js";
 import { sendOtpEmail } from "../utils/sendEmail.js";
-import { verifyOtp } from "../services/authServices.js";
-import { handleGoogleAuth } from "../services/authServices.js";
-import { resendOtpService } from "../services/authServices.js";
-import { forgotPasswordService } from "../services/authServices.js";
-import { resetPasswordService } from "../services/authServices.js";
 
-import axios from "axios";
-import jwt from "jsonwebtoken";
+// ✅ SIGNUP
+export const signupController = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password)
+    return res.status(400).json({ message: "All fields are required" });
 
-export const googleLogin = async (req, res) => {
-  try {
-    const { code } = req.query;
-    const googleRes = await oauth2Client.getToken(code);
-    oauth2Client.setCredentials(googleRes.tokens);
+  const result = await createUser({ name, email, password });
+  await sendOtpEmail(result.email, result.otp);
 
-    const userRes = await axios.get(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
-    );
+  res.status(201).json({
+    message: "User registered successfully. Please verify your email with the OTP sent.",
+    email: result.email,
+  });
+});
 
-    const { email, name, picture } = userRes.data;
-    let user = await UserModel.findOne({ email });
+// ✅ LOGIN
+export const loginController = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ message: "Email and password are required" });
 
-    if (!user) {
-      user = await UserModel.create({
-        name,
-        email,
-        image: picture,
-        isVerified: true,
-      });
-    }
+  const result = await loginUser({ email, password });
 
-    const { _id } = user;
-    const token = jwt.sign({ _id, email }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_TIMEOUT,
-    });
+  res.cookie("token", result.token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: "Strict",
+  });
 
-    res.cookie("token", token, {
+  res.status(200).json({
+    message: "Login successful",
+    user: result.user,
+  });
+});
+
+// ✅ VERIFY OTP
+export const verifyOtpController = asyncHandler(async (req, res) => {
+  const { email, otp } = req.body;
+  if (!email || !otp)
+    return res.status(400).json({ message: "Email and OTP are required" });
+
+  const result = await verifyOtp({ email, otp });
+
+  if (result.token) {
+    res.cookie("token", result.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: "Strict",
     });
-
-    return res.status(200).json({
-      message: "User logged in successfully",
-      user: {
-        name,
-        email,
-        image: picture,
-
-      },
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Internal server error",
-      error: error.message,
-    });
   }
-};
 
-export const signupController = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+  res.status(200).json({
+    message: "Email verified successfully",
+    user: result.user,
+  });
+});
 
-    if (!name || !email || !password)
-      return res.status(400).json({ message: "All fields are required" });
+// ✅ GOOGLE AUTH
+export const googleAuthController = asyncHandler(async (req, res) => {
+  const result = await handleGoogleAuth(req.body);
+  res.status(200).json(result);
+});
 
-    const result = await createUser({ name, email, password });
+// ✅ RESEND OTP
+export const resendOtpController = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: "Email is required" });
 
-    // Send OTP email after user is created
-    await sendOtpEmail(result.email, result.otp);
+  const result = await resendOtpService(email);
 
-    return res.status(201).json({
-      message:
-        "User registered successfully. Please verify your email with the OTP sent.",
-      email: result.email,
-      // otp: result.otp, // Do NOT send OTP in production
-    });
-  } catch (err) {
-    console.error("Signup error:", err);
-    res.status(400).json({ message: err.message || "Signup failed" });
-  }
-};
+  res.status(200).json({
+    message: "OTP resent successfully",
+    otpSentTo: result.email,
+  });
+});
 
-export const loginController = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+// ✅ FORGOT PASSWORD
+export const forgotPasswordController = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: "Email is required" });
 
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email and password are required" });
-    }
+  const result = await forgotPasswordService(email);
 
-    const result = await loginUser({ email, password });
+  res.status(200).json({
+    message: "OTP sent to your email for password reset.",
+    email: result.email,
+  });
+});
 
-    res.cookie("token", result.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      sameSite: "Strict",
-    });
+// ✅ RESET PASSWORD
+export const resetPasswordController = asyncHandler(async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+  if (!email || !otp || !newPassword)
+    return res.status(400).json({ message: "All fields are required" });
 
-    return res.status(200).json({
-      message: "Login successful",
-      user: result.user,
-    });
-  } catch (error) {
-    return res.status(401).json({ message: error.message });
-  }
-};
+  const result = await resetPasswordService({ email, otp, newPassword });
 
-export const verifyOtpController = async (req, res) => {
-  try {
-    const { email, otp } = req.body;
-
-    if (!email || !otp) {
-      return res.status(400).json({ message: "Email and OTP are required" });
-    }
-
-    const result = await verifyOtp({ email, otp });
-     // ✅ STEP: Insert this ONLY IF result contains a token
-    if (result.token) {
-      res.cookie("token", result.token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "Strict",
-      });
-    }
-
-    // ✅ Send success response with user data
-    return res.status(200).json({
-      message: "Email verified successfully",
-      user: result.user,
-    });
-
-  
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-// authController.js
-
-export const googleAuthController = async (req, res) => {
-  try {
-    const result = await handleGoogleAuth(req.body);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
-export const resendOtpController = async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
-    }
-
-    const result = await resendOtpService(email);
-
-    return res.status(200).json({
-      message: "OTP resent successfully",
-      otpSentTo: result.email,
-    });
-  } catch (error) {
-    res.status(400).json({ message: error.message || "Failed to resend OTP" });
-  }
-};
-
-// FORGOT PASSWORD CONTROLLER
-export const forgotPasswordController = async (req, res) => {
-  try {
-    const { email } = req.body;
-    if (!email)
-      return res.status(400).json({ message: "Email is required" });
-
-    const result = await forgotPasswordService(email);
-
-    res.status(200).json({
-      message: "OTP sent to your email for password reset.",
-      email: result.email,
-    });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-// RESET PASSWORD CONTROLLER
-export const resetPasswordController = async (req, res) => {
-  try {
-    const { email, otp, newPassword } = req.body;
-
-    if (!email || !otp || !newPassword)
-      return res.status(400).json({ message: "All fields are required" });
-
-    const result = await resetPasswordService({ email, otp, newPassword });
-
-    res.status(200).json({ message: result.message });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
+  res.status(200).json({ message: result.message });
+});

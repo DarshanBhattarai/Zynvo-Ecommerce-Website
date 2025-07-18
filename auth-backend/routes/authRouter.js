@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  googleLogin,
   signupController,
   loginController,
   verifyOtpController,
   resendOtpController,
   forgotPasswordController, resetPasswordController} from "../controllers/authController.js";
 import { githubCallback, githubAuthRedirect } from "../controllers/githubAuthController.js";
+import { googleLogin } from "../controllers/googleAuthController.js";
 
 const router = express.Router();
 
@@ -19,5 +19,6 @@ router.post("/verify-otp", verifyOtpController);
 router.post("/resend-otp", resendOtpController);
 router.get("/github/callback", githubCallback);
 router.get("/github", githubAuthRedirect);
+
 
 export default router;

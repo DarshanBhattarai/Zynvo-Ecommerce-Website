@@ -40,3 +40,4 @@ A secure and modern authentication system built using the MERN stack (MongoDB, E
 
 ## 📂 Folder Structure
 
+    
