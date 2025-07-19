@@ -42,16 +42,21 @@ const Login = () => {
         form,
         { withCredentials: true }
       );
+
       const { token, user } = response.data;
 
       setAuth({ token, user });
       toast.success("Login successful!");
 
-      if (user?.isVerified) {
-        navigate("/home");
-      } else {
-        navigate("/verify-otp", { state: { email: user?.email } });
+      let path = "/home"; // default
+
+      if (!user?.isVerified) {
+        path = "/verify-otp";
+      } else if (user.role === "admin") {
+        path = "/admin/dashboard";
       }
+
+      navigate(path);
     } catch (err) {
       toast.error(
         err.response?.data?.message || "Network error. Please try again."

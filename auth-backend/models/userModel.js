@@ -20,6 +20,18 @@ const userSchema = new mongoose.Schema(
     image: {
       type: String,
       required: false,
+    }, // ✅ Role for RBAC
+    role: {
+      type: String,
+      enum: ["user", "admin", "moderator"],
+      default: "user",
+    },
+
+    // ✅ Auth Provider (email, google, github)
+    provider: {
+      type: String,
+      enum: ["email", "google", "github"],
+      default: "email",
     },
     otp: {
       code: { type: String },

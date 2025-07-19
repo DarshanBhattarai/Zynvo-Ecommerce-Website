@@ -6,17 +6,31 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import VerifyOtp from "./pages/verifyOtp.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import Home from "./pages/Home.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx"; // Admin dashboard
+import Home from "./pages/Home.jsx"; // Regular user home
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import PageNotFound from "../src/components/PageNotFound.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
-const PrivateRoute = ({ children }) => {
-  const { isAuthenticated, isVerified } = useContext(AuthContext);
-
+const PrivateRoute = ({ children, requiredRole }) => {
+  const { auth, isAuthenticated, isVerified } = useContext(AuthContext);
+  console.log("PrivateRoute check (Admin):", {
+    isAuthenticated,
+    isVerified,
+    auth,
+    requiredRole,
+  });
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  if (!isVerified) {
+    return <Navigate to="/verify-otp" replace />;
+  }
+  if (requiredRole && auth.user.role !== requiredRole) {
+    return <Navigate to="/PageNotFound" replace />;
+  }
   return children;
 };
 
@@ -33,6 +47,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/" element={<Navigate to="/login" replace />} />
 
+            {/* Regular user routes */}
             <Route
               path="/home"
               element={
@@ -41,15 +56,18 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+            {/* Admin routes */}
             <Route
-              path="/dashboard"
+              path="/admin/dashboard"
               element={
-                <PrivateRoute>
+                <PrivateRoute requiredRole="admin">
                   <Dashboard />
                 </PrivateRoute>
               }
             />
 
+            {/* Catch all */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

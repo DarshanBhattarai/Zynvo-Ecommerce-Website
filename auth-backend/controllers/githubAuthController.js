@@ -5,6 +5,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
 const REDIRECT_URI = "http://localhost:5000/api/auth/github/callback";
 
 // 🔁 GitHub Redirect
@@ -61,12 +62,13 @@ export const githubCallback = asyncHandler(async (req, res) => {
       email: userEmail,
       image: avatar_url,
       isVerified: true,
+      provider: "github",
     });
   }
 
   // Step 5: Generate JWT
   const token = jwt.sign(
-    { id: user._id, email: user.email },
+    { id: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_TIMEOUT || "7d",

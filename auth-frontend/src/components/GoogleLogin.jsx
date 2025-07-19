@@ -12,32 +12,37 @@ const GoogleLogin = () => {
     try {
       if (authResult.code) {
         const response = await googleAuth(authResult.code);
-
-        const { email, name, picture } = response.data.user;
+        const {
+          email,
+          name,
+          picture,
+          isVerified = true,
+          role,
+        } = response.data.user;
         const token = response.data.token;
 
-        const userInfo = { email, name, picture };
-        const fullAuth = { token, user: { ...userInfo, isVerified: true } };
+        if (!token) {
+          throw new Error("No token received from backend");
+        }
 
-        // Save to localStorage
+        const userInfo = { email, name, picture, isVerified, role };
+        const fullAuth = { token, user: userInfo };
+
         localStorage.setItem("user-info", JSON.stringify(fullAuth));
-
-        // Update context
         setAuth(fullAuth);
 
-        console.log("✅ Google login successful:", userInfo);
-
-        // Navigate to dashboard
         navigate("/home");
+      } else {
+        console.error("❌ No auth code provided");
       }
     } catch (error) {
-      console.error("❌ Google login failed", error);
+      console.error("❌ Google login failed:", error.message);
     }
   };
 
   const googleLogin = useGoogleLogin({
     onSuccess: responseGoogle,
-    onError: responseGoogle,
+    onError: (error) => console.error("❌ Google login error:", error),
     flow: "auth-code",
   });
 

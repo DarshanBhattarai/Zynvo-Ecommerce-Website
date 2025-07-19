@@ -27,12 +27,14 @@ export const googleLogin = asyncHandler(async (req, res) => {
       email,
       image: picture,
       isVerified: true,
+      provider: "google",
+      role: "user",
     });
   }
 
   // Step 4: Generate JWT
   const token = jwt.sign(
-    { _id: user._id, email: user.email },
+    { _id: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_TIMEOUT || "7d" }
   );
@@ -45,13 +47,17 @@ export const googleLogin = asyncHandler(async (req, res) => {
     sameSite: "Strict",
   });
 
-  // Step 6: Send response
+  // Step 6: Send response with token
   res.status(200).json({
     message: "User logged in successfully",
+    token, // Include token in JSON response
     user: {
       name: user.name,
       email: user.email,
       image: user.image,
+      isVerified: user.isVerified,
+      provider: user.provider,
+      role: user.role,
     },
   });
 });

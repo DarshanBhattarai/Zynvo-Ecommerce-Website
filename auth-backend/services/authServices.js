@@ -3,6 +3,8 @@ import crypto from "crypto";
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { sendOtpEmail } from "../utils/sendEmail.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRY = process.env.JWT_EXPIRY || "1d";
@@ -26,6 +28,8 @@ export const createUser = async ({ name, email, password }) => {
     password: hashedPassword,
     otp,
     isVerified: false,
+    role: req.body.role || "user",
+    provider: "email",
   });
 
   await newUser.save();
@@ -51,9 +55,14 @@ export const loginUser = async ({ email, password }) => {
   }
 
   // Generate JWT token
-  const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, {
-    expiresIn: JWT_EXPIRY,
-  });
+  const token = jwt.sign(
+    { userId: user._id, email: user.email, role: user.role },
+    JWT_SECRET,
+    {
+      expiresIn: JWT_EXPIRY,
+    }
+  );
+  
 
   return {
     token,
@@ -63,6 +72,7 @@ export const loginUser = async ({ email, password }) => {
       email: user.email,
       image: user.image,
       isVerified: user.isVerified,
+      role: user.role,
     },
   };
 };
@@ -86,9 +96,13 @@ export const verifyOtp = async ({ email, otp }) => {
   user.isVerified = true;
   await user.save();
 
-  const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, {
-    expiresIn: JWT_EXPIRY,
-  });
+  const token = jwt.sign(
+    { userId: user._id, email: user.email, role: user.role },
+    JWT_SECRET,
+    {
+      expiresIn: JWT_EXPIRY,
+    }
+  );
 
   return {
     message: "OTP verified successfully",
@@ -97,48 +111,8 @@ export const verifyOtp = async ({ email, otp }) => {
       name: user.name,
       email: user.email,
       isVerified: user.isVerified,
+      role: user.role,
     },
-  };
-};
-
-export const handleGoogleAuth = async ({ email, name, picture }) => {
-  let user = await User.findOne({ email });
-
-  if (!user) {
-    const otpCode = crypto.randomInt(100000, 999999).toString();
-    const otp = {
-      code: otpCode,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      verified: false,
-    };
-
-    user = new User({ email, name, image: picture, otp, isVerified: false });
-    await user.save();
-
-    await sendOtpEmail(email, otpCode);
-  } else if (!user.isVerified) {
-    const otpCode = crypto.randomInt(100000, 999999).toString();
-    user.otp = {
-      code: otpCode,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      verified: false,
-    };
-    await user.save();
-
-    await sendOtpEmail(email, otpCode);
-  }
-
-  const token = generateToken(user._id);
-
-  return {
-    message: "Logged in via Google",
-    user: {
-      name: user.name,
-      email: user.email,
-      picture: user.image,
-      isVerified: user.isVerified,
-    },
-    token,
   };
 };
 
@@ -174,8 +148,6 @@ export const resendOtpService = async (email) => {
   // 6. Return confirmation
   return { email: user.email };
 };
-
-
 
 // FORGOT PASSWORD SERVICE
 export const forgotPasswordService = async (email) => {

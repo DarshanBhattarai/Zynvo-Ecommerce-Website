@@ -1,5 +1,13 @@
 import asyncHandler from "../middleware/asyncHandler.js";
-import { createUser, loginUser, verifyOtp, handleGoogleAuth, resendOtpService, forgotPasswordService, resetPasswordService } from "../services/authServices.js";
+import {
+  createUser,
+  loginUser,
+  verifyOtp,
+  resendOtpService,
+  forgotPasswordService,
+  resetPasswordService,
+} from "../services/authServices.js";
+import { createAdminUserService } from "../services/adminService.js";
 import { sendOtpEmail } from "../utils/sendEmail.js";
 
 // ✅ SIGNUP
@@ -12,7 +20,8 @@ export const signupController = asyncHandler(async (req, res) => {
   await sendOtpEmail(result.email, result.otp);
 
   res.status(201).json({
-    message: "User registered successfully. Please verify your email with the OTP sent.",
+    message:
+      "User registered successfully. Please verify your email with the OTP sent.",
     email: result.email,
   });
 });
@@ -35,6 +44,8 @@ export const loginController = asyncHandler(async (req, res) => {
   res.status(200).json({
     message: "Login successful",
     user: result.user,
+    token: result.token,
+    role: result.user.role,
   });
 });
 
@@ -59,12 +70,6 @@ export const verifyOtpController = asyncHandler(async (req, res) => {
     message: "Email verified successfully",
     user: result.user,
   });
-});
-
-// ✅ GOOGLE AUTH
-export const googleAuthController = asyncHandler(async (req, res) => {
-  const result = await handleGoogleAuth(req.body);
-  res.status(200).json(result);
 });
 
 // ✅ RESEND OTP
@@ -103,3 +108,14 @@ export const resetPasswordController = asyncHandler(async (req, res) => {
 
   res.status(200).json({ message: result.message });
 });
+
+export const createAdminUser = async () => {
+  try {
+    const result = await createAdminUserService();
+    if (result) {
+      console.log(result);
+    }
+  } catch (error) {
+    console.error("Error creating admin user:", error.message);
+  }
+};

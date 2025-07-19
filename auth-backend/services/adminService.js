@@ -1,0 +1,24 @@
+import bcrypt from "bcrypt";
+import User from "../models/userModel.js";
+
+export const createAdminUserService = async () => {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+    
+  const adminExists = await User.findOne({ role: "admin" });
+  if (adminExists) return;
+
+  const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
+  await User.create({
+    name: "Admin",
+    email: adminEmail,
+    password: hashedPassword,
+    role: "admin",
+    isVerified: true,
+    provider: "email",
+  });
+
+  return "Admin user created";
+};
