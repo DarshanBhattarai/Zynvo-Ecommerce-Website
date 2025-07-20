@@ -1,6 +1,6 @@
 import { configDotenv } from "dotenv";
 import mongoose from "mongoose";
-import { createAdminUser } from "../controllers/authController.js";
+import { createAdminUser } from "../controllers/auth.Controller.js";
 configDotenv();
 
 const DB_URL = process.env.DB_URL;

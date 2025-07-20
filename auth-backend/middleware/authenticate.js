@@ -1,24 +1,28 @@
 // middlewares/authMiddleware.js
 
 import jwt from "jsonwebtoken";
+import { configDotenv } from "dotenv";
+configDotenv(); 
 
 const JWT_SECRET = process.env.JWT_SECRET;
+console.log(JWT_SECRET);
 
 export const authenticateUser = (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "No token. Unauthorized." });
     }
 
-    // Verify token
+    const token = authHeader.split(" ")[1]; // Extract token after "Bearer "
+
+
     const decoded = jwt.verify(token, JWT_SECRET);
+    
 
-    // Attach user info (e.g. id/email) to request
-    req.user = decoded;
-
-    next(); // Move to the next middleware or route
+    req.user = decoded; // Attach decoded user info to request
+    next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }

@@ -12,6 +12,8 @@ app.use(errorHandler);
 
 import "./config/dbConnection.js"; // make sure to add .js if using ES modules
 import authRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRoute.js";
+
 
 
 const port = process.env.PORT || 5000;
@@ -33,6 +35,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/users", userRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

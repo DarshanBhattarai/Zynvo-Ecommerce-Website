@@ -62,6 +62,7 @@ export const loginUser = async ({ email, password }) => {
       expiresIn: JWT_EXPIRY,
     }
   );
+
   
 
   return {
