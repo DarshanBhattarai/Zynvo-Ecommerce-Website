@@ -63,6 +63,7 @@ export const githubCallback = asyncHandler(async (req, res) => {
       image: avatar_url,
       isVerified: true,
       provider: "github",
+      role: "user", // Default role
     });
   }
 
@@ -79,6 +80,6 @@ export const githubCallback = asyncHandler(async (req, res) => {
   res.redirect(
     `http://localhost:5173/login?token=${token}&name=${encodeURIComponent(
       user.name
-    )}&email=${encodeURIComponent(user.email)}&image=${encodeURIComponent(user.image)}`
+    )}&email=${encodeURIComponent(user.email)}&image=${encodeURIComponent(user.image)}&isVerified=${user.isVerified}&role=${user.role}`
   );
 });

@@ -9,7 +9,7 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRY = process.env.JWT_EXPIRY || "1d";
 
-export const createUser = async ({ name, email, password }) => {
+export const createUser = async ({ name, email, password , role = "user"}) => {
   const existing = await User.findOne({ email });
   if (existing) throw new Error("Email already registered");
 
@@ -28,7 +28,7 @@ export const createUser = async ({ name, email, password }) => {
     password: hashedPassword,
     otp,
     isVerified: false,
-    role: req.body.role || "user",
+    role,
     provider: "email",
   });
 

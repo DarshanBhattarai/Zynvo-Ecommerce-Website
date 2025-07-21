@@ -31,7 +31,17 @@ const GoogleLogin = () => {
         localStorage.setItem("user-info", JSON.stringify(fullAuth));
         setAuth(fullAuth);
 
-        navigate("/home");
+        // Role-based navigation
+        let path = "/home"; // default for regular user
+        if (!isVerified) {
+          path = "/verify-otp";
+        } else if (role === "admin") {
+          path = "/admin/dashboard";
+        } else if (role === "moderator") {
+          path = "/moderator/dashboard";
+        }
+
+        navigate(path);
       } else {
         console.error("❌ No auth code provided");
       }

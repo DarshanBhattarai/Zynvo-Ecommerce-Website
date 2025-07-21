@@ -35,6 +35,8 @@ const Signup = ({ onSwitchToLogin }) => {
           name: form.username,
           email: form.email,
           password: form.password,
+          role: "user", // Default role
+          provider: "email", // Default provider
         }
       );
 

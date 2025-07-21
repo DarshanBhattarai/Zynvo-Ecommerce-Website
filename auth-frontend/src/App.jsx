@@ -17,12 +17,7 @@ import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
 const PrivateRoute = ({ children, requiredRole }) => {
   const { auth, isAuthenticated, isVerified } = useContext(AuthContext);
-  console.log("PrivateRoute check (Admin):", {
-    isAuthenticated,
-    isVerified,
-    auth,
-    requiredRole,
-  });
+ 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }

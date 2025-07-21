@@ -12,11 +12,11 @@ import { sendOtpEmail } from "../utils/sendEmail.js";
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password)
+  const { name, email, password , role} = req.body;
+  if (!name || !email || !password || !role)
     return res.status(400).json({ message: "All fields are required" });
 
-  const result = await createUser({ name, email, password });
+  const result = await createUser({ name, email, password, role });
   await sendOtpEmail(result.email, result.otp);
 
   res.status(201).json({

@@ -13,12 +13,15 @@ const GithubLogin = () => {
     const name = params.get("name");
     const email = params.get("email");
     const image = params.get("image");
+    const isVerified = params.get("isVerified") === "true";
+    const role = params.get("role") || "user"; // Default to 'user'
 
     if (token && email) {
       const user = {
         name: decodeURIComponent(name || ""),
         email: decodeURIComponent(email || ""),
         image: decodeURIComponent(image || ""),
+        role: decodeURIComponent(role || "user"),
         isVerified: true,
       };
 
@@ -27,9 +30,21 @@ const GithubLogin = () => {
 
       // Clean the URL
       window.history.replaceState(null, "", window.location.pathname);
+      console.log("GitHub login successful:", { token, user });
+
+      const storedUser = JSON.parse(localStorage.getItem("user-info"));
+
+      let path = "/home"; // default for regular user
+      if (!isVerified) {
+        path = "/verify-otp";
+      } else if (role === "admin") {
+        path = "/admin/dashboard";
+      } else if (role === "moderator") {
+        path = "/moderator/dashboard";
+      }
 
       setTimeout(() => {
-        navigate("/home"); // or "/dashboard"
+        navigate(path); // or "/dashboard"
       }, 100);
     }
   }, []);

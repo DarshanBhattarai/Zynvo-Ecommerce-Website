@@ -23,6 +23,11 @@ const ModeratorDashboard = () => {
     setCurrentUser(userInfo?.user || null);
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("user-info");
+    window.location.href = "/login"; // Redirect to login page on logout
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
@@ -50,9 +55,7 @@ const ModeratorDashboard = () => {
       <main className="flex-1 p-8">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            {activeMenu}
-          </h1>
+          <h1 className="text-2xl font-semibold text-gray-900">{activeMenu}</h1>
           <div className="flex items-center gap-4">
             <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
               <Bell size={20} />
@@ -63,17 +66,29 @@ const ModeratorDashboard = () => {
               <div className="flex items-center gap-3 bg-gray-100 px-3 py-2 rounded-lg">
                 <UserCircle className="text-gray-600" size={24} />
                 <div className="text-sm">
-                  <p className="text-gray-900 font-medium">{currentUser.name}</p>
+                  <p className="text-gray-900 font-medium">
+                    {currentUser.name}
+                  </p>
                   <p className="text-gray-500 text-xs">{currentUser.email}</p>
                 </div>
               </div>
             )}
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            >
+              <LogOut size={18} />
+              <span className="text-sm font-medium">Logout</span>
+            </button>
           </div>
         </header>
 
         {/* Page content */}
         <section className="mt-6">
-          {activeMenu === "Overview" && <p>Welcome to the Moderator Overview.</p>}
+          {activeMenu === "Overview" && (
+            <p>Welcome to the Moderator Overview.</p>
+          )}
           {activeMenu === "Users" && <p>Manage users from this section.</p>}
           {activeMenu === "Settings" && <p>Moderator settings page.</p>}
         </section>
