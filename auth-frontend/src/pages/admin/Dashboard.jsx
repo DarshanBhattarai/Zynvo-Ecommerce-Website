@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-
   LogOut,
   LayoutDashboard,
   Users,
@@ -10,7 +9,7 @@ import {
   Shield,
   User,
 } from "lucide-react";
-// Note: axios import removed for artifact compatibility - replace with your HTTP client
+import axios from "axios"; // Ensure axios is imported for API calls
 
 const sidebarItems = [
   { label: "Overview", icon: <LayoutDashboard size={18} /> },
@@ -52,15 +51,12 @@ const Dashboard = () => {
           : null;
         if (!token) return;
 
-        // Replace with your HTTP client (axios, fetch, etc.)
-        const res = await fetch("http://localhost:5000/api/users", {
+        const { data } = await axios.get("http://localhost:5000/api/users", {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
-          credentials: "include",
+          withCredentials: true,
         });
-        const data = await res.json();
         setUsers(data.users);
 
         // Separate admin from regular users
@@ -92,15 +88,19 @@ const Dashboard = () => {
       const token = JSON.parse(localStorage.getItem("user-info"))?.token;
       if (!token) return;
 
-      // Replace with your HTTP client (axios, fetch, etc.)
-      await fetch("/api/users/assign-role", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      await axios.patch(
+        "http://localhost:5000/api/users/update-role",
+        {
+          userId,
+          role: newRole,
         },
-        body: JSON.stringify({ userId, newRole }),
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
 
       setUsers((prev) =>
         prev.map((user) =>

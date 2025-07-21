@@ -11,6 +11,7 @@ import Home from "./pages/Home.jsx"; // Regular user home
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import PageNotFound from "../src/components/PageNotFound.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import ModeratorDashboard from "./pages/moderator/moderatorDashboard.jsx";
 
 import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
@@ -53,6 +54,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Home />
+                </PrivateRoute>
+              }
+            />
+            {/* Moderator routes */}
+            <Route
+              path="/moderator/dashboard"
+              element={
+                <PrivateRoute requiredRole="moderator">
+                  <ModeratorDashboard />
                 </PrivateRoute>
               }
             />

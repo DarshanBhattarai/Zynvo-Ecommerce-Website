@@ -54,6 +54,8 @@ const Login = () => {
         path = "/verify-otp";
       } else if (user.role === "admin") {
         path = "/admin/dashboard";
+      }else if (user.role === "moderator") {
+        path = "/moderator/dashboard";
       }
 
       navigate(path);

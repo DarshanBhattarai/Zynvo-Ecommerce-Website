@@ -8,3 +8,14 @@ export const fetchAllUsers = async (req, res) => {
     return res.status(500).json({ message: "Failed to fetch users" });
   }
 };
+
+export const updateUserRole = async (req, res) => {
+  const { userId, role } = req.body; // change this line
+  try {
+    const updatedUser = await userService.updateUserRole(userId, role);
+    res.json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user role:", error);
+    res.status(400).json({ message: error.message });
+  }
+};
