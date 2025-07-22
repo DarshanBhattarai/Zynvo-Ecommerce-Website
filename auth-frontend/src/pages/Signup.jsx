@@ -3,6 +3,8 @@ import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../components/Loader";
 
 const Signup = ({ onSwitchToLogin }) => {
   const [form, setForm] = useState({
@@ -14,6 +16,7 @@ const Signup = ({ onSwitchToLogin }) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ const Signup = ({ onSwitchToLogin }) => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/signup",
@@ -48,6 +52,8 @@ const Signup = ({ onSwitchToLogin }) => {
         error.response?.data?.message ||
           "Signup failed. Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -160,9 +166,23 @@ const Signup = ({ onSwitchToLogin }) => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-black to-gray-800 text-white font-semibold rounded-md shadow-md hover:from-gray-900 hover:to-black transition"
+            disabled={loading}
+            className={`w-full py-3 px-4 flex items-center justify-center gap-2 bg-gradient-to-r from-black to-gray-800 text-white font-semibold rounded-md shadow-md transition duration-300 ${
+              loading
+                ? "opacity-60 cursor-not-allowed"
+                : "hover:from-gray-900 hover:to-black"
+            }`}
           >
-            Sign Up
+            {loading ? (
+              <>
+                Submitting...
+                <span className="ml-2">
+                  <Loader />
+                </span>
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
 

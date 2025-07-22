@@ -9,6 +9,7 @@ import {
 } from "../services/authServices.js";
 import { createAdminUserService } from "../services/adminService.js";
 import { sendOtpEmail } from "../utils/sendEmail.js";
+import { resendSignupOtpService } from "../services/authServices.js";
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
@@ -23,29 +24,6 @@ export const signupController = asyncHandler(async (req, res) => {
     message:
       "User registered successfully. Please verify your email with the OTP sent.",
     email: result.email,
-  });
-});
-
-// ✅ LOGIN
-export const loginController = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ message: "Email and password are required" });
-
-  const result = await loginUser({ email, password });
-
-  res.cookie("token", result.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "Strict",
-  });
-
-  res.status(200).json({
-    message: "Login successful",
-    user: result.user,
-    token: result.token,
-    role: result.user.role,
   });
 });
 
@@ -71,6 +49,48 @@ export const verifyOtpController = asyncHandler(async (req, res) => {
     user: result.user,
   });
 });
+
+
+export const resendSignupOtpController = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  const result = await resendSignupOtpService(email);
+
+  res.status(200).json({
+    message: "Signup verification OTP resent successfully",
+    email: result.email,
+  });
+});
+
+
+
+// ✅ LOGIN
+export const loginController = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ message: "Email and password are required" });
+
+  const result = await loginUser({ email, password });
+
+  res.cookie("token", result.token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: "Strict",
+  });
+
+  res.status(200).json({
+    message: "Login successful",
+    user: result.user,
+    token: result.token,
+    role: result.user.role,
+  });
+});
+
 
 // ✅ RESEND OTP
 export const resendOtpController = asyncHandler(async (req, res) => {
