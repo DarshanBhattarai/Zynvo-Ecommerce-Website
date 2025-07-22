@@ -2,18 +2,18 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import {
   createUser,
   loginUser,
-  verifyOtp,
+  signUpVerifyOtp,
   resendOtpService,
+  resendSignUpOtpService,
   forgotPasswordService,
   resetPasswordService,
 } from "../services/authServices.js";
 import { createAdminUserService } from "../services/adminService.js";
 import { sendOtpEmail } from "../utils/sendEmail.js";
-import { resendSignupOtpService } from "../services/authServices.js";
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
-  const { name, email, password , role} = req.body;
+  const { name, email, password, role } = req.body;
   if (!name || !email || !password || !role)
     return res.status(400).json({ message: "All fields are required" });
 
@@ -28,12 +28,12 @@ export const signupController = asyncHandler(async (req, res) => {
 });
 
 // ✅ VERIFY OTP
-export const verifyOtpController = asyncHandler(async (req, res) => {
+export const signUpVerifyOtpController = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
   if (!email || !otp)
     return res.status(400).json({ message: "Email and OTP are required" });
 
-  const result = await verifyOtp({ email, otp });
+  const result = await signUpVerifyOtp({ email, otp });
 
   if (result.token) {
     res.cookie("token", result.token, {
@@ -50,23 +50,27 @@ export const verifyOtpController = asyncHandler(async (req, res) => {
   });
 });
 
+export const unifiedResendOtpController = asyncHandler(async (req, res) => {
+  const { email, type } = req.body;
 
-export const resendSignupOtpController = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  if (!email || !type)
+    return res.status(400).json({ message: "Email and type are required" });
 
-  if (!email) {
-    return res.status(400).json({ message: "Email is required" });
+  let result;
+
+  if (type === "signup") {
+    result = await resendSignUpOtpService(email);
+  } else if (type === "forgot") {
+    result = await resendOtpService(email);
+  } else {
+    return res.status(400).json({ message: "Invalid OTP type" });
   }
 
-  const result = await resendSignupOtpService(email);
-
   res.status(200).json({
-    message: "Signup verification OTP resent successfully",
+    message: "OTP resent successfully",
     email: result.email,
   });
 });
-
-
 
 // ✅ LOGIN
 export const loginController = asyncHandler(async (req, res) => {
@@ -88,20 +92,6 @@ export const loginController = asyncHandler(async (req, res) => {
     user: result.user,
     token: result.token,
     role: result.user.role,
-  });
-});
-
-
-// ✅ RESEND OTP
-export const resendOtpController = asyncHandler(async (req, res) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ message: "Email is required" });
-
-  const result = await resendOtpService(email);
-
-  res.status(200).json({
-    message: "OTP resent successfully",
-    otpSentTo: result.email,
   });
 });
 

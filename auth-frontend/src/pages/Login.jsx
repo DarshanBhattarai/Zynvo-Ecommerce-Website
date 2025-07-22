@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AuthContext } from "../context/AuthContext.jsx";
+import {loginUser} from "../services/authApi.js";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -37,13 +38,9 @@ const Login = () => {
     setError(null);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        form,
-        { withCredentials: true }
-      );
+     
 
-      const { token, user } = response.data;
+      const { token, user } = await loginUser(form);
 
       setAuth({ token, user });
       toast.success("Login successful!");

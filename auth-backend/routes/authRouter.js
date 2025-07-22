@@ -2,8 +2,8 @@ import express from "express";
 import {
   signupController,
   loginController,
-  verifyOtpController,
-  resendOtpController,
+  signUpVerifyOtpController,
+  unifiedResendOtpController,
   forgotPasswordController,
   resetPasswordController,
 } from "../controllers/auth.Controller.js";
@@ -20,8 +20,8 @@ router.post("/signup", signupController);
 router.post("/login", loginController);
 router.post("/forgot-password", forgotPasswordController);
 router.post("/reset-password", resetPasswordController);
-router.post("/verify-otp", verifyOtpController);
-router.post("/resend-otp", resendOtpController);
+router.post("/verify-signup-otp", signUpVerifyOtpController);
+router.post("/resend-otp", unifiedResendOtpController);
 router.get("/github/callback", githubCallback);
 router.get("/github", githubAuthRedirect);
 

@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  signUpVerifyOtp,
+  resetPassword,
+  resendOtpUnified,
+} from "../services/authApi";
 
 const RESEND_COOLDOWN = 30;
 
@@ -57,18 +63,11 @@ const VerifyOtp = () => {
       setLoading(true);
 
       if (mode === "reset-password") {
-        await axios.post("http://localhost:5000/api/auth/reset-password", {
-          email,
-          otp,
-          newPassword,
-        });
+        await resetPassword({ email, otp, newPassword });
         toast.success("Password reset successful. Please login.");
         navigate("/login");
       } else {
-        await axios.post("http://localhost:5000/api/auth/verify-otp", {
-          email,
-          otp,
-        });
+        await signUpVerifyOtp({ email, otp });
         toast.success("Email verified successfully.");
         navigate("/login");
       }
@@ -84,14 +83,12 @@ const VerifyOtp = () => {
 
     try {
       setResendLoading(true);
-      const endpoint =
-        mode === "reset-password"
-          ? "http://localhost:5000/api/auth/forgot-password"
-          : "http://localhost:5000/api/auth/resend-otp";
+      await resendOtpUnified({
+        email,
+        type: mode === "signup" ? "signup" : "forgot",
+      });
 
-      const res = await axios.post(endpoint, { email });
-
-      toast.success(res.data.message || "OTP resent successfully");
+      toast.success(data.message || "OTP resent successfully");
       startCooldown();
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to resend OTP.");

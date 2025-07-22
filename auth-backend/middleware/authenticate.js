@@ -5,7 +5,7 @@ import { configDotenv } from "dotenv";
 configDotenv(); 
 
 const JWT_SECRET = process.env.JWT_SECRET;
-console.log(JWT_SECRET);
+
 
 export const authenticateUser = (req, res, next) => {
   try {

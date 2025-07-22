@@ -41,10 +41,11 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
   return { email, otp: otpCode }; // remove otp in production
 };
 
-export const verifyOtp = async ({ email, otp }) => {
+export const signUpVerifyOtp = async ({ email, otp }) => {
   // Find the temp user (unverified user)
   const tempUser = await TempUser.findOne({ email });
   if (!tempUser) throw new Error("No signup request found for this email");
+
 
   const { code, expiresAt } = tempUser.otp;
 
@@ -53,9 +54,11 @@ export const verifyOtp = async ({ email, otp }) => {
     await TempUser.deleteOne({ email }); // Cleanup expired temp user
     throw new Error("OTP expired. Please sign up again.");
   }
+  
 
-  // Check if OTP matches
-  if (!otp || code.trim() !== otp.trim()) {
+  // Clean comparison
+  if (!otp || code.trim() !== otp.toString().trim()) {
+    console.log("OTP mismatch: expected", code, "got", otp);
     throw new Error("Invalid OTP");
   }
 
@@ -94,7 +97,7 @@ export const verifyOtp = async ({ email, otp }) => {
   };
 };
 
-export const resendSignupOtpService = async (email) => {
+export const resendSignUpOtpService = async (email) => {
   const tempUser = await TempUser.findOne({ email });
   if (!tempUser) throw new Error("No signup request found for this email");
 

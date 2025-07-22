@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../components/Loader";
+import { registerUser } from "../services/authApi.js";
 
 const Signup = ({ onSwitchToLogin }) => {
   const [form, setForm] = useState({
@@ -33,19 +34,10 @@ const Signup = ({ onSwitchToLogin }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
-        {
-          name: form.username,
-          email: form.email,
-          password: form.password,
-          role: "user", // Default role
-          provider: "email", // Default provider
-        }
-      );
-
+      await registerUser(form);
       toast.success("Signup successful! Please verify your email.");
       navigate("/verify-otp", { state: { email: form.email } });
+      
     } catch (error) {
       console.error("Signup error:", error);
       toast.error(

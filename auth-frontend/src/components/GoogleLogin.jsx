@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleAuth } from "../api.js";
+import { googleAuth } from "../services/api.js";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 
