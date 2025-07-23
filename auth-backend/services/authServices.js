@@ -46,7 +46,6 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
   const tempUser = await TempUser.findOne({ email });
   if (!tempUser) throw new Error("No signup request found for this email");
 
-
   const { code, expiresAt } = tempUser.otp;
 
   // Check if OTP expired
@@ -54,7 +53,6 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
     await TempUser.deleteOne({ email }); // Cleanup expired temp user
     throw new Error("OTP expired. Please sign up again.");
   }
-  
 
   // Clean comparison
   if (!otp || code.trim() !== otp.toString().trim()) {
@@ -121,11 +119,6 @@ export const resendOtpService = async (email) => {
     throw new Error("User with this email does not exist");
   }
 
-  // 2. Skip if already verified
-  if (user.isVerified) {
-    throw new Error("User is already verified");
-  }
-
   // 3. Generate 6-digit OTP
   const otpCode = crypto.randomInt(100000, 999999).toString();
 
@@ -133,7 +126,6 @@ export const resendOtpService = async (email) => {
   user.otp = {
     code: otpCode,
     expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
-    isverified: false, // should be false until verified
   };
 
   await user.save();
@@ -211,12 +203,9 @@ export const resetPasswordService = async ({ email, otp, newPassword }) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
 
-  const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
-
   const isValid =
     user.otp &&
-    user.otp.code === hashedOtp &&
-    user.otp.type === "forgot-password" &&
+    user.otp.code === otp &&
     user.otp.expiresAt > Date.now();
 
   if (!isValid) throw new Error("Invalid or expired OTP");

@@ -83,7 +83,7 @@ const VerifyOtp = () => {
 
     try {
       setResendLoading(true);
-      await resendOtpUnified({
+      const data = await resendOtpUnified({
         email,
         type: mode === "signup" ? "signup" : "forgot",
       });
@@ -91,6 +91,7 @@ const VerifyOtp = () => {
       toast.success(data.message || "OTP resent successfully");
       startCooldown();
     } catch (err) {
+      console.error("Resend OTP Error:", err);
       toast.error(err.response?.data?.message || "Failed to resend OTP.");
     } finally {
       setResendLoading(false);

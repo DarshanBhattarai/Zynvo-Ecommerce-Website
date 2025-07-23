@@ -56,6 +56,7 @@ export const unifiedResendOtpController = asyncHandler(async (req, res) => {
   if (!email || !type)
     return res.status(400).json({ message: "Email and type are required" });
 
+
   let result;
 
   if (type === "signup") {
