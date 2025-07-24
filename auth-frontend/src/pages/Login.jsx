@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AuthContext } from "../context/AuthContext.jsx";
-import {loginUser} from "../services/authApi.js";
+import { loginUser } from "../services/authApi.js";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -37,10 +37,27 @@ const Login = () => {
     setLoading(true);
     setError(null);
 
-    try {
-     
+    // ✅ Client-side validation
+    if (!form.email || !form.password) {
+      toast.error("Email and password are required!");
+      setLoading(false);
+      return;
+    }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      toast.error("Please enter a valid email address!");
+      setLoading(false);
+      return;
+    }
+
+    try {
       const { token, user } = await loginUser(form);
+
+      if (!user) {
+        toast.error("Invalid user response. Please try again.");
+        return;
+      }
 
       setAuth({ token, user });
       toast.success("Login successful!");
@@ -51,7 +68,7 @@ const Login = () => {
         path = "/verify-otp";
       } else if (user.role === "admin") {
         path = "/admin/dashboard";
-      }else if (user.role === "moderator") {
+      } else if (user.role === "moderator") {
         path = "/moderator/dashboard";
       }
 

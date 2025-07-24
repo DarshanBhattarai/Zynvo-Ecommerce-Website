@@ -48,6 +48,8 @@ const VerifyOtp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Prevent multiple submits if already loading
+    if (loading) return;
 
     if (!otp || !email) {
       toast.error("OTP or email is missing!");
@@ -79,7 +81,7 @@ const VerifyOtp = () => {
   };
 
   const handleResend = async () => {
-    if (cooldown > 0) return;
+    if (cooldown > 0 || resendLoading) return;
 
     try {
       setResendLoading(true);

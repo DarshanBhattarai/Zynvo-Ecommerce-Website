@@ -17,7 +17,7 @@ import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
 const PrivateRoute = ({ children, requiredRole }) => {
   const { auth, isAuthenticated, isVerified } = useContext(AuthContext);
- 
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
@@ -33,7 +33,18 @@ const PrivateRoute = ({ children, requiredRole }) => {
 function App() {
   return (
     <AuthProvider>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <GoogleOAuthProvider clientId="728027270401-qdo9l75vkeihvf3tjsvovqm6r24rjhtb.apps.googleusercontent.com">
         <BrowserRouter>
           <Routes>

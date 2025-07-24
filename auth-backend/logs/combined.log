@@ -1,0 +1,23 @@
+[2025-07-24 12:07:22] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:07:29] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:08:41] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:08:41] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:08:54] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:08:54] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:31:50] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:31:57] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:32:04] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:37:16] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:37:17] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:37:18] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:39:58] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:39:59] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:47:40] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:47:43] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:48:09] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:48:26] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:48:34] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:48:37] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:48:41] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:50:34] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:50:34] INFO: Login successful for email: np05cp4a230130@iic.edu.np

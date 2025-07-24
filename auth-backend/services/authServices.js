@@ -56,7 +56,6 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
 
   // Clean comparison
   if (!otp || code.trim() !== otp.toString().trim()) {
-    console.log("OTP mismatch: expected", code, "got", otp);
     throw new Error("Invalid OTP");
   }
 
