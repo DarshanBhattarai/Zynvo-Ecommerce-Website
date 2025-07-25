@@ -21,3 +21,97 @@
 [2025-07-24 12:48:41] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
 [2025-07-24 12:50:34] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
 [2025-07-24 12:50:34] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 12:56:09] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:29:33] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:29:40] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:30:20] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:30:24] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:30:52] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:30:52] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:31:04] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:31:04] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:32:16] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-24 21:32:16] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-24 21:32:16] INFO: Fetching all users
+[2025-07-24 21:32:16] INFO: Fetched 6 users successfully
+[2025-07-24 21:32:35] INFO: Updating role for user 688255309c3a842ba9b126d8 to moderator
+[2025-07-24 21:32:35] INFO: User role updated successfully for user 688255309c3a842ba9b126d8
+[2025-07-24 21:32:45] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:32:46] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:35:43] INFO: Forgot password request for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:35:47] INFO: OTP sent for password reset to email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:36:14] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:36:16] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:36:23] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:36:56] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-24 21:36:57] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:12:33] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:12:33] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:12:33] INFO: Fetching all users
+[2025-07-25 20:12:33] INFO: Fetched 6 users successfully
+[2025-07-25 20:14:24] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:14:32] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:15:18] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:15:22] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:15:44] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:15:44] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:16:10] INFO: Forgot password request for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:16:14] INFO: OTP sent for password reset to email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:16:46] INFO: Resend OTP request - type: forgot for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:16:50] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:17:04] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:17:04] INFO: Password reset successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:17:13] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:17:13] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:18:27] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:18:27] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:18:28] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:18:51] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:18:51] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:04] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:04] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:41] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:44] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:44] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:20:45] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:21:34] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:21:35] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:22:21] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:22:29] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:00] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:03] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:18] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:18] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:25] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:31] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:23:31] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:49:36] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:49:36] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:49:45] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:49:45] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:49:45] INFO: Fetching all users
+[2025-07-25 20:49:45] INFO: Fetched 6 users successfully
+[2025-07-25 20:49:50] INFO: Updating role for user 6881c1e3d2366ed076a4f14a to moderator
+[2025-07-25 20:49:51] INFO: User role updated successfully for user 6881c1e3d2366ed076a4f14a
+[2025-07-25 20:50:06] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:50:06] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:50:10] INFO: Fetching all users
+[2025-07-25 20:50:10] INFO: Fetched 6 users successfully
+[2025-07-25 20:50:21] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:50:21] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:52:41] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:52:41] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:52:54] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:52:54] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-25 20:52:54] INFO: Fetching all users
+[2025-07-25 20:52:54] INFO: Fetched 6 users successfully
+[2025-07-25 20:53:10] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:53:10] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:53:14] INFO: Updating role for user 6881c1e3d2366ed076a4f14a to user
+[2025-07-25 20:53:14] INFO: User role updated successfully for user 6881c1e3d2366ed076a4f14a
+[2025-07-25 20:53:17] INFO: Updating role for user 688396da1bc3532e65517e1c to moderator
+[2025-07-25 20:53:17] INFO: User role updated successfully for user 688396da1bc3532e65517e1c
+[2025-07-25 20:53:29] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:53:29] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:55:59] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-25 20:56:06] INFO: Signup successful for email: np05cp4a230130@iic.edu.np

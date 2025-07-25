@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../components/Loader";
 import { registerUser } from "../services/authApi.js";
@@ -26,6 +26,7 @@ const Signup = ({ onSwitchToLogin }) => {
   };
 
   const handleSubmit = async (e) => {
+  
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
       toast.error("Passwords do not match");
@@ -51,6 +52,7 @@ const Signup = ({ onSwitchToLogin }) => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <ToastContainer />
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Username */}

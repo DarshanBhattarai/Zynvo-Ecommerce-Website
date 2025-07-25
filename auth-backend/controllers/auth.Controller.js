@@ -21,7 +21,7 @@ export const signupController = asyncHandler(async (req, res) => {
   logger.info(`Signup attempt for email: ${email}`);
 
   const result = await createUser({ name, email, password, role });
-  await sendOtpEmail(result.email, result.otp);
+ 
 
   logger.info(`Signup successful for email: ${email}`);
 
@@ -78,7 +78,7 @@ export const signUpVerifyOtpController = asyncHandler(async (req, res) => {
     );
     res.status(500).json({ message: "Internal Server Error" });
   }
-});
+}); 
 
 export const unifiedResendOtpController = asyncHandler(async (req, res) => {
   const { email, type } = req.body;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   signUpVerifyOtp,
@@ -102,6 +102,7 @@ const VerifyOtp = () => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+      <ToastContainer />
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           {mode === "reset-password" ? "Reset Password" : "Verify OTP"}
