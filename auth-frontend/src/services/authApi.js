@@ -50,4 +50,10 @@ export const requestForgotPasswordOtp = async ({ email }) => {
   return response.data;
 };
 
+// Logout
+export const logoutUser = async () => {
+  const response = await authAPI.post("/logout");
+  return response.data;
+};
+
 export default authAPI;

@@ -136,7 +136,7 @@ export const resendOtpService = async (email) => {
   return { email: user.email };
 };
 
-export const loginUser = async ({ email, password }) => {
+export const loginUser = async ({ email, password, rememberMe }) => {
   // Find user by email
   const user = await User.findOne({ email });
   if (!user) {
@@ -154,12 +154,15 @@ export const loginUser = async ({ email, password }) => {
     throw new Error("User account not verified");
   }
 
+  const expiresIn = rememberMe
+    ? 30 * 24 * 60 * 60 * 1000 // 30 days
+    : 24 * 60 * 60 * 1000; // 1 day
   // Generate JWT token
   const token = jwt.sign(
     { userId: user._id, email: user.email, role: user.role },
     JWT_SECRET,
     {
-      expiresIn: JWT_EXPIRY,
+      expiresIn,
     }
   );
 
@@ -203,9 +206,7 @@ export const resetPasswordService = async ({ email, otp, newPassword }) => {
   if (!user) throw new Error("User not found");
 
   const isValid =
-    user.otp &&
-    user.otp.code === otp &&
-    user.otp.expiresAt > Date.now();
+    user.otp && user.otp.code === otp && user.otp.expiresAt > Date.now();
 
   if (!isValid) throw new Error("Invalid or expired OTP");
 

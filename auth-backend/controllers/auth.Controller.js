@@ -9,8 +9,9 @@ import {
   resetPasswordService,
 } from "../services/authServices.js";
 import { createAdminUserService } from "../services/adminService.js";
-import { sendOtpEmail } from "../utils/sendEmail.js";
 import logger from "../utils/logger.js"; // ✅ logger added
+import { configDotenv } from "dotenv";
+configDotenv(); // Load environment variables
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
@@ -21,7 +22,6 @@ export const signupController = asyncHandler(async (req, res) => {
   logger.info(`Signup attempt for email: ${email}`);
 
   const result = await createUser({ name, email, password, role });
- 
 
   logger.info(`Signup successful for email: ${email}`);
 
@@ -78,7 +78,7 @@ export const signUpVerifyOtpController = asyncHandler(async (req, res) => {
     );
     res.status(500).json({ message: "Internal Server Error" });
   }
-}); 
+});
 
 export const unifiedResendOtpController = asyncHandler(async (req, res) => {
   const { email, type } = req.body;
@@ -106,31 +106,50 @@ export const unifiedResendOtpController = asyncHandler(async (req, res) => {
   });
 });
 
-// ✅ LOGIN
 export const loginController = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password)
+  const { email, password, rememberMe } = req.body;
+  const isProduction = process.env.NODE_ENV === "production";
+
+  if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
+  }
 
   logger.info(`Login attempt for email: ${email}`);
 
-  const result = await loginUser({ email, password });
+  try {
+    const result = await loginUser({ email, password });
 
-  res.cookie("token", result.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "Strict",
-  });
+    const cookieExpiry = rememberMe
+      ? 30 * 24 * 60 * 60 * 1000 // 30 days
+      : 24 * 60 * 60 * 1000; // 1 day
 
-  logger.info(`Login successful for email: ${email}`);
+    res.cookie("token", result.token, {
+      httpOnly: true,
+      secure: isProduction,
+      maxAge: cookieExpiry,
+      sameSite: "Strict",
+      path: "/", // Ensure the cookie is cleared for the correct path
+    });
 
-  res.status(200).json({
-    message: "Login successful",
-    user: result.user,
-    token: result.token,
-    role: result.user.role,
-  });
+    logger.info(`Login successful for email: ${email}`);
+
+    res.status(200).json({
+      message: "Login successful",
+      user: result.user,
+      token: result.token,
+      role: result.user.role,
+    });
+  } catch (error) {
+    logger.error(`Login failed for email: ${email} - ${error.message}`);
+
+    // Check if this is an authentication error
+    if (error.message === "Invalid email or password") {
+      return res.status(401).json({ message: error.message });
+    }
+
+    // For unexpected errors
+    return res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 // ✅ FORGOT PASSWORD
@@ -175,3 +194,23 @@ export const createAdminUser = async () => {
     logger.error(`Error creating admin user: ${error.message}`);
   }
 };
+
+// in your controller file (like authController.js)
+export const logoutController = asyncHandler(async (req, res) => {
+  const email = req.user?.email || "Unknown user"; // if you have user info from middleware
+  const isProduction = process.env.NODE_ENV === "production";
+
+  logger.info(`Logout attempt for email: ${email}`);
+
+  res.clearCookie("token", {
+    path: "/", // Ensure the cookie is cleared for the correct path
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "Strict",
+    maxAge: 0,
+  });
+
+  logger.info(`Logout successful for email: ${email}`);
+
+  res.status(200).json({ message: "Logged out successfully" });
+});

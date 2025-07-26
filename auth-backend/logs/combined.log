@@ -115,3 +115,134 @@
 [2025-07-25 20:53:29] INFO: Login successful for email: np05cp4a230130@iic.edu.np
 [2025-07-25 20:55:59] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
 [2025-07-25 20:56:06] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:27:28] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:27:28] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:27:28] INFO: Fetching all users
+[2025-07-26 19:27:28] INFO: Fetched 6 users successfully
+[2025-07-26 19:30:11] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:30:38] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:33:26] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:33:29] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:33:57] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:33:57] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:46:06] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:46:13] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:46:19] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:47:55] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:47:55] ERROR: Login failed for email: np05cp4a230130@iic.edu.np - Invalid email or password
+[2025-07-26 19:48:02] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:48:02] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:49:53] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:49:53] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:49:53] INFO: Fetching all users
+[2025-07-26 19:49:54] INFO: Fetched 6 users successfully
+[2025-07-26 19:50:19] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:50:19] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-26 19:50:19] INFO: Fetching all users
+[2025-07-26 19:50:19] INFO: Fetched 6 users successfully
+[2025-07-26 19:55:09] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:55:09] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:55:35] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:55:35] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:56:49] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:56:50] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:58:42] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 19:58:42] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:05:58] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:05:58] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:06:57] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:06:57] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:07:21] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 20:07:21] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:27:13] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:27:13] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:37:04] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:37:05] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:40:37] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:40:37] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:42:04] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:42:04] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:50:27] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-26 21:50:27] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-26 21:50:27] INFO: Fetching all users
+[2025-07-26 21:50:27] INFO: Fetched 6 users successfully
+[2025-07-26 21:51:21] INFO: Logout attempt for email: Unknown user
+[2025-07-26 21:51:21] INFO: Logout successful for email: Unknown user
+[2025-07-26 21:51:45] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:51:45] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:51:58] INFO: Logout attempt for email: Unknown user
+[2025-07-26 21:51:58] INFO: Logout successful for email: Unknown user
+[2025-07-26 21:52:55] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:52:56] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:58:01] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 21:58:01] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:01:55] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:01:55] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:02:52] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:02:52] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:03:07] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:03:07] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:14] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:34] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:11:34] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:11:39] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:39] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:11:39] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:11:39] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:20:53] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:20:53] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:20:58] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:20:58] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:20:58] INFO: Logout attempt for email: Unknown user
+[2025-07-26 22:20:58] INFO: Logout successful for email: Unknown user
+[2025-07-26 22:24:05] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:24:05] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:24:24] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:24:25] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:28:59] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:28:59] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:28:59] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:28:59] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:42:24] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:42:24] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:44:16] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:44:16] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:44:43] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:44:43] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:09] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:09] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:14] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:14] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:14] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:14] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:42] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:42] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:49] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:49] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:49] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:45:49] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:47:52] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:47:53] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:54:15] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 22:54:15] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:01:47] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:01:47] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:50] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:50] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:54] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:54] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:54] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:03:54] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:10] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:10] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:17] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:17] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:17] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-26 23:04:17] INFO: Logout successful for email: np05cp4a230130@iic.edu.np

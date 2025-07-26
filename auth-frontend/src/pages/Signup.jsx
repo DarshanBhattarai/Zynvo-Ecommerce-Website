@@ -33,6 +33,15 @@ const Signup = ({ onSwitchToLogin }) => {
       return;
     }
 
+    if (form.password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+    if (!form.email || !form.username) {
+      toast.error("Email and username are required");
+      return;
+    }
+
     setLoading(true);
     try {
       await registerUser(form);

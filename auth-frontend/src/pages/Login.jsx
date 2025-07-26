@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "../components/GoogleLogin.jsx";
@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AuthContext } from "../context/AuthContext.jsx";
-import { loginUser } from "../services/authApi.js";
+import { loginUser, logoutUser } from "../services/authApi.js";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -23,6 +23,20 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+
+  // Clear cookie on mount
+  useEffect(() => {
+    const clearToken = async () => {
+      try {
+        await logoutUser();  // call backend logout to clear cookie
+        setAuth(null);       // clear frontend auth state if any
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    };
+
+    clearToken();
+  }, [setAuth]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -74,9 +88,23 @@ const Login = () => {
 
       navigate(path);
     } catch (err) {
-      toast.error(
-        err.response?.data?.message || "Network error. Please try again."
-      );
+      if (err.response) {
+        const status = err.response.status;
+
+        if (status === 401) {
+          toast.error("Invalid email or password");
+        } else if (status === 403) {
+          toast.error("Your account is not verified");
+        } else if (status === 500) {
+          toast.error("Server error. Please try again later.");
+        } else {
+          toast.error(err.response.data.message || "Unexpected error");
+        }
+      } else if (err.request) {
+        toast.error("Network issue. Please check your connection.");
+      } else {
+        toast.error("Something went wrong.");
+      }
     } finally {
       setLoading(false);
     }
@@ -84,7 +112,7 @@ const Login = () => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
-      <ToastContainer position="top-center" />
+      <ToastContainer />
 
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -106,6 +134,7 @@ const Login = () => {
               placeholder="Enter your email address"
               value={form.email}
               onChange={handleChange}
+              disabled={loading}
               className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
             />
           </div>
@@ -127,6 +156,8 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange}
+                disabled={loading}
+                autoComplete="current-password"
                 className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 pr-10"
               />
               <button
