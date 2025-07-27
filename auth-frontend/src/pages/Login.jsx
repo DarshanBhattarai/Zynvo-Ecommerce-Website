@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AuthContext } from "../context/AuthContext.jsx";
-import { loginUser, logoutUser } from "../services/authApi.js";
+import { loginUser } from "../services/authApi.js";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
@@ -24,19 +24,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // Clear cookie on mount
-  useEffect(() => {
-    const clearToken = async () => {
-      try {
-        await logoutUser();  // call backend logout to clear cookie
-        setAuth(null);       // clear frontend auth state if any
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
-    };
-
-    clearToken();
-  }, [setAuth]);
+  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

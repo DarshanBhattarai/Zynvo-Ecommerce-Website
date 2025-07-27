@@ -32,7 +32,7 @@ const PrivateRoute = ({ children, requiredRole }) => {
 
 function App() {
   return (
-    <AuthProvider>
+    <>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -47,48 +47,50 @@ function App() {
       />
       <GoogleOAuthProvider clientId="728027270401-qdo9l75vkeihvf3tjsvovqm6r24rjhtb.apps.googleusercontent.com">
         <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/verify-otp" element={<VerifyOtp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/" element={<Navigate to="/login" replace />} />
+          <AuthProvider>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/verify-otp" element={<VerifyOtp />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/" element={<Navigate to="/login" replace />} />
 
-            {/* Regular user routes */}
-            <Route
-              path="/home"
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
-            {/* Moderator routes */}
-            <Route
-              path="/moderator/dashboard"
-              element={
-                <PrivateRoute requiredRole="moderator">
-                  <ModeratorDashboard />
-                </PrivateRoute>
-              }
-            />
+              {/* Regular user routes */}
+              <Route
+                path="/home"
+                element={
+                  <PrivateRoute>
+                    <Home />
+                  </PrivateRoute>
+                }
+              />
+              {/* Moderator routes */}
+              <Route
+                path="/moderator/dashboard"
+                element={
+                  <PrivateRoute requiredRole="moderator">
+                    <ModeratorDashboard />
+                  </PrivateRoute>
+                }
+              />
 
-            {/* Admin routes */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <PrivateRoute requiredRole="admin">
-                  <Dashboard />
-                </PrivateRoute>
-              }
-            />
+              {/* Admin routes */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <PrivateRoute requiredRole="admin">
+                    <Dashboard />
+                  </PrivateRoute>
+                }
+              />
 
-            {/* Catch all */}
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
+              {/* Catch all */}
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </AuthProvider>
         </BrowserRouter>
       </GoogleOAuthProvider>
-    </AuthProvider>
+    </>
   );
 }
 
