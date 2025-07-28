@@ -50,9 +50,15 @@ export const requestForgotPasswordOtp = async ({ email }) => {
 };
 
 export const getMe = async () => {
-  const response = await authAPI.get("/me");
-  console.log("The response is",response);
-  return response.data.user; // returns user
+  try {
+    const response = await authAPI.get("/me");
+    return response.data.user; // Return user data
+  } catch (error) {
+    if (error.response?.status === 401) {
+      return null; // Silently handle 401 for missing/invalid token
+    }
+    throw error; // Rethrow other errors for debugging
+  }
 };
 
 // Logout

@@ -12,7 +12,9 @@ import {
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 
-const sidebarItems = [{ label: "Overview", icon: <LayoutDashboard size={18} /> }];
+const sidebarItems = [
+  { label: "Overview", icon: <LayoutDashboard size={18} /> },
+];
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -23,6 +25,8 @@ const Dashboard = () => {
 
   const { auth, logout } = useContext(AuthContext);
   const token = auth?.token;
+  const Role = auth?.user?.role || "user";
+  console.log("Role:", Role);
   console.log("Dashboard auth:", auth);
   console.log("Dashboard token:", token);
 
@@ -33,7 +37,9 @@ const Dashboard = () => {
   useEffect(() => {
     // Separate admin and regular users after users state updates
     const admin = users.find((user) => (user.role || "user") === "admin");
-    const nonAdminUsers = users.filter((user) => (user.role || "user") !== "admin");
+    const nonAdminUsers = users.filter(
+      (user) => (user.role || "user") !== "admin"
+    );
 
     setAdminUser(admin);
     setRegularUsers(nonAdminUsers);
@@ -41,16 +47,17 @@ const Dashboard = () => {
   }, [users]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      console.error("No token found, cannot fetch users.");
+    }
 
     const fetchUsers = async () => {
       try {
         const { data } = await axios.get("http://localhost:5000/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           withCredentials: true,
         });
+
+        console.log("Fetched users:", data.users);
         setUsers(data.users);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -61,8 +68,6 @@ const Dashboard = () => {
   }, [token]);
 
   const handleRoleChange = async (userId, newRole) => {
-    if (!token) return;
-decoded
     try {
       await axios.patch(
         "http://localhost:5000/api/users/update-role",
@@ -148,7 +153,9 @@ decoded
               <LayoutDashboard size={16} className="text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-gray-900">Admin Panel</h1>
+              <h1 className="text-lg font-semibold text-gray-900">
+                Admin Panel
+              </h1>
               <p className="text-xs text-gray-500">Management System</p>
             </div>
           </div>
@@ -188,7 +195,9 @@ decoded
         <header className="bg-white border-b border-gray-200 px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">{activeMenu}</h1>
+              <h1 className="text-2xl font-semibold text-gray-900">
+                {activeMenu}
+              </h1>
               <p className="text-sm text-gray-500 mt-1">
                 Manage your application users and permissions
               </p>
@@ -304,7 +313,9 @@ decoded
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <p className="text-sm text-gray-600">{user.email}</p>
+                              <p className="text-sm text-gray-600">
+                                {user.email}
+                              </p>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span
@@ -345,7 +356,9 @@ decoded
                           <td colSpan="5" className="px-6 py-12 text-center">
                             <div className="flex flex-col items-center gap-2">
                               <Users size={48} className="text-gray-300" />
-                              <p className="text-gray-500 font-medium">No users found</p>
+                              <p className="text-gray-500 font-medium">
+                                No users found
+                              </p>
                               <p className="text-sm text-gray-400">
                                 Try adjusting your search criteria
                               </p>

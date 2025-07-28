@@ -1,50 +1,39 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import GoogleLoginButton from "../components/GoogleLogin.jsx";
 import GithubLogin from "../components/GitHubLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getMe } from "../services/authApi.js";
-
 import { AuthContext } from "../context/AuthContext.jsx";
 import { loginUser } from "../services/authApi.js";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
-
+  const { auth, setAuth, isAuthenticated, isVerified, loading } = useContext(AuthContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  useEffect(() => {   
-    checkUser();
-  }, []);
-  const checkUser = async () => {
-    try {
-      const user = await getMe();
-      if (user) {
-        if (user.role === "admin") {
-          navigate("/admin/dashboard");
-          return;
-        } else if (user.role === "moderator") {
-          navigate("/moderator/dashboard");
-          return;
-        }
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      if (!isVerified) {
+        navigate("/verify-otp");
+      } else if (auth.user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (auth.user.role === "moderator") {
+        navigate("/moderator/dashboard");
+      } else {
         navigate("/home");
       }
-    } catch (error) {
-      console.log(error);
     }
-  };
+  }, [loading, isAuthenticated, isVerified, auth, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -56,36 +45,34 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingSubmit(true);
     setError(null);
 
-    // ✅ Client-side validation
     if (!form.email || !form.password) {
       toast.error("Email and password are required!");
-      setLoading(false);
+      setLoadingSubmit(false);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       toast.error("Please enter a valid email address!");
-      setLoading(false);
+      setLoadingSubmit(false);
       return;
     }
 
     try {
-      const { token, user } = await loginUser(form);
+      const { user } = await loginUser(form); // Expect user only, token is in cookie
 
       if (!user) {
         toast.error("Invalid user response. Please try again.");
         return;
       }
 
-      setAuth({ token, user });
+      setAuth({ user }); // Store user only
       toast.success("Login successful!");
 
-      let path = "/home"; // default
-
+      let path = "/home";
       if (!user?.isVerified) {
         path = "/verify-otp";
       } else if (user.role === "admin") {
@@ -98,7 +85,6 @@ const Login = () => {
     } catch (err) {
       if (err.response) {
         const status = err.response.status;
-
         if (status === 401) {
           toast.error("Invalid email or password");
         } else if (status === 403) {
@@ -114,24 +100,18 @@ const Login = () => {
         toast.error("Something went wrong.");
       }
     } finally {
-      setLoading(false);
+      setLoadingSubmit(false);
     }
   };
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
       <ToastContainer />
-
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
-
-          {/* Email */}
           <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-gray-700 font-medium"
-            >
+            <label htmlFor="email" className="block mb-2 text-gray-700 font-medium">
               Email address
             </label>
             <input
@@ -142,17 +122,12 @@ const Login = () => {
               placeholder="Enter your email address"
               value={form.email}
               onChange={handleChange}
-              disabled={loading}
+              disabled={loadingSubmit}
               className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
             />
           </div>
-
-          {/* Password */}
           <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-gray-700 font-medium"
-            >
+            <label htmlFor="password" className="block mb-2 text-gray-700 font-medium">
               Password
             </label>
             <div className="relative">
@@ -164,7 +139,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange}
-                disabled={loading}
+                disabled={loadingSubmit}
                 autoComplete="current-password"
                 className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 pr-10"
               />
@@ -178,8 +153,6 @@ const Login = () => {
               </button>
             </div>
           </div>
-
-          {/* Remember Me + Forgot Password */}
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-2 text-sm text-gray-700">
               <input
@@ -191,42 +164,31 @@ const Login = () => {
               />
               Remember me
             </label>
-            <Link
-              to="/forgot-password"
-              className="text-sm text-blue-600 hover:underline"
-            >
+            <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
               Forgot password?
             </Link>
           </div>
-
-          {/* Submit */}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loadingSubmit}
             className={`w-full py-3 text-white font-semibold rounded-md shadow-md transition ${
-              loading
+              loadingSubmit
                 ? "bg-gray-500 cursor-not-allowed"
                 : "bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black"
             }`}
           >
-            {loading ? "Logging in..." : "Log In"}
+            {loadingSubmit ? "Logging in..." : "Log In"}
           </button>
         </form>
-
-        {/* Divider */}
         <div className="flex items-center my-8 text-gray-400">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-3 font-medium text-sm">OR</span>
           <hr className="flex-grow border-gray-300" />
         </div>
-
-        {/* Social Login */}
         <div className="flex flex-col gap-4">
           <GoogleLoginButton />
           <GithubLogin />
         </div>
-
-        {/* Footer */}
         <p className="mt-6 text-center text-gray-600 text-sm">
           Don&apos;t have an account yet?{" "}
           <Link

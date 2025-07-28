@@ -6,29 +6,25 @@ export const AuthContext = createContext();
 
 const AuthProviderCore = ({ children, navigate }) => {
   const [auth, setAuth] = useState(null);
-  const [loading, setLoading] = useState(true); // start loading true
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const user = await getMe();
-        setAuth({ user });
+        setAuth(user ? { user } : null);
       } catch (error) {
-        if (error.response?.status === 401) {
-          // Token/cookie missing or expired - don't redirect, just stay logged out
-          setAuth(null);
-        } else {
-          console.error("Unexpected error during auth check:", error);
-        }
+        console.error("Unexpected error during auth check:", error);
+        setAuth(null);
       } finally {
-        setLoading(false); // done loading in any case
+        setLoading(false);
       }
     };
     checkAuth();
   }, []);
 
   const isAuthenticated = !!auth?.user;
-  const isVerified = auth?.user.isVerified === true;
+  const isVerified = auth?.user?.isVerified === true;
 
   const logout = async () => {
     try {

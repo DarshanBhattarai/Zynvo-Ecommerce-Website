@@ -2,3 +2,79 @@
 [2025-07-27 15:13:00] INFO: Login successful for email: np05cp4a230130@iic.edu.np
 [2025-07-27 15:13:04] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
 [2025-07-27 15:13:04] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:01:56] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:01:56] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:02:33] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:02:33] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:20:47] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:20:47] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:20:54] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:20:54] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:21:34] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:21:34] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:21:49] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:21:49] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:28:53] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:28:53] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:29:19] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:29:19] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:30:23] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:30:23] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:41:03] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:41:03] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:41:09] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:41:09] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:43:21] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:43:21] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:44:23] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:44:23] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 10:44:32] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:44:32] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:55:47] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:55:48] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 10:58:17] INFO: Fetching all users
+[2025-07-28 10:58:17] INFO: Fetched 6 users successfully
+[2025-07-28 11:09:45] INFO: Fetching all users
+[2025-07-28 11:09:45] INFO: Fetched 6 users successfully
+[2025-07-28 11:09:45] INFO: Fetching all users
+[2025-07-28 11:09:45] INFO: Fetched 6 users successfully
+[2025-07-28 11:15:02] INFO: Updating role for user 6885caff3c7af0eb42526d67 to moderator
+[2025-07-28 11:15:02] INFO: User role updated successfully for user 6885caff3c7af0eb42526d67
+[2025-07-28 11:15:05] INFO: Fetching all users
+[2025-07-28 11:15:05] INFO: Fetched 6 users successfully
+[2025-07-28 11:15:05] INFO: Fetching all users
+[2025-07-28 11:15:05] INFO: Fetched 6 users successfully
+[2025-07-28 11:15:09] INFO: Updating role for user 6885caff3c7af0eb42526d67 to user
+[2025-07-28 11:15:09] INFO: User role updated successfully for user 6885caff3c7af0eb42526d67
+[2025-07-28 11:15:11] INFO: Updating role for user 6885caff3c7af0eb42526d67 to moderator
+[2025-07-28 11:15:11] INFO: User role updated successfully for user 6885caff3c7af0eb42526d67
+[2025-07-28 11:15:14] INFO: Updating role for user 6885caff3c7af0eb42526d67 to user
+[2025-07-28 11:15:14] INFO: User role updated successfully for user 6885caff3c7af0eb42526d67
+[2025-07-28 11:15:24] INFO: Fetching all users
+[2025-07-28 11:15:24] INFO: Fetched 6 users successfully
+[2025-07-28 11:15:24] INFO: Fetching all users
+[2025-07-28 11:15:24] INFO: Fetched 6 users successfully
+[2025-07-28 11:22:03] INFO: Fetching all users
+[2025-07-28 11:22:03] INFO: Fetched 6 users successfully
+[2025-07-28 11:22:03] INFO: Fetching all users
+[2025-07-28 11:22:03] INFO: Fetched 6 users successfully
+[2025-07-28 11:22:03] INFO: Fetching all users
+[2025-07-28 11:22:03] INFO: Fetched 6 users successfully
+[2025-07-28 11:22:03] INFO: Fetching all users
+[2025-07-28 11:22:03] INFO: Fetched 6 users successfully
+[2025-07-28 11:23:32] INFO: Fetching all users
+[2025-07-28 11:23:32] INFO: Fetched 6 users successfully
+[2025-07-28 11:23:32] INFO: Fetching all users
+[2025-07-28 11:23:32] INFO: Fetched 6 users successfully
+[2025-07-28 11:23:44] INFO: Fetching all users
+[2025-07-28 11:23:44] INFO: Fetched 6 users successfully
+[2025-07-28 11:23:44] INFO: Fetching all users
+[2025-07-28 11:23:44] INFO: Fetched 6 users successfully
+[2025-07-28 11:23:52] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-07-28 11:23:52] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-07-28 11:24:15] INFO: Google login attempt started
+[2025-07-28 11:24:15] INFO: Received Google tokens
+[2025-07-28 11:24:15] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 11:24:15] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 11:24:15] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 11:24:15] INFO: Google login response sent for user: drshnbhattarai@gmail.com
