@@ -43,11 +43,16 @@ export const resetPassword = async ({ email, otp, newPassword }) => {
   return response.data;
 };
 
-
 // Request OTP for forgot password
 export const requestForgotPasswordOtp = async ({ email }) => {
   const response = await authAPI.post("/forgot-password", { email });
   return response.data;
+};
+
+export const getMe = async () => {
+  const response = await authAPI.get("/me");
+  console.log("The response is",response);
+  return response.data.user; // returns user
 };
 
 // Logout

@@ -7,11 +7,10 @@ import {
   resendSignUpOtpService,
   forgotPasswordService,
   resetPasswordService,
+  getUserFromToken,
 } from "../services/authServices.js";
 import { createAdminUserService } from "../services/adminService.js";
 import logger from "../utils/logger.js"; // ✅ logger added
-import { configDotenv } from "dotenv";
-configDotenv(); // Load environment variables
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
@@ -34,6 +33,7 @@ export const signupController = asyncHandler(async (req, res) => {
 
 export const signUpVerifyOtpController = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
+
   if (!email || !otp) {
     logger.warn(`OTP verification attempt with missing email or otp.`);
     return res.status(400).json({ message: "Email and OTP are required" });
@@ -47,9 +47,9 @@ export const signUpVerifyOtpController = asyncHandler(async (req, res) => {
     if (result.token) {
       res.cookie("token", result.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false, // Set to true in production
         maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "Strict",
+        sameSite: "lax",
       });
     }
 
@@ -108,7 +108,6 @@ export const unifiedResendOtpController = asyncHandler(async (req, res) => {
 
 export const loginController = asyncHandler(async (req, res) => {
   const { email, password, rememberMe } = req.body;
-  const isProduction = process.env.NODE_ENV === "production";
 
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
@@ -125,9 +124,9 @@ export const loginController = asyncHandler(async (req, res) => {
 
     res.cookie("token", result.token, {
       httpOnly: true,
-      secure: isProduction,
+      secure: false,
       maxAge: cookieExpiry,
-      sameSite: "Strict",
+      sameSite: "lax",
       path: "/", // Ensure the cookie is cleared for the correct path
     });
 
@@ -198,19 +197,31 @@ export const createAdminUser = async () => {
 // in your controller file (like authController.js)
 export const logoutController = asyncHandler(async (req, res) => {
   const email = req.user?.email || "Unknown user"; // if you have user info from middleware
-  const isProduction = process.env.NODE_ENV === "production";
 
   logger.info(`Logout attempt for email: ${email}`);
 
   res.clearCookie("token", {
     path: "/", // Ensure the cookie is cleared for the correct path
     httpOnly: true,
-    secure: isProduction,
-    sameSite: "Strict",
+    secure: false,
+    sameSite: "lax",
     maxAge: 0,
   });
 
   logger.info(`Logout successful for email: ${email}`);
 
   res.status(200).json({ message: "Logged out successfully" });
+});
+
+export const getMeController = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+  console.log("getMeController token:", token);
+
+  try {
+    const user = await getUserFromToken(token);
+
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
 });

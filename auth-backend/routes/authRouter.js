@@ -7,6 +7,7 @@ import {
   forgotPasswordController,
   resetPasswordController,
   logoutController,
+  getMeController,
 } from "../controllers/auth.Controller.js";
 import {
   githubCallback,
@@ -27,5 +28,6 @@ router.post("/resend-otp", unifiedResendOtpController);
 router.get("/github/callback", githubCallback);
 router.get("/github", githubAuthRedirect);
 router.post("/logout", authenticateUser, logoutController);
+router.get("/me", authenticateUser, getMeController);
 
 export default router;

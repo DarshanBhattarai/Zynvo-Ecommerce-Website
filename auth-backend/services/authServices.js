@@ -71,6 +71,9 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
 
   await user.save();
 
+  user.otp = { verified: true, type: "signup" };
+  await user.save();
+
   // Delete temp user as OTP is verified and user is created
   await tempUser.deleteOne({ email });
 
@@ -216,4 +219,24 @@ export const resetPasswordService = async ({ email, otp, newPassword }) => {
   await user.save();
 
   return { message: "Password reset successful" };
+};
+
+export const getUserFromToken = async (token) => {
+  if (!token) {
+    throw new Error("No token provided");
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  } catch (error) {
+    throw new Error("Invalid or expired token");
+  }
 };

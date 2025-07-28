@@ -14,15 +14,14 @@ import "./config/dbConnection.js"; // make sure to add .js if using ES modules
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRoute.js";
 
-
-
 const port = process.env.PORT || 5000;
 
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-    methods: ["GET", "POST", "PUT" ,"PATCH", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -31,8 +30,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Auth Backend is running");
 });
-
-
 
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);

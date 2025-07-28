@@ -16,7 +16,15 @@ import ModeratorDashboard from "./pages/moderator/moderatorDashboard.jsx";
 import { AuthProvider, AuthContext } from "./context/AuthContext.jsx";
 
 const PrivateRoute = ({ children, requiredRole }) => {
-  const { auth, isAuthenticated, isVerified } = useContext(AuthContext);
+  const { auth, isAuthenticated, isVerified ,loading} = useContext(AuthContext);
+  // console.log("PrivateRoute auth:", auth);
+  // console.log("isAuthenticated:", isAuthenticated);
+  // console.log("isVerified:", isVerified);
+  // console.log("loading:", loading);
+
+  if (loading) {
+    return <p>Loading...</p>; // or a spinner or a loading message
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;

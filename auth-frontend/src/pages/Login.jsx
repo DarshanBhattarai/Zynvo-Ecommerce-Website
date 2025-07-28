@@ -6,6 +6,7 @@ import GithubLogin from "../components/GitHubLogin.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getMe } from "../services/authApi.js";
 
 import { AuthContext } from "../context/AuthContext.jsx";
 import { loginUser } from "../services/authApi.js";
@@ -24,7 +25,26 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  
+  useEffect(() => {   
+    checkUser();
+  }, []);
+  const checkUser = async () => {
+    try {
+      const user = await getMe();
+      if (user) {
+        if (user.role === "admin") {
+          navigate("/admin/dashboard");
+          return;
+        } else if (user.role === "moderator") {
+          navigate("/moderator/dashboard");
+          return;
+        }
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

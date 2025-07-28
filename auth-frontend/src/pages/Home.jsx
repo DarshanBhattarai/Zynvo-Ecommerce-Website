@@ -9,6 +9,7 @@ const Home = () => {
     return <p>Loading...</p>;
   }
 
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <h1 className="text-2xl font-semibold">Welcome to the Home</h1>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   LogOut,
   LayoutDashboard,
@@ -9,25 +9,31 @@ import {
   Shield,
   User,
 } from "lucide-react";
-import axios from "axios"; // Ensure axios is imported for API calls
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
-const sidebarItems = [
-  { label: "Overview", icon: <LayoutDashboard size={18} /> },
-];
+const sidebarItems = [{ label: "Overview", icon: <LayoutDashboard size={18} /> }];
 
 const Dashboard = () => {
-  const [userInfo, setUserInfo] = useState(null);
   const [users, setUsers] = useState([]);
   const [adminUser, setAdminUser] = useState(null);
   const [regularUsers, setRegularUsers] = useState([]);
   const [activeMenu, setActiveMenu] = useState("Overview");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
+  const { auth, logout } = useContext(AuthContext);
+  const token = auth?.token;
+  console.log("Dashboard auth:", auth);
+  console.log("Dashboard token:", token);
+
+  if (!auth) {
+    return <p>Loading...</p>;
+  }
+
   useEffect(() => {
+    // Separate admin and regular users after users state updates
     const admin = users.find((user) => (user.role || "user") === "admin");
-    const nonAdminUsers = users.filter(
-      (user) => (user.role || "user") !== "admin"
-    );
+    const nonAdminUsers = users.filter((user) => (user.role || "user") !== "admin");
 
     setAdminUser(admin);
     setRegularUsers(nonAdminUsers);
@@ -35,22 +41,10 @@ const Dashboard = () => {
   }, [users]);
 
   useEffect(() => {
-    const data = localStorage.getItem("user-info");
-    if (data) {
-      setUserInfo(JSON.parse(data).user || JSON.parse(data));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!userInfo) return;
+    if (!token) return;
 
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem("user-info")
-          ? JSON.parse(localStorage.getItem("user-info")).token
-          : null;
-        if (!token) return;
-
         const { data } = await axios.get("http://localhost:5000/api/users", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -58,42 +52,21 @@ const Dashboard = () => {
           withCredentials: true,
         });
         setUsers(data.users);
-
-        // Separate admin from regular users
-        const admin = data.users.find(
-          (user) => (user.role || "user") === "admin"
-        );
-        const nonAdminUsers = data.users.filter(
-          (user) => (user.role || "user") !== "admin"
-        );
-
-        setAdminUser(admin);
-        setRegularUsers(nonAdminUsers);
-        setFilteredUsers(nonAdminUsers);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
 
     fetchUsers();
-  }, [userInfo]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user-info");
-    window.location.href = "/login";
-  };
+  }, [token]);
 
   const handleRoleChange = async (userId, newRole) => {
+    if (!token) return;
+decoded
     try {
-      const token = JSON.parse(localStorage.getItem("user-info"))?.token;
-      if (!token) return;
-
       await axios.patch(
         "http://localhost:5000/api/users/update-role",
-        {
-          userId,
-          role: newRole,
-        },
+        { userId, role: newRole },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -112,10 +85,9 @@ const Dashboard = () => {
     }
   };
 
-  // New handler for action button click
   const handleActionClick = (userId) => {
     console.log("Action button clicked for user:", userId);
-    // Add your action logic here, e.g. open dropdown or modal
+    // Implement your additional action logic here
   };
 
   const getRoleIcon = (role) => {
@@ -176,9 +148,7 @@ const Dashboard = () => {
               <LayoutDashboard size={16} className="text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-gray-900">
-                Admin Panel
-              </h1>
+              <h1 className="text-lg font-semibold text-gray-900">Admin Panel</h1>
               <p className="text-xs text-gray-500">Management System</p>
             </div>
           </div>
@@ -203,7 +173,7 @@ const Dashboard = () => {
 
         <div className="p-4 border-t border-gray-200">
           <button
-            onClick={handleLogout}
+            onClick={logout}
             className="flex items-center gap-3 px-4 py-3 w-full bg-gray-900 hover:bg-gray-800 text-white text-sm rounded-lg transition-colors duration-200"
           >
             <LogOut size={16} />
@@ -218,9 +188,7 @@ const Dashboard = () => {
         <header className="bg-white border-b border-gray-200 px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">
-                {activeMenu}
-              </h1>
+              <h1 className="text-2xl font-semibold text-gray-900">{activeMenu}</h1>
               <p className="text-sm text-gray-500 mt-1">
                 Manage your application users and permissions
               </p>
@@ -239,7 +207,7 @@ const Dashboard = () => {
                     {adminUser?.name || "Admin"}
                   </p>
                   <p className="text-xs text-gray-500 capitalize">
-                    {adminUser?.role || "Admnistrator"}
+                    {adminUser?.role || "Administrator"}
                   </p>
                 </div>
                 <div className="relative">
@@ -281,13 +249,9 @@ const Dashboard = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          )}
 
-          {activeMenu === "Overview" && (
-            <div className="space-y-6 mt-5">
               {/* Regular Users Table */}
-              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden mt-5">
                 <div className="px-6 py-4 border-b border-gray-200">
                   <h2 className="text-lg font-semibold text-gray-900">
                     User Management
@@ -319,8 +283,7 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {Array.isArray(filteredUsers) &&
-                      filteredUsers.length > 0 ? (
+                      {filteredUsers.length > 0 ? (
                         filteredUsers.map((user) => (
                           <tr
                             key={user._id}
@@ -341,9 +304,7 @@ const Dashboard = () => {
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <p className="text-sm text-gray-600">
-                                {user.email}
-                              </p>
+                              <p className="text-sm text-gray-600">{user.email}</p>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span
@@ -384,9 +345,7 @@ const Dashboard = () => {
                           <td colSpan="5" className="px-6 py-12 text-center">
                             <div className="flex flex-col items-center gap-2">
                               <Users size={48} className="text-gray-300" />
-                              <p className="text-gray-500 font-medium">
-                                No users found
-                              </p>
+                              <p className="text-gray-500 font-medium">No users found</p>
                               <p className="text-sm text-gray-400">
                                 Try adjusting your search criteria
                               </p>

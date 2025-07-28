@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -7,6 +7,7 @@ import {
   UserCircle,
   LogOut,
 } from "lucide-react";
+import { AuthContext } from "../../context/AuthContext";
 
 const sidebarItems = [
   { label: "Overview", icon: <LayoutDashboard size={18} /> },
@@ -17,16 +18,16 @@ const sidebarItems = [
 const ModeratorDashboard = () => {
   const [activeMenu, setActiveMenu] = useState("Overview");
   const [currentUser, setCurrentUser] = useState(null);
+  const { auth, logout } = useContext(AuthContext);
+
+  if (!auth) {
+    return <p>Loading...</p>; // or a spinner or a loading message
+  }
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("user-info"));
     setCurrentUser(userInfo?.user || null);
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user-info");
-    window.location.href = "/login"; // Redirect to login page on logout
-  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -75,7 +76,7 @@ const ModeratorDashboard = () => {
             )}
             {/* Logout Button */}
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
             >
               <LogOut size={18} />
