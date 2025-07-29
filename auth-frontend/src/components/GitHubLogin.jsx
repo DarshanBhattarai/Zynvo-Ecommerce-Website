@@ -6,52 +6,31 @@ const GithubLogin = () => {
   const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
 
-  // Handle redirect back from GitHub
+  // On mount, check if logged in by calling getMe from backend (via AuthContext)
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
-    const name = params.get("name");
-    const email = params.get("email");
-    const image = params.get("image");
-    const isVerified = params.get("isVerified") === "true";
-    const role = params.get("role") || "user"; // Default to 'user'
-
-    if (token && email) {
-      const user = {
-        name: decodeURIComponent(name || ""),
-        email: decodeURIComponent(email || ""),
-        image: decodeURIComponent(image || ""),
-        role: decodeURIComponent(role || "user"),
-        isVerified: true,
-      };
-
-      localStorage.setItem("user-info", JSON.stringify({ token, user }));
-      setAuth({ token, user });
-
-      // Clean the URL
-      window.history.replaceState(null, "", window.location.pathname);
-      console.log("GitHub login successful:", { token, user });
-
-      const storedUser = JSON.parse(localStorage.getItem("user-info"));
-
-      let path = "/home"; // default for regular user
-      if (!isVerified) {
-        path = "/verify-otp";
-      } else if (role === "admin") {
-        path = "/admin/dashboard";
-      } else if (role === "moderator") {
-        path = "/moderator/dashboard";
+    const checkAuth = async () => {
+      try {
+        const response = await getMe();
+        if (response?.user) {
+          setAuth({ user: response.user });
+          // Role-based redirect
+          let path = "/home";
+          if (!response.user.isVerified) path = "/verify-otp";
+          else if (response.user.role === "admin") path = "/admin/dashboard";
+          else if (response.user.role === "moderator")
+            path = "/moderator/dashboard";
+          navigate(path);
+        }
+      } catch (error) {
+        console.error("GitHub login: auth check failed", error);
       }
+    };
 
-      setTimeout(() => {
-        navigate(path); // or "/dashboard"
-      }, 100);
-    }
-  }, []);
+    checkAuth();
+  }, [navigate, setAuth]);
 
   const handleGithubLogin = () => {
-    // Redirect to GitHub auth via backend (same tab)
-    window.location.replace("http://localhost:5000/api/auth/github");
+    window.location.href = "http://localhost:5000/api/auth/github";
   };
 
   return (

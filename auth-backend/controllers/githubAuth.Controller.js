@@ -1,27 +1,26 @@
+// githubController.js (or wherever your GitHub handlers are)
+
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 import asyncHandler from "../middleware/asyncHandler.js";
-import logger from "../utils/logger.js"; // import your logger
+import logger from "../utils/logger.js";
 
 const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-
 const REDIRECT_URI = "http://localhost:5000/api/auth/github/callback";
 
-// 🔁 GitHub Redirect
 export const githubAuthRedirect = (req, res) => {
   logger.info("Redirecting to GitHub OAuth login");
   const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user&prompt=consent`;
   res.redirect(githubAuthUrl);
 };
 
-// ✅ GitHub Callback Handler (with asyncHandler)
 export const githubCallback = asyncHandler(async (req, res) => {
   const { code } = req.query;
   logger.info("Received GitHub OAuth callback with code");
 
-  // Step 1: Exchange code for access token
+  // Exchange code for access token
   const tokenRes = await axios.post(
     "https://github.com/login/oauth/access_token",
     {
@@ -37,62 +36,64 @@ export const githubCallback = asyncHandler(async (req, res) => {
   const accessToken = tokenRes.data.access_token;
   logger.info("Obtained GitHub access token");
 
-  // Step 2: Fetch user profile
+  // Fetch user profile
   const userRes = await axios.get("https://api.github.com/user", {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 
-  const { login, avatar_url, email, name } = userRes.data;
+  let { login, avatar_url, email, name } = userRes.data;
 
-  // Step 3: Get primary email if not present
-  let userEmail = email;
-  if (!userEmail) {
+  // If email not provided, fetch primary verified email
+  if (!email) {
     const emailRes = await axios.get("https://api.github.com/user/emails", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    userEmail = emailRes.data.find((e) => e.primary && e.verified)?.email;
+    email = emailRes.data.find((e) => e.primary && e.verified)?.email;
   }
 
-  if (!userEmail) {
+  if (!email) {
     logger.warn("GitHub email not found or verified");
-    res.status(400).json({ message: "Unable to retrieve GitHub email." });
-    return;
+    return res.status(400).json({ message: "Unable to retrieve GitHub email." });
   }
 
-  logger.info(`GitHub email retrieved: ${userEmail}`);
+  logger.info(`GitHub email retrieved: ${email}`);
 
-  // Step 4: Find or create user
-  let user = await UserModel.findOne({ email: userEmail });
+  // Find or create user
+  let user = await UserModel.findOne({ email });
   if (!user) {
     user = await UserModel.create({
       name: name || login,
-      email: userEmail,
+      email,
       image: avatar_url,
       isVerified: true,
       provider: "github",
-      role: "user", // Default role
+      role: "user",
     });
-    logger.info(`Created new user from GitHub login: ${userEmail}`);
+    logger.info(`Created new user from GitHub login: ${email}`);
   } else {
-    logger.info(`Existing user logged in via GitHub: ${userEmail}`);
+    logger.info(`Existing user logged in via GitHub: ${email}`);
   }
 
-  // Step 5: Generate JWT
+  // Generate JWT
   const token = jwt.sign(
-    { id: user._id, email: user.email, role: user.role },
+    { userId: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_TIMEOUT || "7d",
-    }
+    { expiresIn: process.env.JWT_TIMEOUT || "7d" }
   );
 
-  logger.info(`JWT generated for user: ${userEmail}`);
+  logger.info(`JWT generated for user: ${email}`);
 
-  // Step 6: Redirect to frontend
-  res.redirect(
-    `http://localhost:5173/login?token=${token}&name=${encodeURIComponent(
-      user.name
-    )}&email=${encodeURIComponent(user.email)}&image=${encodeURIComponent(user.image)}&isVerified=${user.isVerified}&role=${user.role}`
-  );
-  logger.info(`Redirected user ${userEmail} to frontend login with token`);
+  // Set token in HTTP-only cookie (like Google login)
+  const cookieExpiry = 30 * 24 * 60 * 60 * 1000; // 30 days
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: cookieExpiry,
+    sameSite: "lax",
+    path: "/",
+  });
+
+  // Redirect frontend WITHOUT token/user info in URL
+  res.redirect("http://localhost:5173/login");
+  logger.info(`Redirected user ${email} to frontend login page`);
 });
