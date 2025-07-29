@@ -4,18 +4,12 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 import adminRouter from "./routes/adminRouter.js";
-
-dotenv.config();
-const app = express();
-app.use(cookieParser());
-app.use(errorHandler);
-
 import "./config/dbConnection.js"; // make sure to add .js if using ES modules
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRoute.js";
 
-const port = process.env.PORT || 5000;
-
+dotenv.config();
+const app = express();
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -24,8 +18,14 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
+app.use(cookieParser());
+app.use(errorHandler);
 app.use(express.json());
+
+
+const port = process.env.PORT || 5000;
+
+
 
 app.get("/", (req, res) => {
   res.send("Auth Backend is running");

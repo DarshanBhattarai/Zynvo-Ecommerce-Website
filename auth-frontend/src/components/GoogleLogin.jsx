@@ -28,7 +28,6 @@ const GoogleLogin = () => {
         const userInfo = { email, name, picture, isVerified, role };
         const fullAuth = { token, user: userInfo };
 
-        localStorage.setItem("user-info", JSON.stringify(fullAuth));
         setAuth(fullAuth);
 
         // Role-based navigation

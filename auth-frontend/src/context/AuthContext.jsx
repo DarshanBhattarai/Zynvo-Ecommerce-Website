@@ -4,7 +4,9 @@ import { logoutUser, getMe } from "../services/authApi.js";
 
 export const AuthContext = createContext();
 
-const AuthProviderCore = ({ children, navigate }) => {
+const AuthProviderCore = ({ children }) => {
+  const navigate = useNavigate();
+
   const [auth, setAuth] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -12,9 +14,16 @@ const AuthProviderCore = ({ children, navigate }) => {
     const checkAuth = async () => {
       try {
         const user = await getMe();
-        setAuth(user ? { user } : null);
+        if (user) {
+          setAuth({ user });
+        } else {
+          setAuth(null);
+        }
       } catch (error) {
-        console.error("Unexpected error during auth check:", error);
+        console.error("Auth check failed:", {
+          status: error?.response?.status,
+          message: error.message,
+        });
         setAuth(null);
       } finally {
         setLoading(false);
@@ -30,7 +39,8 @@ const AuthProviderCore = ({ children, navigate }) => {
     try {
       await logoutUser();
       setAuth(null);
-      navigate("/login");
+      // Use full page reload navigation to avoid issues outside Router context
+      window.location.href = "/login";
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -46,6 +56,5 @@ const AuthProviderCore = ({ children, navigate }) => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
-  return <AuthProviderCore navigate={navigate}>{children}</AuthProviderCore>;
+  return <AuthProviderCore>{children}</AuthProviderCore>;
 };

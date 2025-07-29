@@ -78,3 +78,333 @@
 [2025-07-28 11:24:15] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
 [2025-07-28 11:24:15] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
 [2025-07-28 11:24:15] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 11:37:13] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:37:14] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:37:20] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:37:20] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:37:32] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:37:32] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:38:56] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:38:56] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 11:42:14] INFO: Redirecting to GitHub OAuth login
+[2025-07-28 11:42:22] INFO: Received GitHub OAuth callback with code
+[2025-07-28 11:42:23] INFO: Obtained GitHub access token
+[2025-07-28 11:42:24] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-07-28 11:42:24] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-07-28 11:42:24] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-07-28 11:42:24] INFO: Redirected user drshnbhattarai@gmail.com to frontend login with token
+[2025-07-28 11:43:02] INFO: Redirecting to GitHub OAuth login
+[2025-07-28 11:43:06] INFO: Received GitHub OAuth callback with code
+[2025-07-28 11:43:06] INFO: Obtained GitHub access token
+[2025-07-28 11:43:07] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-07-28 11:43:07] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-07-28 11:43:07] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-07-28 11:43:07] INFO: Redirected user drshnbhattarai@gmail.com to frontend login with token
+[2025-07-28 11:46:05] INFO: Google login attempt started
+[2025-07-28 11:46:05] INFO: Received Google tokens
+[2025-07-28 11:46:05] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 11:46:05] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 11:46:05] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 11:46:05] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 11:50:43] INFO: Google login attempt started
+[2025-07-28 11:50:43] INFO: Received Google tokens
+[2025-07-28 11:50:44] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 11:50:44] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 11:50:44] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 11:50:44] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 11:52:44] INFO: Google login attempt started
+[2025-07-28 11:52:45] INFO: Received Google tokens
+[2025-07-28 11:52:45] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 11:52:45] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 11:52:45] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 11:52:45] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 11:54:57] INFO: Google login attempt started
+[2025-07-28 11:54:57] INFO: Received Google tokens
+[2025-07-28 11:54:57] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 11:54:58] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 11:54:58] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 11:54:58] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:00:18] INFO: Google login attempt started
+[2025-07-28 12:00:18] INFO: Received Google tokens
+[2025-07-28 12:00:19] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:00:19] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:00:19] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:00:19] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:07:14] INFO: Google login attempt started
+[2025-07-28 12:07:14] INFO: Received Google tokens
+[2025-07-28 12:07:15] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:07:15] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:07:15] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:07:15] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:07:40] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 12:07:40] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 12:07:45] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 12:07:45] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 12:07:57] INFO: Google login attempt started
+[2025-07-28 12:07:57] INFO: Received Google tokens
+[2025-07-28 12:07:57] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:07:57] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:07:57] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:07:57] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:15:36] INFO: Google login attempt started
+[2025-07-28 12:15:37] INFO: Received Google tokens
+[2025-07-28 12:15:37] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:15:37] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:15:37] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:15:37] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:29:24] INFO: Google login attempt started
+[2025-07-28 12:29:25] INFO: Received Google tokens
+[2025-07-28 12:29:25] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:29:25] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:29:25] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:29:25] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 12:30:02] INFO: Google login attempt started
+[2025-07-28 12:30:03] INFO: Received Google tokens
+[2025-07-28 12:30:03] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 12:30:03] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 12:30:03] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 12:30:03] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:19:08] INFO: Google login attempt started
+[2025-07-28 14:19:09] INFO: Received Google tokens
+[2025-07-28 14:19:09] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:19:09] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:19:09] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:19:09] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:24:27] INFO: Google login attempt started
+[2025-07-28 14:24:27] INFO: Received Google tokens
+[2025-07-28 14:24:27] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:24:27] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:24:27] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:24:27] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:34:03] INFO: Google login attempt started
+[2025-07-28 14:34:04] INFO: Received Google tokens
+[2025-07-28 14:34:04] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:34:04] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:34:04] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:34:04] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:38:18] INFO: Google login attempt started
+[2025-07-28 14:38:19] INFO: Received Google tokens
+[2025-07-28 14:38:19] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:38:19] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:38:19] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:38:19] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:43:55] INFO: Google login attempt started
+[2025-07-28 14:43:55] INFO: Received Google tokens
+[2025-07-28 14:43:55] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:43:55] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:43:55] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:43:55] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 14:48:14] INFO: Google login attempt started
+[2025-07-28 14:48:15] INFO: Received Google tokens
+[2025-07-28 14:48:15] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 14:48:15] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 14:48:15] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 14:48:15] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:35:15] INFO: Google login attempt started
+[2025-07-28 19:35:15] INFO: Received Google tokens
+[2025-07-28 19:35:16] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:35:16] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:35:16] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:35:16] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:38:10] INFO: Google login attempt started
+[2025-07-28 19:38:11] INFO: Received Google tokens
+[2025-07-28 19:38:12] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:38:12] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:38:12] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:38:12] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:46:18] INFO: Google login attempt started
+[2025-07-28 19:46:18] INFO: Received Google tokens
+[2025-07-28 19:46:19] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:46:19] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:46:19] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:46:19] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:50:04] INFO: Google login attempt started
+[2025-07-28 19:50:04] INFO: Received Google tokens
+[2025-07-28 19:50:05] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:50:05] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:50:05] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:50:05] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:52:29] INFO: Google login attempt started
+[2025-07-28 19:52:29] INFO: Received Google tokens
+[2025-07-28 19:52:30] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:52:30] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:52:30] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:52:30] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:55:54] INFO: Google login attempt started
+[2025-07-28 19:55:56] INFO: Received Google tokens
+[2025-07-28 19:55:57] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:55:57] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:55:57] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:55:57] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 19:56:56] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-07-28 19:56:56] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-07-28 19:57:08] INFO: Google login attempt started
+[2025-07-28 19:57:08] INFO: Received Google tokens
+[2025-07-28 19:57:08] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 19:57:08] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 19:57:08] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 19:57:08] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:08:27] INFO: Google login attempt started
+[2025-07-28 20:08:27] INFO: Received Google tokens
+[2025-07-28 20:08:28] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:08:28] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:08:28] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:08:28] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:10:08] INFO: Google login attempt started
+[2025-07-28 20:10:08] INFO: Received Google tokens
+[2025-07-28 20:10:08] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:10:08] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:10:08] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:10:08] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:11:51] INFO: Google login attempt started
+[2025-07-28 20:11:51] INFO: Received Google tokens
+[2025-07-28 20:11:51] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:11:52] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:11:52] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:11:52] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:29:51] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:29:51] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:30:14] INFO: Google login attempt started
+[2025-07-28 20:30:19] INFO: Received Google tokens
+[2025-07-28 20:30:20] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:30:20] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:30:20] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:30:20] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:33:01] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:33:02] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:34:24] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:34:24] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:34:33] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:34:34] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:48:56] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:48:56] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-28 20:49:10] INFO: Google login attempt started
+[2025-07-28 20:49:11] INFO: Received Google tokens
+[2025-07-28 20:49:11] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:49:11] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:49:11] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:49:11] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:49:28] INFO: Google login attempt started
+[2025-07-28 20:49:31] INFO: Received Google tokens
+[2025-07-28 20:49:32] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:49:32] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:49:32] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:49:32] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-28 20:58:05] INFO: Google login attempt started
+[2025-07-28 20:58:06] INFO: Received Google tokens
+[2025-07-28 20:58:07] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-28 20:58:07] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-28 20:58:07] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-28 20:58:07] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 09:33:36] INFO: Google login attempt started
+[2025-07-29 09:33:36] INFO: Received Google tokens
+[2025-07-29 09:33:36] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 09:33:36] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 09:33:36] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 09:33:36] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 09:33:48] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-07-29 09:33:48] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-07-29 09:34:36] INFO: Redirecting to GitHub OAuth login
+[2025-07-29 09:34:47] INFO: Received GitHub OAuth callback with code
+[2025-07-29 09:34:48] INFO: Obtained GitHub access token
+[2025-07-29 09:34:49] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-07-29 09:34:49] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-07-29 09:34:49] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-07-29 09:34:49] INFO: Redirected user drshnbhattarai@gmail.com to frontend login with token
+[2025-07-29 09:35:05] INFO: Google login attempt started
+[2025-07-29 09:35:05] INFO: Received Google tokens
+[2025-07-29 09:35:05] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 09:35:06] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 09:35:06] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 09:35:06] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 09:51:25] INFO: Google login attempt started
+[2025-07-29 10:14:48] INFO: Google login attempt started
+[2025-07-29 10:14:49] INFO: Received Google tokens
+[2025-07-29 10:14:49] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 10:14:49] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 10:14:49] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 10:14:49] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 10:15:00] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-07-29 10:15:00] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-07-29 10:15:09] INFO: Google login attempt started
+[2025-07-29 10:15:09] INFO: Received Google tokens
+[2025-07-29 10:15:10] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 10:15:10] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 10:15:10] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 10:15:10] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 10:19:09] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:19:09] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:19:40] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:19:40] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:19:58] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:19:59] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:25:56] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:25:56] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:26:07] INFO: Google login attempt started
+[2025-07-29 10:26:07] INFO: Received Google tokens
+[2025-07-29 10:26:08] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 10:26:08] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 10:26:08] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 10:26:08] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 10:46:24] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:46:24] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:50:33] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:50:33] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:50:45] INFO: Google login attempt started
+[2025-07-29 10:50:46] INFO: Received Google tokens
+[2025-07-29 10:50:46] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 10:50:46] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 10:50:46] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 10:50:46] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 10:59:21] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 10:59:21] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:00:00] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:00:00] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:00:11] INFO: Google login attempt started
+[2025-07-29 11:00:11] INFO: Received Google tokens
+[2025-07-29 11:00:12] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:00:12] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:00:12] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:00:12] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:02:34] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-07-29 11:02:34] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-07-29 11:02:47] INFO: Google login attempt started
+[2025-07-29 11:02:48] INFO: Received Google tokens
+[2025-07-29 11:02:48] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:02:48] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:02:48] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:02:48] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:12:00] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:12:01] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:15:55] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:15:55] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:16:09] INFO: Google login attempt started
+[2025-07-29 11:16:10] INFO: Received Google tokens
+[2025-07-29 11:16:10] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:16:10] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:16:10] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:16:10] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:23:09] INFO: Google login attempt started
+[2025-07-29 11:23:09] INFO: Received Google tokens
+[2025-07-29 11:23:10] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:23:10] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:23:10] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:23:10] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:23:40] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:23:40] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:42:56] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:42:56] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-07-29 11:43:07] INFO: Google login attempt started
+[2025-07-29 11:43:07] INFO: Received Google tokens
+[2025-07-29 11:43:07] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:43:07] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:43:07] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:43:07] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:50:52] INFO: Google login attempt started
+[2025-07-29 11:50:52] INFO: Received Google tokens
+[2025-07-29 11:50:53] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-07-29 11:50:53] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-07-29 11:50:53] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-07-29 11:50:53] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-07-29 11:55:53] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-07-29 11:55:53] INFO: Logout successful for email: drshnbhattarai@gmail.com

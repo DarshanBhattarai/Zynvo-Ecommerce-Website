@@ -230,6 +230,7 @@ export const getUserFromToken = async (token) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.userId).select("-password");
+  
 
     if (!user) {
       throw new Error("User not found");
@@ -237,6 +238,7 @@ export const getUserFromToken = async (token) => {
 
     return user;
   } catch (error) {
+    console.error("Error verifying token:", error);
     throw new Error("Invalid or expired token");
   }
 };

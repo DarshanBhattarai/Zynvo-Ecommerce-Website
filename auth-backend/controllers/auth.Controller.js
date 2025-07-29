@@ -214,13 +214,15 @@ export const logoutController = asyncHandler(async (req, res) => {
 });
 
 export const getMeController = asyncHandler(async (req, res) => {
+  // console.log("Cookies received:", req.cookies); // Verify cookie exists
   const token = req.cookies.token;
 
   try {
     const user = await getUserFromToken(token);
-
+    // Verify user lookup
     res.status(200).json({ user });
   } catch (error) {
+    console.error("getMe error:", error.message); // Log specific error
     res.status(401).json({ message: error.message });
   }
 });

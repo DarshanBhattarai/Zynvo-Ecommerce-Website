@@ -9,7 +9,8 @@ import { AuthContext } from "../context/AuthContext.jsx";
 import { loginUser } from "../services/authApi.js";
 
 const Login = () => {
-  const { auth, setAuth, isAuthenticated, isVerified, loading } = useContext(AuthContext);
+  const { auth, setAuth, isAuthenticated, isVerified, loading } =
+    useContext(AuthContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -111,7 +112,10 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
           <div>
-            <label htmlFor="email" className="block mb-2 text-gray-700 font-medium">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-gray-700 font-medium"
+            >
               Email address
             </label>
             <input
@@ -127,7 +131,10 @@ const Login = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-2 text-gray-700 font-medium">
+            <label
+              htmlFor="password"
+              className="block mb-2 text-gray-700 font-medium"
+            >
               Password
             </label>
             <div className="relative">
@@ -164,7 +171,10 @@ const Login = () => {
               />
               Remember me
             </label>
-            <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-blue-600 hover:underline"
+            >
               Forgot password?
             </Link>
           </div>

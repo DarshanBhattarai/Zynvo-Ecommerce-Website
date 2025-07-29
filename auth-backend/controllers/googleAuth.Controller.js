@@ -4,6 +4,8 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import asyncHandler from "../middleware/asyncHandler.js";
 import logger from "../utils/logger.js"; // import your logger
+import { configDotenv } from "dotenv";
+configDotenv();
 
 export const googleLogin = asyncHandler(async (req, res) => {
   const { code } = req.query;
@@ -33,6 +35,12 @@ export const googleLogin = asyncHandler(async (req, res) => {
       isVerified: true,
       provider: "google",
       role: "user",
+      otp: {
+        code: null, // No OTP for Google users
+        expiresAt: null,
+        verified: true,
+        type: "google-login",
+      },
     });
     logger.info(`Created new user from Google login: ${email}`);
   } else {
@@ -41,20 +49,22 @@ export const googleLogin = asyncHandler(async (req, res) => {
 
   // Step 4: Generate JWT
   const token = jwt.sign(
-    { _id: user._id, email: user.email, role: user.role },
+    { userId: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_TIMEOUT || "7d" }
   );
   logger.info(`JWT generated for Google user: ${email}`);
 
-  // Step 5: Set cookie
+  // After JWT token generation in googleLogin:
+  const cookieExpiry = 30 * 24 * 60 * 60 * 1000; // 1 day
+
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000,
-    sameSite:"lax", // Set sameSite to lax for better compatibility
+    secure: false,
+    maxAge: cookieExpiry,
+    sameSite: "lax",
+    path: "/",
   });
-
   // Step 6: Send response with token
   res.status(200).json({
     message: "User logged in successfully",
