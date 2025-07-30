@@ -25,3 +25,24 @@ export const updateUserRole = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const deleteUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    logger.info(`Deleting user with ID: ${userId}`);
+    const deletedUser = await userService.deleteUser(userId);
+
+    if (!deletedUser) {
+      logger.warn(`User with ID ${userId} not found`);
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    logger.info(`User with ID ${userId} deleted successfully`);
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    logger.error(`Error deleting user: ${error.message}`);
+    return res.status(500).json({ message: "Failed to delete user" });
+  }
+};
+

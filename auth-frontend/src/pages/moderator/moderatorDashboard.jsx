@@ -17,17 +17,12 @@ const sidebarItems = [
 
 const ModeratorDashboard = () => {
   const [activeMenu, setActiveMenu] = useState("Overview");
-  const [currentUser, setCurrentUser] = useState(null);
   const { auth, logout } = useContext(AuthContext);
 
   if (!auth) {
     return <p>Loading...</p>; // or a spinner or a loading message
   }
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("user-info"));
-    setCurrentUser(userInfo?.user || null);
-  }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -63,14 +58,14 @@ const ModeratorDashboard = () => {
             </button>
 
             {/* User Profile */}
-            {currentUser && (
+            {auth.user.name && auth.user.email && (
               <div className="flex items-center gap-3 bg-gray-100 px-3 py-2 rounded-lg">
                 <UserCircle className="text-gray-600" size={24} />
                 <div className="text-sm">
                   <p className="text-gray-900 font-medium">
-                    {currentUser.name}
+                    {auth.user.name}
                   </p>
-                  <p className="text-gray-500 text-xs">{currentUser.email}</p>
+                  <p className="text-gray-500 text-xs">{auth.user.email}</p>
                 </div>
               </div>
             )}
