@@ -26,6 +26,8 @@ const VerifyOtp = () => {
   const mode = location.state?.mode || "signup"; // 'signup' or 'reset-password'
 
   useEffect(() => {
+    console.log("VerifyOtp mounted with mode:", mode);
+    console.log("Email from state:", email);
     if (cooldown === 0 && cooldownRef.current) {
       clearInterval(cooldownRef.current);
       cooldownRef.current = null;
@@ -63,6 +65,7 @@ const VerifyOtp = () => {
 
     try {
       setLoading(true);
+      
 
       if (mode === "reset-password") {
         await resetPassword({ email, otp, newPassword });

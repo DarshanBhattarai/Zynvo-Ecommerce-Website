@@ -143,6 +143,8 @@ export const loginUser = async ({ email, password, rememberMe }) => {
   // Find user by email
   const user = await User.findOne({ email });
   if (!user) {
+    const tempUser = await TempUser.findOne({ email });
+    if (tempUser) throw new Error("User account not verified");
     throw new Error("Invalid email or password");
   }
 
@@ -152,34 +154,15 @@ export const loginUser = async ({ email, password, rememberMe }) => {
     throw new Error("Invalid email or password");
   }
 
-  // Optional: check if user is verified
-  if (!user.isVerified) {
-    throw new Error("User account not verified");
-  }
-
+  // Instead of throwing error here, return user + verified flag
+  return {
+    user,
+    isVerified: user.isVerified,
+  };
   const expiresIn = rememberMe
     ? 30 * 24 * 60 * 60 * 1000 // 30 days
     : 24 * 60 * 60 * 1000; // 1 day
   // Generate JWT token
-  const token = jwt.sign(
-    { userId: user._id, email: user.email, role: user.role },
-    JWT_SECRET,
-    {
-      expiresIn,
-    }
-  );
-
-  return {
-    token,
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
-      isVerified: user.isVerified,
-      role: user.role,
-    },
-  };
 };
 
 // FORGOT PASSWORD SERVICE
@@ -230,7 +213,6 @@ export const getUserFromToken = async (token) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.userId).select("-password");
-  
 
     if (!user) {
       throw new Error("User not found");

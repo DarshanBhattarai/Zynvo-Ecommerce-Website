@@ -25,7 +25,9 @@ const Login = () => {
   useEffect(() => {
     if (!loading && isAuthenticated) {
       if (!isVerified) {
-        navigate("/verify-otp");
+        navigate("/verify-otp", {
+          state: { email: auth.user.email, mode: "signup" },
+        });
       } else if (auth.user.role === "admin") {
         navigate("/admin/dashboard");
       } else if (auth.user.role === "moderator") {
@@ -73,10 +75,18 @@ const Login = () => {
       setAuth({ user }); // Store user only
       toast.success("Login successful!");
 
-      let path = "/home";
       if (!user?.isVerified) {
-        path = "/verify-otp";
-      } else if (user.role === "admin") {
+        // Directly navigate with state including email and mode
+        navigate("/verify-otp", {
+          state: { email: user.email, mode: "signup" },
+        });
+        setLoadingSubmit(false);
+        return; // important to return here to avoid running navigate(path) again
+      }
+
+      // For other roles
+      let path = "/home";
+      if (user.role === "admin") {
         path = "/admin/dashboard";
       } else if (user.role === "moderator") {
         path = "/moderator/dashboard";
@@ -90,6 +100,8 @@ const Login = () => {
           toast.error("Invalid email or password");
         } else if (status === 403) {
           toast.error("Your account is not verified");
+        
+          navigate("/verify-otp", { state: { email: form.email, mode: "signup" } }); // Redirect here for unverified users
         } else if (status === 500) {
           toast.error("Server error. Please try again later.");
         } else {
