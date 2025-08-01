@@ -11,8 +11,7 @@ import {
 } from "../services/authServices.js";
 import { createAdminUserService } from "../services/adminService.js";
 import logger from "../utils/logger.js"; // ✅ logger added
-import jwt from "jsonwebtoken"; 
-
+import jwt from "jsonwebtoken";
 
 // ✅ SIGNUP
 export const signupController = asyncHandler(async (req, res) => {
@@ -108,76 +107,76 @@ export const unifiedResendOtpController = asyncHandler(async (req, res) => {
   });
 });
 
-  export const loginController = asyncHandler(async (req, res) => {
-    const { email, password, rememberMe } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
-    }
-    logger.info(`Login attempt for email: ${email}`);
+export const loginController = asyncHandler(async (req, res) => {
+  const { email, password, rememberMe } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+  logger.info(`Login attempt for email: ${email}`);
 
-    try {
-      const { user, isVerified } = await loginUser({ email, password });
-      if (!isVerified) {
-        try {
-          await resendSignUpOtpService(email);
-        } catch (err) {
-          logger.error(`Failed to resend OTP: ${err.stack}`);
-          return res
-            .status(500)
-            .json({ message: "Failed to resend OTP. Try again later." });
-        }
-
-        return res.status(403).json({
-          message:
-            "User account not verified. OTP resent to your email. Please verify to login.",
-          email,
-        });
+  try {
+    const { user, isVerified, isTempUser } = await loginUser({ email, password });
+    if (isTempUser || !isVerified) {
+      try {
+        await resendSignUpOtpService(email);
+      } catch (err) {
+        logger.error(`Failed to resend OTP: ${err.stack}`);
+        return res
+          .status(500)
+          .json({ message: "Failed to resend OTP. Try again later." });
       }
 
-      // Proceed with login: create token, set cookie
-      const cookieExpiry = rememberMe
-        ? 30 * 24 * 60 * 60 * 1000
-        : 24 * 60 * 60 * 1000;
-
-      const token = jwt.sign(
-        { userId: user._id, email: user.email, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: cookieExpiry }
-      );
-
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: false,
-        maxAge: cookieExpiry,
-        sameSite: "lax",
-        path: "/",
+      return res.status(403).json({
+        message:
+          "User account not verified. OTP resent to your email. Please verify to login.",
+        email,
       });
+    }
 
-      logger.info(`Login successful for email: ${email}`);
+    // Proceed with login: create token, set cookie
+    const cookieExpiry = rememberMe
+      ? 30 * 24 * 60 * 60 * 1000
+      : 24 * 60 * 60 * 1000;
 
-      res.status(200).json({
-        message: "Login successful",
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          isVerified: user.isVerified,
-          role: user.role,
-        },
-        token,
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: cookieExpiry }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: cookieExpiry,
+      sameSite: "lax",
+      path: "/",
+    });
+
+    logger.info(`Login successful for email: ${email}`);
+
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        isVerified: user.isVerified,
         role: user.role,
-      });
-    } catch (error) {
-      logger.error(`Login failed for email: ${email} - ${error.message}`);
-      if (error.message === "Invalid email or password") {
-        return res.status(401).json({ message: error.message });
-      }
-      if (error.message === "User account not verified") {
-        return res.status(403).json({ message: error.message });
-      }
-      return res.status(500).json({ message: "Internal server error" });
+      },
+      token,
+      role: user.role,
+    });
+  } catch (error) {
+    logger.error(`Login failed for email: ${email} - ${error.message}`);
+    if (error.message === "Invalid email or password") {
+      return res.status(401).json({ message: error.message });
     }
-  });
+    if (error.message === "User account not verified") {
+      return res.status(403).json({ message: error.message });
+    }
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // ✅ FORGOT PASSWORD
 export const forgotPasswordController = asyncHandler(async (req, res) => {

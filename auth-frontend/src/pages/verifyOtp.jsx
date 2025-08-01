@@ -8,6 +8,7 @@ import {
   resetPassword,
   resendOtpUnified,
 } from "../services/authApi";
+import { Eye, EyeOff } from "lucide-react";
 
 const RESEND_COOLDOWN = 30;
 
@@ -17,6 +18,9 @@ const VerifyOtp = () => {
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,8 +30,6 @@ const VerifyOtp = () => {
   const mode = location.state?.mode || "signup"; // 'signup' or 'reset-password'
 
   useEffect(() => {
-    console.log("VerifyOtp mounted with mode:", mode);
-    console.log("Email from state:", email);
     if (cooldown === 0 && cooldownRef.current) {
       clearInterval(cooldownRef.current);
       cooldownRef.current = null;
@@ -58,14 +60,24 @@ const VerifyOtp = () => {
       return;
     }
 
-    if (mode === "reset-password" && !newPassword) {
-      toast.error("Please enter your new password");
+    if (mode === "reset-password") {
+      if (!newPassword) {
+        toast.error("Please enter your new password");
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        // <-- Check passwords match
+        toast.error("Passwords do not match");
+        return;
+      }
+    }
+    if (newPassword && newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters long");
       return;
     }
 
     try {
       setLoading(true);
-      
 
       if (mode === "reset-password") {
         await resetPassword({ email, otp, newPassword });
@@ -133,24 +145,65 @@ const VerifyOtp = () => {
           </div>
 
           {mode === "reset-password" && (
-            <div>
-              <label
-                htmlFor="newPassword"
-                className="block mb-2 text-gray-700 font-medium"
-              >
-                New Password
-              </label>
-              <input
-                id="newPassword"
-                name="newPassword"
-                type="password"
-                required
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter your new password"
-                className="w-full px-4 py-3 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
-              />
-            </div>
+            <>
+              <div className="relative">
+                <label
+                  htmlFor="newPassword"
+                  className="block mb-2 text-gray-700 font-medium"
+                >
+                  New Password
+                </label>
+                <input
+                  id="newPassword"
+                  name="newPassword"
+                  type={showNewPassword ? "text" : "password"}
+                  required
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="Enter your new password"
+                  className="w-full px-4 py-3 pr-12 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword((prev) => !prev)}
+                  className="absolute right-3 top-[42px] text-gray-600"
+                  tabIndex={-1}
+                >
+                  {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              <div className="relative">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block mb-2 text-gray-700 font-medium"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm your new password"
+                  className="w-full px-4 py-3 pr-12 border rounded-md border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute right-3 top-[42px] text-gray-600"
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+              </div>
+            </>
           )}
 
           <button

@@ -10,6 +10,9 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRY = process.env.JWT_EXPIRY || "1d";
 
+// Helper: hash OTP
+const hashOtp = (otp) => crypto.createHash("sha256").update(otp).digest("hex");
+// Signup service: create temp user and send OTP
 // Signup service: create temp user and send OTP
 export const createUser = async ({ name, email, password, role = "user" }) => {
   // Check if user already registered
@@ -18,10 +21,11 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
 
   // Create OTP & hash password
   const otpCode = crypto.randomInt(100000, 999999).toString();
+  const hashedOtp = hashOtp(otpCode);
   const hashedPassword = await bcrypt.hash(password, 10);
   const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-  // Save/update temp user record
+  // Save/update temp user record with hashed OTP code
   await TempUser.findOneAndUpdate(
     { email },
     {
@@ -30,7 +34,7 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
       password: hashedPassword,
       role,
       provider: "email",
-      otp: { code: otpCode, expiresAt: otpExpiresAt },
+      otp: { code: hashedOtp, expiresAt: otpExpiresAt },
     },
     { upsert: true, new: true }
   );
@@ -40,7 +44,6 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
 
   return { email, otp: otpCode }; // remove otp in production
 };
-
 export const signUpVerifyOtp = async ({ email, otp }) => {
   // Find the temp user (unverified user)
   const tempUser = await TempUser.findOne({ email });
@@ -54,8 +57,8 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
     throw new Error("OTP expired. Please sign up again.");
   }
 
-  // Clean comparison
-  if (!otp || code.trim() !== otp.toString().trim()) {
+  // Compare hashed OTP
+  if (!otp || code !== hashOtp(otp.toString().trim())) {
     throw new Error("Invalid OTP");
   }
 
@@ -102,16 +105,17 @@ export const resendSignUpOtpService = async (email) => {
   if (!tempUser) throw new Error("No signup request found for this email");
 
   const newOtp = crypto.randomInt(100000, 999999).toString();
-  tempUser.otp.code = newOtp;
+  const hashedOtp = hashOtp(newOtp);
+  tempUser.otp.code = hashedOtp;
   tempUser.otp.expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
   await tempUser.save();
-
+  console.log(`Sending OTP email to ${email} with code ${newOtp}`);
   await sendOtpEmail(email, newOtp, "Your signup verification OTP");
+  console.log(`OTP email sent to ${email}`);
 
   return { email };
 };
-
 // adjust path if needed
 
 export const resendOtpService = async (email) => {
@@ -144,7 +148,14 @@ export const loginUser = async ({ email, password, rememberMe }) => {
   const user = await User.findOne({ email });
   if (!user) {
     const tempUser = await TempUser.findOne({ email });
-    if (tempUser) throw new Error("User account not verified");
+    if (tempUser) {
+      const isMatch = await bcrypt.compare(password, tempUser.password);
+      if (!isMatch) {
+        throw new Error("Invalid email or password");
+      }
+      // Password matches but user not verified yet
+      return { user: null, isVerified: false, isTempUser: true };
+    }
     throw new Error("Invalid email or password");
   }
 
@@ -191,13 +202,15 @@ export const resetPasswordService = async ({ email, otp, newPassword }) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
 
+  const hashedOtp = crypto.createHash("sha256").update(otp).digest("hex");
+
   const isValid =
-    user.otp && user.otp.code === otp && user.otp.expiresAt > Date.now();
+    user.otp && user.otp.code === hashedOtp && user.otp.expiresAt > Date.now();
 
   if (!isValid) throw new Error("Invalid or expired OTP");
 
   user.password = await bcrypt.hash(newPassword, 10);
-  user.otp = undefined; // clear OTP
+  user.otp = undefined;
 
   await user.save();
 
