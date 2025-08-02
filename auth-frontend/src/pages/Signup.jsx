@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../components/Loader";
 import { registerUser } from "../services/authApi.js";
 
-const Signup = ({ onSwitchToLogin }) => {
+const Signup = () => {
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -26,7 +26,6 @@ const Signup = ({ onSwitchToLogin }) => {
   };
 
   const handleSubmit = async (e) => {
-  
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
       toast.error("Passwords do not match");
@@ -47,7 +46,6 @@ const Signup = ({ onSwitchToLogin }) => {
       await registerUser(form);
       toast.success("Signup successful! Please verify your email.");
       navigate("/verify-otp", { state: { email: form.email } });
-      
     } catch (error) {
       console.error("Signup error:", error);
       toast.error(
@@ -61,7 +59,7 @@ const Signup = ({ onSwitchToLogin }) => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} />
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Username */}
@@ -178,10 +176,8 @@ const Signup = ({ onSwitchToLogin }) => {
           >
             {loading ? (
               <>
-                Submitting...
-                <span className="ml-2">
-                  <Loader />
-                </span>
+                Signing up...
+                <Loader />
               </>
             ) : (
               "Sign Up"

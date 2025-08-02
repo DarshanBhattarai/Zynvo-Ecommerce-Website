@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
-
 const Home = () => {
   const { auth, logout } = useContext(AuthContext);
 
   if (!auth) {
-    // Optional: show loading or redirect if needed
-    return <p>Loading...</p>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+      </div>
+    );
   }
 
-  
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <h1 className="text-2xl font-semibold">Welcome to the Home</h1>
@@ -21,7 +22,8 @@ const Home = () => {
           <p className="text-lg">Name: {auth.user.name}</p>
           {auth.user.picture && (
             <img
-              src={auth.user.picture}
+              src={auth.user.picture || "/default-avatar.png"}
+              onError={(e) => (e.target.src = "/default-avatar.png")}
               alt="User Avatar"
               className="w-24 h-24 rounded-full mx-auto mt-2"
             />

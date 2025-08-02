@@ -100,8 +100,10 @@ const Login = () => {
           toast.error("Invalid email or password");
         } else if (status === 403) {
           toast.error("Your account is not verified");
-        
-          navigate("/verify-otp", { state: { email: form.email, mode: "signup" } }); // Redirect here for unverified users
+
+          navigate("/verify-otp", {
+            state: { email: form.email, mode: "signup" },
+          }); // Redirect here for unverified users
         } else if (status === 500) {
           toast.error("Server error. Please try again later.");
         } else {
@@ -119,7 +121,7 @@ const Login = () => {
 
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
-      <ToastContainer />
+      <ToastContainer  position="top-right" autoClose={3000}/>
       <section className="bg-white rounded-xl shadow-md w-full max-w-md p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
@@ -199,7 +201,14 @@ const Login = () => {
                 : "bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black"
             }`}
           >
-            {loadingSubmit ? "Logging in..." : "Log In"}
+            {loadingSubmit ? (
+              <div className="flex justify-center items-center gap-2">
+                <span>Logging in</span>
+                <span className="animate-pulse">...</span>
+              </div>
+            ) : (
+              "Log In"
+            )}
           </button>
         </form>
         <div className="flex items-center my-8 text-gray-400">

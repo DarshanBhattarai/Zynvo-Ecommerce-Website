@@ -39,8 +39,8 @@ const ForgotPassword = () => {
             placeholder="Enter your registered email"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 border rounded-md border-gray-300"
+            onChange={(e) => setEmail(e.target.value.toLowerCase())}
+            className="w-full px-4 py-3 border rounded-md border-gray-300 focus:ring-2 focus:ring-black focus:outline-none transition"
             autoFocus
           />
 

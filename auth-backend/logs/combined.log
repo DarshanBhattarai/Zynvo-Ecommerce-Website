@@ -836,3 +836,197 @@
 [2025-08-02 19:33:31] INFO: Fetched 6 users successfully
 [2025-08-02 19:33:31] INFO: Fetching all users
 [2025-08-02 19:33:31] INFO: Fetched 6 users successfully
+[2025-08-02 19:55:28] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 19:55:28] INFO: Fetching all users
+[2025-08-02 19:55:28] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 19:55:29] INFO: Fetched 6 users successfully
+[2025-08-02 19:55:29] INFO: Fetching all users
+[2025-08-02 19:55:29] INFO: Fetched 6 users successfully
+[2025-08-02 20:21:13] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 20:21:13] INFO: Fetching all users
+[2025-08-02 20:21:13] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 20:21:14] INFO: Fetched 6 users successfully
+[2025-08-02 20:21:14] INFO: Fetching all users
+[2025-08-02 20:21:14] INFO: Fetched 6 users successfully
+[2025-08-02 20:23:31] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:23:31] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:23:38] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:23:38] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:23:39] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:23:39] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:23:46] INFO: Google login attempt started
+[2025-08-02 20:23:47] INFO: Received Google tokens
+[2025-08-02 20:23:47] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 20:23:47] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 20:23:47] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:47] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:47] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:48] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 20:23:48] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 20:23:49] INFO: Redirecting to GitHub OAuth login
+[2025-08-02 20:23:53] INFO: Received GitHub OAuth callback with code
+[2025-08-02 20:23:53] INFO: Obtained GitHub access token
+[2025-08-02 20:23:54] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-08-02 20:23:54] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-08-02 20:23:54] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:54] INFO: Redirected user drshnbhattarai@gmail.com to frontend login page
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:23:55] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:26:44] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 20:26:44] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 20:30:02] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:30:02] ERROR: Login failed for email: darshanwarrior338452@gmail.com - Invalid email or password
+[2025-08-02 20:30:07] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:30:08] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:30:08] INFO: Fetching all users
+[2025-08-02 20:30:08] INFO: Fetched 6 users successfully
+[2025-08-02 20:30:08] INFO: Fetching all users
+[2025-08-02 20:30:08] INFO: Fetched 6 users successfully
+[2025-08-02 20:30:09] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:30:09] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 20:43:18] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:18] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:21] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:21] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:22] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:22] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:22] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:22] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:23] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:43:23] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 20:44:11] INFO: Google login attempt started
+[2025-08-02 20:44:11] INFO: Received Google tokens
+[2025-08-02 20:44:12] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 20:44:12] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 20:44:12] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:12] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:12] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:14] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:14] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:15] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:44:15] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 20:54:57] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 20:54:57] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 21:41:39] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:41:39] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:41:40] INFO: Fetching all users
+[2025-08-02 21:41:40] INFO: Fetched 6 users successfully
+[2025-08-02 21:41:40] INFO: Fetching all users
+[2025-08-02 21:41:40] INFO: Fetched 6 users successfully
+[2025-08-02 21:41:45] INFO: Deleting user with ID: 688db34f00bfe85bf212ab29
+[2025-08-02 21:41:45] INFO: User with ID 688db34f00bfe85bf212ab29 deleted successfully
+[2025-08-02 21:41:49] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:41:49] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:42:01] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:05] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:42:27] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:03] INFO: Forgot password request for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:06] INFO: OTP sent for password reset to email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:11] INFO: Resend OTP request - type: forgot for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:14] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:31] INFO: Password reset attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:31] INFO: Password reset successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:31] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:31] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:31] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:32] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:39] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:39] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:40] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:40] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:45] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:43:45] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:43:45] INFO: Fetching all users
+[2025-08-02 21:43:45] INFO: Fetched 6 users successfully
+[2025-08-02 21:43:45] INFO: Fetching all users
+[2025-08-02 21:43:45] INFO: Fetched 6 users successfully
+[2025-08-02 21:43:50] INFO: Updating role for user 688e3567718b84e7c00d2d68 to moderator
+[2025-08-02 21:43:50] INFO: User role updated successfully for user 688e3567718b84e7c00d2d68
+[2025-08-02 21:43:52] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:43:52] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:43:58] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:58] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:59] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:43:59] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:45:21] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:45:21] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:45:21] INFO: Fetching all users
+[2025-08-02 21:45:21] INFO: Fetched 6 users successfully
+[2025-08-02 21:45:21] INFO: Fetching all users
+[2025-08-02 21:45:21] INFO: Fetched 6 users successfully
+[2025-08-02 21:45:24] INFO: Deleting user with ID: 688e3567718b84e7c00d2d68
+[2025-08-02 21:45:24] INFO: User with ID 688e3567718b84e7c00d2d68 deleted successfully
+[2025-08-02 21:45:28] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:45:28] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 21:45:51] INFO: Signup attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:45:55] INFO: Signup successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:02] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:12] INFO: Resend OTP request - type: signup for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:16] INFO: OTP resent successfully to email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: OTP verification attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: OTP verification successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:29] INFO: getMe request successful for user: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:34] INFO: Login attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:35] INFO: Login successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:35] INFO: Logout attempt for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:35] INFO: Logout successful for email: np05cp4a230130@iic.edu.np
+[2025-08-02 21:46:42] INFO: Google login attempt started
+[2025-08-02 21:46:43] INFO: Received Google tokens
+[2025-08-02 21:46:43] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 21:46:43] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 21:46:43] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 21:46:43] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 21:46:43] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:21] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 21:47:21] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 21:47:23] INFO: Redirecting to GitHub OAuth login
+[2025-08-02 21:47:25] INFO: Received GitHub OAuth callback with code
+[2025-08-02 21:47:26] INFO: Obtained GitHub access token
+[2025-08-02 21:47:27] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-08-02 21:47:27] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-08-02 21:47:27] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:27] INFO: Redirected user drshnbhattarai@gmail.com to frontend login page
+[2025-08-02 21:47:27] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 21:47:29] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 21:47:29] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 22:02:45] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 22:02:45] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 22:02:45] INFO: Fetching all users
+[2025-08-02 22:02:45] INFO: Fetched 6 users successfully
+[2025-08-02 22:02:45] INFO: Fetching all users
+[2025-08-02 22:02:45] INFO: Fetched 6 users successfully
+[2025-08-02 22:05:59] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:05:59] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:05:59] INFO: Fetching all users
+[2025-08-02 22:05:59] INFO: Fetched 6 users successfully
+[2025-08-02 22:05:59] INFO: Fetching all users
+[2025-08-02 22:05:59] INFO: Fetched 6 users successfully
+[2025-08-02 22:06:56] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:06:56] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:06:56] INFO: Fetching all users
+[2025-08-02 22:06:56] INFO: Fetched 6 users successfully
+[2025-08-02 22:06:56] INFO: Fetching all users
+[2025-08-02 22:06:56] INFO: Fetched 6 users successfully
+[2025-08-02 22:07:22] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:07:22] INFO: getMe request successful for user: darshanwarrior338452@gmail.com
+[2025-08-02 22:07:22] INFO: Fetching all users
+[2025-08-02 22:07:22] INFO: Fetched 6 users successfully
+[2025-08-02 22:07:22] INFO: Fetching all users
+[2025-08-02 22:07:22] INFO: Fetched 6 users successfully
