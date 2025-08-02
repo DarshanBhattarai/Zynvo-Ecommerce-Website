@@ -8,7 +8,7 @@ import logger from "../utils/logger.js";
 
 const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:5000/api/auth/github/callback";
+const REDIRECT_URI = process.env.REDIRECT_URI || "http://localhost:5000/api/auth/github/callback";
 
 export const githubAuthRedirect = (req, res) => {
   logger.info("Redirecting to GitHub OAuth login");
@@ -17,6 +17,7 @@ export const githubAuthRedirect = (req, res) => {
 };
 
 export const githubCallback = asyncHandler(async (req, res) => {
+  try{
   const { code } = req.query;
   logger.info("Received GitHub OAuth callback with code");
 
@@ -94,6 +95,10 @@ export const githubCallback = asyncHandler(async (req, res) => {
   });
 
   // Redirect frontend WITHOUT token/user info in URL
-  res.redirect("http://localhost:5173/login");
+  res.redirect(process.env.FRONTEND_URL || "http://localhost:5173/login");
   logger.info(`Redirected user ${email} to frontend login page`);
+  } catch (error) {
+    logger.error("GitHub OAuth error:", error.message);
+    res.status(500).json({ message: "GitHub authentication failed." });
+  } 
 });

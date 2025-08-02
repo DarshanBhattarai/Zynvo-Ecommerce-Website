@@ -39,8 +39,8 @@ const GoogleLogin = () => {
         } else if (role === "moderator") {
           path = "/moderator/dashboard";
         }
-
-        navigate(path);
+        setAuth(fullAuth);
+        navigate(path, { replace: true });
       } else {
         console.error("❌ No auth code provided");
       }

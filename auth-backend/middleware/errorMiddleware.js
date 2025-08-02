@@ -1,6 +1,13 @@
 // middlewares/errorMiddleware.js
 export const errorHandler = (err, req, res, next) => {
-  console.error("Error:", err.message);
+  if (err.name === "ValidationError") {
+    return res.status(400).json({
+      success: false,
+      message: Object.values(err.errors)
+        .map((val) => val.message)
+        .join(", "),
+    });
+  }
 
   const statusCode = err.statusCode || 500;
 

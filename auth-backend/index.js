@@ -19,13 +19,10 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(errorHandler);
+
 app.use(express.json());
 
-
 const port = process.env.PORT || 5000;
-
-
 
 app.get("/", (req, res) => {
   res.send("Auth Backend is running");
@@ -38,3 +35,8 @@ app.use("/api/users", userRouter);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+app.use(errorHandler);

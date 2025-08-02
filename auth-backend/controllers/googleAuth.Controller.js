@@ -56,7 +56,7 @@ export const googleLogin = asyncHandler(async (req, res) => {
   logger.info(`JWT generated for Google user: ${email}`);
 
   // After JWT token generation in googleLogin:
-  const cookieExpiry = 30 * 24 * 60 * 60 * 1000; // 1 day
+  const cookieExpiry = 30 * 24 * 60 * 60 * 1000; // 30 day
 
   res.cookie("token", token, {
     httpOnly: true,

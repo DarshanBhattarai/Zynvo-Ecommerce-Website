@@ -8,7 +8,7 @@ import TempUser from "../models/tempUser.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRY = process.env.JWT_EXPIRY || "1d";
+const JWT_TIMEOUT = process.env.JWT_TIMEOUT || "1d";
 
 // Helper: hash OTP
 const hashOtp = (otp) => crypto.createHash("sha256").update(otp).digest("hex");
@@ -42,7 +42,7 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
   // Send OTP email (async)
   await sendOtpEmail(email, otpCode, "Verify your email");
 
-  return { email, otp: otpCode }; // remove otp in production
+  return { email }; // remove otp in production
 };
 export const signUpVerifyOtp = async ({ email, otp }) => {
   // Find the temp user (unverified user)
@@ -72,7 +72,7 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
     isVerified: true,
   });
 
-  await user.save();
+
 
   user.otp = { verified: true, type: "signup" };
   await user.save();
@@ -84,7 +84,7 @@ export const signUpVerifyOtp = async ({ email, otp }) => {
   const token = jwt.sign(
     { userId: user._id, email: user.email, role: user.role },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRY }
+    { expiresIn: JWT_TIMEOUT }
   );
 
   return {
@@ -127,10 +127,11 @@ export const resendOtpService = async (email) => {
 
   // 3. Generate 6-digit OTP
   const otpCode = crypto.randomInt(100000, 999999).toString();
+  const hashedOtp = hashOtp(otpCode);
 
   // 4. Update OTP fields in user model
   user.otp = {
-    code: otpCode,
+    code: hashedOtp,
     expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
   };
 
@@ -186,7 +187,7 @@ export const forgotPasswordService = async (email) => {
 
   user.otp = {
     code: hashedOtp,
-    expiresAt: Date.now() + 10 * 60 * 1000, // 10 min expiry
+    expiresAt: new Date (Date.now() + 10 * 60 * 1000), // 10 min expiry
     verified: false,
     type: "forgot-password",
   };

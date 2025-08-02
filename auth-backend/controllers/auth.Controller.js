@@ -163,7 +163,6 @@ export const loginController = asyncHandler(async (req, res) => {
         isVerified: user.isVerified,
         role: user.role,
       },
-      token,
       role: user.role,
     });
   } catch (error) {
@@ -247,6 +246,8 @@ export const getMeController = asyncHandler(async (req, res) => {
   try {
     const user = await getUserFromToken(token);
     // Verify user lookup
+    logger.info(`getMe request successful for user: ${user.email}`);
+
     res.status(200).json({ user });
   } catch (error) {
     console.error("getMe error:", error.message); // Log specific error
