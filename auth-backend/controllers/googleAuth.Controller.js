@@ -68,7 +68,7 @@ export const googleLogin = asyncHandler(async (req, res) => {
   // Step 6: Send response with token
   res.status(200).json({
     message: "User logged in successfully",
-    token,
+
     user: {
       name: user.name,
       email: user.email,

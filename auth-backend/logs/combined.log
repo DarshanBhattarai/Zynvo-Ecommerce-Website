@@ -609,3 +609,230 @@
 [2025-08-02 17:55:05] INFO: Fetched 6 users successfully
 [2025-08-02 17:55:19] INFO: Logout attempt for email: darshanwarrior338452@gmail.com
 [2025-08-02 17:55:19] INFO: Logout successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 18:01:06] INFO: Google login attempt started
+[2025-08-02 18:01:06] INFO: Received Google tokens
+[2025-08-02 18:01:06] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:01:07] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:01:07] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:01:07] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:01:08] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:01:08] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:02] INFO: Google login attempt started
+[2025-08-02 18:41:02] INFO: Received Google tokens
+[2025-08-02 18:41:02] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:03] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:41:03] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:03] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:08] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:08] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:08] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:08] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:13] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:13] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:17] INFO: Redirecting to GitHub OAuth login
+[2025-08-02 18:41:24] INFO: Received GitHub OAuth callback with code
+[2025-08-02 18:41:25] INFO: Obtained GitHub access token
+[2025-08-02 18:41:26] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-08-02 18:41:26] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-08-02 18:41:26] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:26] INFO: Redirected user drshnbhattarai@gmail.com to frontend login page
+[2025-08-02 18:41:27] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:27] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:27] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:27] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:27] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:27] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:34] INFO: Google login attempt started
+[2025-08-02 18:41:35] INFO: Received Google tokens
+[2025-08-02 18:41:35] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:35] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:41:35] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:35] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:40] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:40] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:41] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:41] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:49] INFO: Google login attempt started
+[2025-08-02 18:41:50] INFO: Received Google tokens
+[2025-08-02 18:41:50] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:50] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:41:50] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:50] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:41:52] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:41:52] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:42:10] INFO: Redirecting to GitHub OAuth login
+[2025-08-02 18:42:13] INFO: Received GitHub OAuth callback with code
+[2025-08-02 18:42:14] INFO: Obtained GitHub access token
+[2025-08-02 18:42:15] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-08-02 18:42:15] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-08-02 18:42:15] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-08-02 18:42:15] INFO: Redirected user drshnbhattarai@gmail.com to frontend login page
+[2025-08-02 18:42:16] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:42:16] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:42:16] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:42:16] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:42:18] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:42:18] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:43:32] INFO: Google login attempt started
+[2025-08-02 18:43:32] INFO: Received Google tokens
+[2025-08-02 18:43:33] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:43:33] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:43:33] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:33] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:34] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:34] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:34] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:34] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:50] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:50] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:55] INFO: Google login attempt started
+[2025-08-02 18:43:55] INFO: Received Google tokens
+[2025-08-02 18:43:55] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:43:56] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:43:56] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:43:56] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:15] INFO: Google login attempt started
+[2025-08-02 18:44:15] INFO: Received Google tokens
+[2025-08-02 18:44:16] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:44:16] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:44:16] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:16] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:19] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:19] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:19] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:44:19] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:36] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:46:36] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:46:44] INFO: Google login attempt started
+[2025-08-02 18:46:44] INFO: Received Google tokens
+[2025-08-02 18:46:44] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:46:44] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:46:44] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:44] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:45] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:45] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:46] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:46:46] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:33] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:53:33] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:53:39] INFO: Google login attempt started
+[2025-08-02 18:53:40] INFO: Received Google tokens
+[2025-08-02 18:53:40] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:53:40] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:53:40] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:40] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:43] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:43] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:43] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:43] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:53:44] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:53:44] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 18:54:20] INFO: Google login attempt started
+[2025-08-02 18:54:20] INFO: Received Google tokens
+[2025-08-02 18:54:20] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 18:54:20] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 18:54:20] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 18:54:20] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 18:54:59] INFO: Redirecting to GitHub OAuth login
+[2025-08-02 18:55:02] INFO: Received GitHub OAuth callback with code
+[2025-08-02 18:55:03] INFO: Obtained GitHub access token
+[2025-08-02 18:55:04] INFO: GitHub email retrieved: drshnbhattarai@gmail.com
+[2025-08-02 18:55:04] INFO: Existing user logged in via GitHub: drshnbhattarai@gmail.com
+[2025-08-02 18:55:04] INFO: JWT generated for user: drshnbhattarai@gmail.com
+[2025-08-02 18:55:04] INFO: Redirected user drshnbhattarai@gmail.com to frontend login page
+[2025-08-02 18:55:05] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:55:05] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:55:05] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:55:05] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 18:55:05] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 18:55:05] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:00:27] INFO: Google login attempt started
+[2025-08-02 19:00:27] INFO: Received Google tokens
+[2025-08-02 19:00:28] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:00:28] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:00:28] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:00:28] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:17] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:17] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:17] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:18] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:20] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:20] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:27] INFO: Google login attempt started
+[2025-08-02 19:09:27] INFO: Received Google tokens
+[2025-08-02 19:09:27] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:28] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:09:28] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:28] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:28] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:32] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:32] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:32] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:32] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:33] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:33] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:40] INFO: Google login attempt started
+[2025-08-02 19:09:41] INFO: Received Google tokens
+[2025-08-02 19:09:41] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:09:41] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:09:41] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:41] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:09:41] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:10:52] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:10:52] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:11:24] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:11:24] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:11:24] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:11:24] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:12:19] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:12:20] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:12:33] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:12:33] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:12:40] INFO: Google login attempt started
+[2025-08-02 19:12:41] INFO: Received Google tokens
+[2025-08-02 19:12:41] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:12:41] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:12:41] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:12:41] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:12:41] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:16:58] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:16:58] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:16:58] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:16:58] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:31:57] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:31:57] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:31:58] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:31:58] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:32:06] INFO: Google login attempt started
+[2025-08-02 19:32:06] INFO: Received Google tokens
+[2025-08-02 19:32:06] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:32:06] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:32:06] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:32:06] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:32:06] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:32:09] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:32:09] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:32:16] INFO: Google login attempt started
+[2025-08-02 19:32:16] INFO: Received Google tokens
+[2025-08-02 19:32:17] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:32:17] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:32:17] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:32:17] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:32:17] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:33:16] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:33:16] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:33:25] INFO: Google login attempt started
+[2025-08-02 19:33:25] INFO: Received Google tokens
+[2025-08-02 19:33:26] INFO: Google user info fetched for email: drshnbhattarai@gmail.com
+[2025-08-02 19:33:26] INFO: Existing user logged in via Google: drshnbhattarai@gmail.com
+[2025-08-02 19:33:26] INFO: JWT generated for Google user: drshnbhattarai@gmail.com
+[2025-08-02 19:33:26] INFO: Google login response sent for user: drshnbhattarai@gmail.com
+[2025-08-02 19:33:26] INFO: getMe request successful for user: drshnbhattarai@gmail.com
+[2025-08-02 19:33:27] INFO: Logout attempt for email: drshnbhattarai@gmail.com
+[2025-08-02 19:33:27] INFO: Logout successful for email: drshnbhattarai@gmail.com
+[2025-08-02 19:33:30] INFO: Login attempt for email: darshanwarrior338452@gmail.com
+[2025-08-02 19:33:31] INFO: Login successful for email: darshanwarrior338452@gmail.com
+[2025-08-02 19:33:31] INFO: Fetching all users
+[2025-08-02 19:33:31] INFO: Fetched 6 users successfully
+[2025-08-02 19:33:31] INFO: Fetching all users
+[2025-08-02 19:33:31] INFO: Fetched 6 users successfully

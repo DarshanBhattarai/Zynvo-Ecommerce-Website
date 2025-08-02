@@ -1,51 +1,49 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { googleAuth } from "../services/api.js";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { getMe } from "../services/authApi.js";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, checkAuth } = useContext(AuthContext);
+
+  // Check auth state after login, similar to GithubLogin
+  useEffect(() => {
+    const verifyAuth = async () => {
+      try {
+        const response = await getMe();
+        if (response?.data) {
+          setAuth({ user: response.data });
+          let path = "/home";
+          if (!response.data.isVerified) path = "/verify-otp";
+          else if (response.data.role === "admin") path = "/admin/dashboard";
+          else if (response.data.role === "moderator") path = "/moderator/dashboard";
+          navigate(path, { replace: true });
+        }
+      } catch (error) {
+        console.error("Google login: auth check failed", error);
+      }
+    };
+
+    verifyAuth();
+  }, [navigate, setAuth]);
 
   const responseGoogle = async (authResult) => {
     try {
       if (authResult.code) {
-        const response = await googleAuth(authResult.code);
-        const {
-          email,
-          name,
-          picture,
-          isVerified = true,
-          role,
-        } = response.data.user;
-        const token = response.data.token;
+        // Send code to backend
+        const authRes = await googleAuth(authResult.code);
+        
 
-        if (!token) {
-          throw new Error("No token received from backend");
-        }
-
-        const userInfo = { email, name, picture, isVerified, role };
-        const fullAuth = { token, user: userInfo };
-
-        setAuth(fullAuth);
-
-        // Role-based navigation
-        let path = "/home"; // default for regular user
-        if (!isVerified) {
-          path = "/verify-otp";
-        } else if (role === "admin") {
-          path = "/admin/dashboard";
-        } else if (role === "moderator") {
-          path = "/moderator/dashboard";
-        }
-        setAuth(fullAuth);
-        navigate(path, { replace: true });
+        // Trigger context update (optional, since useEffect handles navigation)
+        await checkAuth();
       } else {
-        console.error("❌ No auth code provided");
+        console.error("❌ No auth code received from Google");
       }
     } catch (error) {
-      console.error("❌ Google login failed:", error.message);
+      console.error("❌ Google login failed:", error?.response?.data?.message || error.message);
     }
   };
 
