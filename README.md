@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fullstack Authentication System
 
 A robust, production-ready authentication system featuring a custom Node.js/Express backend and a modern React frontend. Supports user registration, login, OAuth (Google & GitHub), role-based access, and more. Designed for easy integration and open-source collaboration.
@@ -159,3 +160,7 @@ This project is licensed under the MIT License.
 - **Darshan Bhattarai**
 - [darshan.bhattarai@email.com](mailto:darshan.bhattarai@email.com)
 - [GitHub](https://github.com/DarshanBhattarai)
+=======
+# Zynvo-Ecommerce-Website
+A modern, sleek, and dynamic single-product eCommerce website built with React, Tailwind CSS, and GSAP animations.
+>>>>>>> de78ed943386a0721ebe26f816a836a5f2ff8556
