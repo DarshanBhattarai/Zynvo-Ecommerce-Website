@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import User from "../models/User.js";
+import User from "../models/Users/User.js";
 import jwt from "jsonwebtoken";
 import { sendOtpEmail } from "./emailService.js";
 import dotenv from "dotenv";
-import TempUser from "../models/TempUser.js";
+import TempUser from "../models/Users/TempUser.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;

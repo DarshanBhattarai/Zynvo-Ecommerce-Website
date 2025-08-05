@@ -16,6 +16,6 @@ router.get(
   })
 );
 
-// other admin routes...
 
-export default router;
+
+export default router;  

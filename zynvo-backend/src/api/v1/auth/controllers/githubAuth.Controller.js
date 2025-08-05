@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import UserModel from "../../../../models/User.js";
+import UserModel from "../../../../models/Users/User.js";
 import asyncHandler from "../../../../utils/asyncHandler.js";
 import logger from "../../../../utils/logger.js";
 

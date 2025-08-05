@@ -1,5 +1,5 @@
 import oauth2Client from "../../../../config/googleConfig.js";
-import UserModel from "../../../../models/User.js";
+import UserModel from "../../../../models/Users/User.js";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import asyncHandler from "../../../../utils/asyncHandler.js";
