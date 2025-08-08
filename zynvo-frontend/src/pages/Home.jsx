@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
+import BecomeVendorModal from "./user/becomeVendor.jsx"; // <-- Modal version
 
 const Home = () => {
   const { auth, logout } = useContext(AuthContext);
-  const navigate = useNavigate(); // ✅ for navigation
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const showVendorModal = searchParams.get("modal") === "vendor";
 
   if (!auth) {
     return (
@@ -15,7 +19,7 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="flex flex-col items-center justify-center h-screen space-y-4 relative">
       <h1 className="text-2xl font-semibold">Welcome to the Home</h1>
 
       {auth.user && (
@@ -42,12 +46,19 @@ const Home = () => {
         </button>
 
         <button
-          onClick={() => navigate("/become-vendor")}
+          onClick={() => setSearchParams({ modal: "vendor" })}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         >
           Become a Vendor
         </button>
       </div>
+
+      {showVendorModal && (
+        <BecomeVendorModal
+          isOpen={true}
+          onClose={() => setSearchParams({})}
+        />
+      )}
     </div>
   );
 };
