@@ -7,7 +7,17 @@ import {
 import { AuthContext } from "../../context/AuthContext.jsx";
 
 // Reusable Input Component
-const FormInput = ({ label, name, type = "text", value, onChange, required = false, disabled = false, placeholder, icon }) => (
+const FormInput = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  required = false,
+  disabled = false,
+  placeholder,
+  icon,
+}) => (
   <div className="space-y-1">
     <label className="block text-sm font-medium text-gray-700">
       {label} {required && <span className="text-red-500">*</span>}
@@ -33,7 +43,15 @@ const FormInput = ({ label, name, type = "text", value, onChange, required = fal
 );
 
 // Reusable Select Component
-const FormSelect = ({ label, name, value, onChange, options, required = false, disabled = false }) => (
+const FormSelect = ({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  required = false,
+  disabled = false,
+}) => (
   <div className="space-y-1">
     <label className="block text-sm font-medium text-gray-700">
       {label} {required && <span className="text-red-500">*</span>}
@@ -46,15 +64,26 @@ const FormSelect = ({ label, name, value, onChange, options, required = false, d
       required={required}
       disabled={disabled}
     >
-      {options.map(option => (
-        <option key={option.value} value={option.value}>{option.label}</option>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
       ))}
     </select>
   </div>
 );
 
 // Reusable Textarea Component
-const FormTextarea = ({ label, name, value, onChange, required = false, disabled = false, placeholder, rows = 3 }) => (
+const FormTextarea = ({
+  label,
+  name,
+  value,
+  onChange,
+  required = false,
+  disabled = false,
+  placeholder,
+  rows = 3,
+}) => (
   <div className="space-y-1">
     <label className="block text-sm font-medium text-gray-700">
       {label} {required && <span className="text-red-500">*</span>}
@@ -69,7 +98,7 @@ const FormTextarea = ({ label, name, value, onChange, required = false, disabled
       required={required}
       disabled={disabled}
     />
-    {name === 'description' && (
+    {name === "description" && (
       <p className="text-xs text-gray-500">{value.length}/500 characters</p>
     )}
   </div>
@@ -78,7 +107,9 @@ const FormTextarea = ({ label, name, value, onChange, required = false, disabled
 // Section Header Component
 const SectionHeader = ({ icon, title, bgColor = "bg-blue-600" }) => (
   <div className="flex items-center space-x-2 mb-3">
-    <div className={`w-6 h-6 ${bgColor} rounded-full flex items-center justify-center`}>
+    <div
+      className={`w-6 h-6 ${bgColor} rounded-full flex items-center justify-center`}
+    >
       {icon}
     </div>
     <h3 className="text-base font-semibold text-gray-800">{title}</h3>
@@ -87,22 +118,46 @@ const SectionHeader = ({ icon, title, bgColor = "bg-blue-600" }) => (
 
 // Alert Component
 const Alert = ({ type, message }) => {
-  const styles = type === 'error' 
-    ? "bg-red-50 border-red-200 text-red-700"
-    : "bg-green-50 border-green-200 text-green-700";
-  
-  const icon = type === 'error' ? (
-    <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ) : (
-    <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
+  const styles =
+    type === "error"
+      ? "bg-red-50 border-red-200 text-red-700"
+      : "bg-green-50 border-green-200 text-green-700";
+
+  const icon =
+    type === "error" ? (
+      <svg
+        className="w-4 h-4 text-red-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ) : (
+      <svg
+        className="w-4 h-4 text-green-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    );
 
   return (
-    <div className={`${styles} border px-3 py-2 rounded-lg flex items-center space-x-2 text-sm`}>
+    <div
+      className={`${styles} border px-3 py-2 rounded-lg flex items-center space-x-2 text-sm`}
+    >
       {icon}
       <span>{message}</span>
     </div>
@@ -112,7 +167,9 @@ const Alert = ({ type, message }) => {
 // Logo Upload Component
 const LogoUpload = ({ logoPreview, onChange, disabled }) => (
   <div className="space-y-2">
-    <label className="block text-sm font-medium text-gray-700">Store Logo</label>
+    <label className="block text-sm font-medium text-gray-700">
+      Store Logo
+    </label>
     <div className="flex items-center space-x-3">
       <div className="relative">
         <input
@@ -129,10 +186,24 @@ const LogoUpload = ({ logoPreview, onChange, disabled }) => (
           className="flex items-center justify-center w-20 h-20 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all"
         >
           {logoPreview ? (
-            <img src={logoPreview} alt="Preview" className="w-full h-full object-cover rounded-md" />
+            <img
+              src={logoPreview}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-md"
+            />
           ) : (
-            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            <svg
+              className="w-6 h-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
             </svg>
           )}
         </label>
@@ -153,17 +224,24 @@ const ProgressBar = ({ progress = 75 }) => (
       <span>{progress}%</span>
     </div>
     <div className="w-full bg-gray-200 rounded-full h-1.5">
-      <div 
-        className="bg-gradient-to-r from-blue-500 to-purple-600 h-1.5 rounded-full transition-all duration-500" 
-        style={{width: `${progress}%`}}
+      <div
+        className="bg-gradient-to-r from-blue-500 to-purple-600 h-1.5 rounded-full transition-all duration-500"
+        style={{ width: `${progress}%` }}
       ></div>
     </div>
   </div>
 );
 
 // Sidebar Info Card Component
-const InfoCard = ({ title, items, bgColor = "bg-white", titleColor = "text-gray-800" }) => (
-  <div className={`${bgColor} rounded-lg p-3 shadow-sm border border-gray-100 mb-3`}>
+const InfoCard = ({
+  title,
+  items,
+  bgColor = "bg-white",
+  titleColor = "text-gray-800",
+}) => (
+  <div
+    className={`${bgColor} rounded-lg p-3 shadow-sm border border-gray-100 mb-3`}
+  >
     <h4 className={`font-medium ${titleColor} mb-2 text-sm`}>{title}</h4>
     <ul className="text-xs text-gray-600 space-y-1">
       {items.map((item, index) => (
@@ -243,6 +321,32 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     { value: "health", label: " Health & Beauty" },
   ];
 
+  // Calculate progress based on required fields filled
+  const requiredFields = [
+    "storeName",
+    "logo",
+    "description",
+    "category",
+    "contactEmail",
+    "phoneNumber",
+    "address",
+    "city",
+    "country",
+    "taxId",
+  ];
+
+  const calculateProgress = () => {
+    let filledCount = 0;
+    requiredFields.forEach((field) => {
+      if (field === "logo") {
+        if (formData.logo) filledCount++;
+      } else if (formData[field] && formData[field].toString().trim() !== "") {
+        filledCount++;
+      }
+    });
+    return Math.round((filledCount / requiredFields.length) * 100);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -253,15 +357,27 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-lg font-bold">Apply to Become a Vendor</h2>
-              <p className="text-blue-100 text-xs">Join our marketplace today</p>
+              <p className="text-blue-100 text-xs">
+                Join our marketplace today
+              </p>
             </div>
             <button
               onClick={onClose}
               className="text-white/80 hover:text-white hover:bg-white/20 p-1.5 rounded-full transition-all"
               disabled={isSubmitting}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -277,13 +393,31 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Store Info Section */}
               <div className="bg-gray-50 rounded-lg p-4 space-y-4">
-                <SectionHeader 
-                  icon={<svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>}
+                <SectionHeader
+                  icon={
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  }
                   title="Store Information"
                 />
-                
-                <LogoUpload logoPreview={logoPreview} onChange={handleChange} disabled={isSubmitting} />
-                
+
+                <LogoUpload
+                  logoPreview={logoPreview}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                />
+
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Store Name"
@@ -304,7 +438,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     disabled={isSubmitting}
                   />
                 </div>
-                
+
                 <FormTextarea
                   label="Description"
                   name="description"
@@ -318,12 +452,26 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
 
               {/* Contact Section */}
               <div className="bg-emerald-50 rounded-lg p-4 space-y-4">
-                <SectionHeader 
-                  icon={<svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
+                <SectionHeader
+                  icon={
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  }
                   title="Contact Information"
                   bgColor="bg-emerald-600"
                 />
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Email"
@@ -350,12 +498,26 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
 
               {/* Location Section */}
               <div className="bg-orange-50 rounded-lg p-4 space-y-4">
-                <SectionHeader 
-                  icon={<svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /></svg>}
+                <SectionHeader
+                  icon={
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                    </svg>
+                  }
                   title="Location"
                   bgColor="bg-orange-600"
                 />
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Address"
@@ -376,6 +538,24 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     placeholder="City"
                   />
                   <FormInput
+                    label="State / Province"
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    placeholder="State or Province"
+                  />
+                  <FormInput
+                    label="Postal / ZIP Code"
+                    name="postalCode"
+                    value={formData.postalCode}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    placeholder="ZIP / Postal Code"
+                  />
+                  <FormInput
                     label="Country"
                     name="country"
                     value={formData.country}
@@ -384,19 +564,40 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     disabled={isSubmitting}
                     placeholder="Country"
                   />
-                 
                 </div>
               </div>
 
               {/* Business Section */}
               <div className="bg-purple-50 rounded-lg p-4 space-y-4">
-                <SectionHeader 
-                  icon={<svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
+                <SectionHeader
+                  icon={
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  }
                   title="Business Details"
                   bgColor="bg-purple-600"
                 />
-                
+
                 <div className="grid grid-cols-2 gap-4">
+                  <FormInput
+                    label="Website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder="Website URL (optional)"
+                  />
                   <FormInput
                     label="Tax ID"
                     name="taxId"
@@ -404,101 +605,116 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
-                    placeholder="Business Tax ID"
+                    placeholder="Tax Identification Number"
+                  />
+                  <FormInput
+                    label="Business Registration Number"
+                    name="businessRegistrationNumber"
+                    value={formData.businessRegistrationNumber}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    placeholder="Registration Number"
                   />
                   <FormInput
                     label="Years in Business"
                     name="yearsInBusiness"
-                    type="number"
                     value={formData.yearsInBusiness}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    placeholder="e.g., 5"
+                    placeholder="Number of years"
+                  />
+                  <FormSelect
+                    label="Payment Method Preference"
+                    name="paymentMethod"
+                    value={formData.paymentMethod}
+                    onChange={handleChange}
+                    options={[
+                      { value: "", label: "Select Payment Method" },
+                      { value: "bank_transfer", label: "Bank Transfer" },
+                      { value: "paypal", label: "PayPal" },
+                      { value: "other", label: "Other" },
+                    ]}
+                    required
+                    disabled={isSubmitting}
                   />
                 </div>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 min-w-[100px] bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all text-sm font-medium"
+                  disabled={isSubmitting}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2 min-w-[140px] bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-md hover:from-blue-700 hover:to-purple-800 transition-all text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      <span>Submitting...</span>
+                    </>
+                  ) : (
+                    <span>Submit Application</span>
+                  )}
+                </button>
               </div>
             </form>
           </div>
 
-          {/* Compact Sidebar - 1/3 width */}
-          <div className="bg-gray-50 p-4 border-l overflow-y-auto">
-            <ProgressBar progress={75} />
-            
+          {/* Sidebar Info - 1/3 width */}
+          <aside className="col-span-1 p-6 overflow-y-auto bg-gray-50 border-l border-gray-200">
+            {/* Submit Section */}
+            <ProgressBar progress={calculateProgress()} />
             <InfoCard
-              title="✅ Requirements"
+              title="How to Apply"
               items={[
-                "High-quality store logo",
-                "Official business email",
-                "Valid tax ID/registration",
-                "Complete business description"
+                "Fill all required fields.",
+                "Upload your store logo.",
+                "Provide accurate contact details.",
+                "Submit your application.",
+                "Our team will review within 3-5 business days.",
               ]}
             />
-            
-            <InfoCard
-              title="🕒 Review Process"
-              items={[
-                "Application submitted",
-                "Review (24-48 hours)", 
-                "Approval & onboarding"
-              ]}
-              bgColor="bg-blue-50"
-            />
-            
-            <InfoCard
-              title="💰 Benefits"
-              items={[
-                "Access to millions of customers",
-                "Marketing & promotional tools",
-                "Secure payment processing",
-                "24/7 vendor support"
-              ]}
-              bgColor="bg-green-50"
-            />
-            
-            <div className="bg-white rounded-lg p-3 border text-center">
-              <p className="text-xs text-gray-600 mb-2">Need help?</p>
-              <a href="#" className="text-xs text-blue-600 font-medium hover:text-blue-700">
-                Contact Support
-              </a>
-            </div>
-          </div>
-        </div>
 
-        {/* Compact Footer */}
-        <div className="bg-gray-50 border-t px-6 py-3 flex justify-between items-center">
-          <div className="flex items-center text-xs text-gray-600">
-            <svg className="w-3 h-3 text-green-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.608-4.017a11.955 11.955 0 01-2.517 2.453C17.417 8.986 16.756 9.2 16 9.2c-.756 0-1.417-.214-2.091-.764a11.955 11.955 0 01-2.517-2.453M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span>Secure & Protected</span>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all text-sm font-medium"
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-md hover:from-blue-700 hover:to-purple-800 transition-all text-sm font-medium shadow-md hover:shadow-lg flex items-center space-x-2"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span>Submitting...</span>
-                </>
-              ) : (
-                <span>Submit Application</span>
-              )}
-            </button>
-          </div>
+            <InfoCard
+              title="Benefits of Becoming a Vendor"
+              items={[
+                "Access to millions of customers.",
+                "Easy product management dashboard.",
+                "Secure payments & withdrawals.",
+                "Marketing and promotional support.",
+                "Dedicated vendor support.",
+              ]}
+              bgColor="bg-white"
+              titleColor="text-purple-700"
+            />
+          </aside>
         </div>
       </div>
     </div>
