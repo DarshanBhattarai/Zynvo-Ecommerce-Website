@@ -5,6 +5,7 @@ import {
   clearVendorState,
 } from "../../redux/slices/vendorSlice.js";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import { createVendor } from "../../services/moderatorApi.js";
 
 // Reusable Input Component
 const FormInput = ({
@@ -279,12 +280,55 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
-  const handleChange = (e) => {
+  const uploadToCloudinary = async (file) => {
+    // 1. Get the signature and other params from your backend
+    const sigRes = await fetch(
+      "http://localhost:5000/api/cloudinary/signature"
+    );
+    const { signature, timestamp, apiKey, cloudName } = await sigRes.json();
+
+    // 2. Prepare form data for the upload
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("api_key", apiKey);
+    formData.append("timestamp", timestamp);
+    formData.append("signature", signature);
+    formData.append("upload_preset", "zynvo_uploads"); // your preset if used
+
+    // 3. Upload to Cloudinary using your cloudName from signature response
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+
+    // 4. Perform the upload
+    const uploadRes = await fetch(uploadUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!uploadRes.ok) {
+      const errorData = await uploadRes.json();
+      throw new Error(errorData.error?.message || "Cloudinary upload failed");
+    }
+
+    const data = await uploadRes.json();
+    return data.secure_url; // Uploaded image URL
+  };
+
+  const handleChange = async (e) => {
     const { name, value, files } = e.target;
+
     if (name === "logo" && files.length > 0) {
       const file = files[0];
-      setFormData((prev) => ({ ...prev, logo: file }));
+
+      // Show preview immediately
       setLogoPreview(URL.createObjectURL(file));
+
+      try {
+        // Upload image and get URL
+        const imageUrl = await uploadToCloudinary(file);
+        setFormData((prev) => ({ ...prev, logo: imageUrl }));
+      } catch (error) {
+        setError("Image upload failed: " + error.message);
+      }
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -296,16 +340,17 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     setError(null);
     setSuccessMsg(null);
 
-    const formPayload = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formPayload.append(key, value);
-    });
-
     try {
-      await dispatch(sendVendorRequest(formPayload)).unwrap();
+      const response = await createVendor(formData, auth.token);
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to submit vendor request");
+      }
+
       setSuccessMsg("Your vendor application was submitted successfully!");
     } catch (err) {
-      setError(err.message || "Failed to submit vendor request");
+      setError(err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -422,7 +467,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Store Name"
                     name="storeName"
-                    value={formData.storeName}
+                    value={formData.storeName || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -431,7 +476,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormSelect
                     label="Category"
                     name="category"
-                    value={formData.category}
+                    value={formData.category || ""}
                     onChange={handleChange}
                     options={categoryOptions}
                     required
@@ -442,7 +487,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 <FormTextarea
                   label="Description"
                   name="description"
-                  value={formData.description}
+                  value={formData.description || ""}
                   onChange={handleChange}
                   required
                   disabled={isSubmitting}
@@ -477,7 +522,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     label="Email"
                     name="contactEmail"
                     type="email"
-                    value={formData.contactEmail}
+                    value={formData.contactEmail || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -487,7 +532,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     label="Phone"
                     name="phoneNumber"
                     type="tel"
-                    value={formData.phoneNumber}
+                    value={formData.phoneNumber || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -522,7 +567,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Address"
                     name="address"
-                    value={formData.address}
+                    value={formData.address || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -531,7 +576,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="City"
                     name="city"
-                    value={formData.city}
+                    value={formData.city || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -540,7 +585,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="State / Province"
                     name="state"
-                    value={formData.state}
+                    value={formData.state || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -549,7 +594,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Postal / ZIP Code"
                     name="postalCode"
-                    value={formData.postalCode}
+                    value={formData.postalCode || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -558,7 +603,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Country"
                     name="country"
-                    value={formData.country}
+                    value={formData.country || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -593,7 +638,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Website"
                     name="website"
-                    value={formData.website}
+                    value={formData.website || ""}
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="Website URL (optional)"
@@ -601,7 +646,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Tax ID"
                     name="taxId"
-                    value={formData.taxId}
+                    value={formData.taxId || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -610,7 +655,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Business Registration Number"
                     name="businessRegistrationNumber"
-                    value={formData.businessRegistrationNumber}
+                    value={formData.businessRegistrationNumber || ""}
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
@@ -619,7 +664,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormInput
                     label="Years in Business"
                     name="yearsInBusiness"
-                    value={formData.yearsInBusiness}
+                    value={formData.yearsInBusiness || ""}
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="Number of years"
@@ -627,7 +672,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   <FormSelect
                     label="Payment Method Preference"
                     name="paymentMethod"
-                    value={formData.paymentMethod}
+                    value={formData.paymentMethod || ""}
                     onChange={handleChange}
                     options={[
                       { value: "", label: "Select Payment Method" },

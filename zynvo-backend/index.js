@@ -7,6 +7,8 @@ import adminRouter from "./src/api/v1/admin/routes/adminRouter.js";
 import "./src/config/database.js";
 import authRouter from "./src/api/v1/auth/routes/authRouter.js";
 import userRouter from "./src/api/v1/user/routes/userRoute.js";
+import cloudinarySignatureRouter from "./src/api/v1/cloudinary/router/cloudinarySignature.js";
+import moderatorRouter from "./src/api/v1/moderator/routes/moderatorRoute.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +33,9 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/users", userRouter);
+app.use("/api/moderator", moderatorRouter);
+app.use("/api/cloudinary", cloudinarySignatureRouter);
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
