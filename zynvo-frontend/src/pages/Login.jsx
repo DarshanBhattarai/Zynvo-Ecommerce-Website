@@ -65,7 +65,7 @@ const Login = () => {
     }
 
     try {
-      const { user } = await loginUser(form); // Expect user only, token is in cookie
+      const { user } = await loginUser(form); 
 
       if (!user) {
         toast.error("Invalid user response. Please try again.");
