@@ -1,16 +1,54 @@
-// src/redux/slices/vendorSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+
+// Helper function to upload image to Cloudinary
+const uploadToCloudinary = async (file) => {
+  const sigRes = await fetch("http://localhost:5000/api/cloudinary/signature");
+  const { signature, timestamp, apiKey, cloudName } = await sigRes.json();
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("api_key", apiKey);
+  formData.append("timestamp", timestamp);
+  formData.append("signature", signature);
+  formData.append("upload_preset", "zynvo_Uploads");
+
+  const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+
+  const uploadRes = await fetch(uploadUrl, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!uploadRes.ok) {
+    const errorData = await uploadRes.json();
+    throw new Error(errorData.error?.message || "Cloudinary upload failed");
+  }
+
+  const data = await uploadRes.json();
+  return data.secure_url;
+};
 
 // Async thunk to send vendor request
 export const sendVendorRequest = createAsyncThunk(
   "vendor/sendRequest",
   async (requestData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/vendor/request", requestData);
-      return response.data; // expected: { message, vendorStatus, vendorData }
+      const logoUrl = await uploadToCloudinary(requestData.logoFile);
+      const payload = {
+        ...requestData,
+        logo: logoUrl,
+      };
+      delete payload.logoFile;
+
+      const response = await axios.post("http://localhost:5000/api/vendor/request", payload);
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || "Failed to send vendor request");
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to send vendor request";
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -21,9 +59,13 @@ export const fetchVendorProfile = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/api/vendor/profile/${userId}`);
-      return response.data; // expected: vendor profile object
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || "Failed to fetch vendor profile");
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to fetch vendor profile";
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -33,9 +75,9 @@ const vendorSlice = createSlice({
   name: "vendor",
   initialState: {
     profile: null,
-    status: "idle", // idle | loading | succeeded | failed
+    status: "idle",
     error: null,
-    requestStatus: null, // e.g. 'pending', 'approved', 'rejected'
+    requestStatus: null,
     requestLoading: false,
     requestError: null,
   },
@@ -53,7 +95,6 @@ const vendorSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Send vendor request
     builder
       .addCase(sendVendorRequest.pending, (state) => {
         state.requestLoading = true;
@@ -61,15 +102,12 @@ const vendorSlice = createSlice({
       })
       .addCase(sendVendorRequest.fulfilled, (state, action) => {
         state.requestLoading = false;
-        state.requestStatus = action.payload.vendorStatus; // e.g. 'pending'
+        state.requestStatus = action.payload.vendorStatus;
       })
       .addCase(sendVendorRequest.rejected, (state, action) => {
         state.requestLoading = false;
         state.requestError = action.payload;
-      });
-
-    // Fetch vendor profile
-    builder
+      })
       .addCase(fetchVendorProfile.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -86,5 +124,4 @@ const vendorSlice = createSlice({
 });
 
 export const { clearVendorState, setRequestStatus } = vendorSlice.actions;
-
 export default vendorSlice.reducer;

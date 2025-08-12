@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   sendVendorRequest,
   clearVendorState,
 } from "../../redux/slices/vendorSlice.js";
 import { AuthContext } from "../../context/AuthContext.jsx";
-import { createVendor } from "../../services/moderatorApi.js";
 
 // Reusable Input Component
 const FormInput = ({
@@ -160,7 +159,7 @@ const Alert = ({ type, message }) => {
       className={`${styles} border px-3 py-2 rounded-lg flex items-center space-x-2 text-sm`}
     >
       {icon}
-      <span>{message}</span>
+      <span>{typeof message === "string" ? message : String(message)}</span>
     </div>
   );
 };
@@ -175,7 +174,7 @@ const LogoUpload = ({ logoPreview, onChange, disabled }) => (
       <div className="relative">
         <input
           type="file"
-          name="logo"
+          name="logoFile"
           accept="image/*"
           onChange={onChange}
           disabled={disabled}
@@ -259,10 +258,15 @@ const InfoCard = ({
 const BecomeVendorModal = ({ isOpen, onClose }) => {
   const { auth } = useContext(AuthContext);
   const dispatch = useDispatch();
+  const { requestLoading, requestError, requestStatus } = useSelector(
+    (state) => state.vendor
+  );
+  const vendorError = useSelector((state) => state.vendor.error); // Unconditional useSelector
+  const error = requestError || vendorError; // Compute error after Hooks
 
   const [formData, setFormData] = useState({
     storeName: "",
-    logo: null,
+    logoFile: null,
     description: "",
     category: "",
     contactEmail: auth?.user?.email || "",
@@ -273,87 +277,66 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     website: "",
     taxId: "",
     yearsInBusiness: "",
+    state: "",
+    postalCode: "",
+    businessRegistrationNumber: "",
+    paymentMethod: "",
   });
-
   const [logoPreview, setLogoPreview] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const uploadToCloudinary = async (file) => {
-    // 1. Get the signature and other params from your backend
-    const sigRes = await fetch(
-      "http://localhost:5000/api/cloudinary/signature"
-    );
-    const { signature, timestamp, apiKey, cloudName } = await sigRes.json();
-
-    // 2. Prepare form data for the upload
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("api_key", apiKey);
-    formData.append("timestamp", timestamp);
-    formData.append("signature", signature);
-    formData.append("upload_preset", "zynvo_uploads"); // your preset if used
-
-    // 3. Upload to Cloudinary using your cloudName from signature response
-    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-
-    // 4. Perform the upload
-    const uploadRes = await fetch(uploadUrl, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!uploadRes.ok) {
-      const errorData = await uploadRes.json();
-      throw new Error(errorData.error?.message || "Cloudinary upload failed");
+  useEffect(() => {
+    if (!isOpen) {
+      setSuccessMsg(null);
+      dispatch(clearVendorState());
+      setFormData((prev) => ({
+        ...prev,
+        logoFile: null,
+        state: "",
+        postalCode: "",
+        businessRegistrationNumber: "",
+        paymentMethod: "",
+      }));
+      setLogoPreview(null);
     }
+  }, [isOpen, dispatch]);
 
-    const data = await uploadRes.json();
-    return data.secure_url; // Uploaded image URL
-  };
+  useEffect(() => {
+    console.log("requestStatus:", requestStatus); // Debug log
+    if (requestStatus === "pending") {
+      setSuccessMsg("Your vendor request is pending approval.");
+    }
+  }, [requestStatus]);
 
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     const { name, value, files } = e.target;
-
-    if (name === "logo" && files.length > 0) {
+    if (name === "logoFile" && files && files.length > 0) {
       const file = files[0];
-
-      // Show preview immediately
       setLogoPreview(URL.createObjectURL(file));
-
-      try {
-        // Upload image and get URL
-        const imageUrl = await uploadToCloudinary(file);
-        setFormData((prev) => ({ ...prev, logo: imageUrl }));
-      } catch (error) {
-        setError("Image upload failed: " + error.message);
-      }
+      setFormData((prev) => ({ ...prev, logoFile: file }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-    setSuccessMsg(null);
 
-    try {
-      const response = await createVendor(formData, auth.token);
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || "Failed to submit vendor request");
-      }
-
-      setSuccessMsg("Your vendor application was submitted successfully!");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsSubmitting(false);
+    if (!formData.logoFile) {
+      alert("Please upload a store logo.");
+      return;
     }
+
+    setIsSubmitting(true);
+    dispatch(sendVendorRequest(formData)).finally(() => {
+      setIsSubmitting(false);
+    });
+  };
+
+  const handleClose = () => {
+    dispatch(clearVendorState());
+    onClose();
   };
 
   const categoryOptions = [
@@ -366,25 +349,28 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     { value: "health", label: " Health & Beauty" },
   ];
 
-  // Calculate progress based on required fields filled
-  const requiredFields = [
-    "storeName",
-    "logo",
-    "description",
-    "category",
-    "contactEmail",
-    "phoneNumber",
-    "address",
-    "city",
-    "country",
-    "taxId",
-  ];
-
   const calculateProgress = () => {
     let filledCount = 0;
+    const requiredFields = [
+      "storeName",
+      "logoFile",
+      "description",
+      "category",
+      "contactEmail",
+      "phoneNumber",
+      "address",
+      "city",
+      "country",
+      "taxId",
+      "state",
+      "postalCode",
+      "businessRegistrationNumber",
+      "paymentMethod",
+    ];
+
     requiredFields.forEach((field) => {
-      if (field === "logo") {
-        if (formData.logo) filledCount++;
+      if (field === "logoFile") {
+        if (formData.logoFile) filledCount++;
       } else if (formData[field] && formData[field].toString().trim() !== "") {
         filledCount++;
       }
@@ -395,9 +381,8 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 ">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden ">
-        {/* Compact Header */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-purple-700 px-6 py-4 text-white">
           <div className="flex justify-between items-center">
             <div>
@@ -428,15 +413,21 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 h-[calc(90vh-120px)] ">
-          {/* Form Section - 2/3 width */}
+        <div className="grid grid-cols-3 h-[calc(90vh-120px)]">
           <div className="col-span-2 p-6 overflow-y-auto space-y-6">
-            {/* Alerts */}
-            {error && <Alert type="error" message={error} />}
+            {error && (
+              <Alert
+                type="error"
+                message={
+                  typeof error === "object" && error.message
+                    ? error.message
+                    : String(error)
+                }
+              />
+            )}
             {successMsg && <Alert type="success" message={successMsg} />}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Store Info Section */}
               <div className="bg-gray-50 rounded-lg p-4 space-y-4">
                 <SectionHeader
                   icon={
@@ -456,13 +447,11 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   }
                   title="Store Information"
                 />
-
                 <LogoUpload
                   logoPreview={logoPreview}
                   onChange={handleChange}
                   disabled={isSubmitting}
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Store Name"
@@ -483,7 +472,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     disabled={isSubmitting}
                   />
                 </div>
-
                 <FormTextarea
                   label="Description"
                   name="description"
@@ -495,7 +483,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 />
               </div>
 
-              {/* Contact Section */}
               <div className="bg-emerald-50 rounded-lg p-4 space-y-4">
                 <SectionHeader
                   icon={
@@ -516,7 +503,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   title="Contact Information"
                   bgColor="bg-emerald-600"
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Email"
@@ -541,7 +527,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Location Section */}
               <div className="bg-orange-50 rounded-lg p-4 space-y-4">
                 <SectionHeader
                   icon={
@@ -562,7 +547,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   title="Location"
                   bgColor="bg-orange-600"
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Address"
@@ -612,7 +596,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Business Section */}
               <div className="bg-purple-50 rounded-lg p-4 space-y-4">
                 <SectionHeader
                   icon={
@@ -633,7 +616,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                   title="Business Details"
                   bgColor="bg-purple-600"
                 />
-
                 <div className="grid grid-cols-2 gap-4">
                   <FormInput
                     label="Website"
@@ -695,7 +677,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 >
                   Cancel
                 </button>
-
                 <button
                   type="submit"
                   className="px-6 py-2 min-w-[140px] bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-md hover:from-blue-700 hover:to-purple-800 transition-all text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
@@ -732,9 +713,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
             </form>
           </div>
 
-          {/* Sidebar Info - 1/3 width */}
           <aside className="col-span-1 p-6 overflow-y-auto bg-gray-50 border-l border-gray-200">
-            {/* Submit Section */}
             <ProgressBar progress={calculateProgress()} />
             <InfoCard
               title="How to Apply"
@@ -746,7 +725,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                 "Our team will review within 3-5 business days.",
               ]}
             />
-
             <InfoCard
               title="Benefits of Becoming a Vendor"
               items={[

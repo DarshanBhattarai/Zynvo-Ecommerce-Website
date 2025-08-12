@@ -5,6 +5,6 @@ import upload from "../../cloudinary/middleware/cloudinaryUpload.js";
 
 const router = express.Router();
 
-router.post("/", authenticateUser, upload.single("logo"), createVendor);
+router.post("/request", authenticateUser, createVendor);
 
 export default router;

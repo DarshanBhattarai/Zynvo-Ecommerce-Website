@@ -1,5 +1,4 @@
 import Vendor from "../../../../models/Users/Vendor.js";
-
 export const createVendor = async (req, res) => {
   try {
     const {
@@ -20,17 +19,18 @@ export const createVendor = async (req, res) => {
       businessRegistrationNumber,
       yearsInBusiness,
       paymentMethod,
+      logo,  // <- get logo URL here
     } = req.body;
 
-    if (!req.file || !req.file.path) {
-      return res.status(400).json({ message: "Store logo is required" });
+    if (!logo) {
+      return res.status(400).json({ message: "Store logo URL is required" });
     }
 
     const vendor = new Vendor({
       storeName,
       storeTagline,
       storeType,
-      logo: req.file.path, // Cloudinary URL
+      logo, // Cloudinary URL from frontend
       description,
       category,
       contactEmail,
