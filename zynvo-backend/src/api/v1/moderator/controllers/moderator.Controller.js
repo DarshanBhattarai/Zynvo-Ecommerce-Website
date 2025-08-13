@@ -1,10 +1,33 @@
-import Vendor from "../../../../models/vendor/Vendor.js ";
-export const createVendor = async (req, res) => {
+// controllers/moderator.Controller.js
+import asyncHandler from "../../../../utils/asyncHandler.js";
+import Vendor from "../../../../models/vendor/vendor.js"; // adjust path if needed
+import logger from "../../../../utils/logger.js";
+
+// ✅ Create Vendor
+export const createVendor = asyncHandler(async (req, res) => {
   try {
+    // Make sure user is attached by middleware
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: "Unauthorized. User not found." });
+    }
+
+      // Check if this user already has a vendor request
+    const existingVendor = await Vendor.findOne({ userId: req.user._id });
+    if (existingVendor) {
+      return res.status(400).json({
+        message: "You already have a vendor request. Please wait for approval.",
+        vendor: existingVendor,
+      });
+    }
+
+    
+
+    // Extract data from request body
     const {
       storeName,
       storeTagline,
       storeType,
+      logo,
       description,
       category,
       contactEmail,
@@ -19,18 +42,16 @@ export const createVendor = async (req, res) => {
       businessRegistrationNumber,
       yearsInBusiness,
       paymentMethod,
-      logo,  // <- get logo URL here
     } = req.body;
 
-    if (!logo) {
-      return res.status(400).json({ message: "Store logo URL is required" });
-    }
+    // Optional: you can add validation here for required fields
 
-    const vendor = new Vendor({
+    // Create vendor
+    const vendor = await Vendor.create({
       storeName,
       storeTagline,
       storeType,
-      logo, // Cloudinary URL from frontend
+      logo,
       description,
       category,
       contactEmail,
@@ -45,14 +66,17 @@ export const createVendor = async (req, res) => {
       businessRegistrationNumber,
       yearsInBusiness,
       paymentMethod,
-      userId: req.user._id,
+      userId: req.user._id, // ✅ Assign logged-in user automatically
     });
 
-    await vendor.save();
+    logger.info(`Vendor created by user: ${req.user.email}, Vendor: ${vendor.storeName}`);
 
-    res.status(201).json({ message: "Vendor application submitted", vendor });
+    res.status(201).json({
+      message: "Vendor request created successfully.",
+      vendor,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
+    logger.error(`Error creating vendor: ${error.stack || error.message}`);
+    res.status(500).json({ message: "Internal server error." });
   }
-};
+});

@@ -266,6 +266,8 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
 
   const [formData, setFormData] = useState({
     storeName: "",
+    storeTagline: "",
+    storeType: "",
     logoFile: null,
     description: "",
     category: "",
@@ -347,6 +349,12 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     { value: "furniture", label: " Furniture & Home" },
     { value: "books", label: " Books & Education" },
     { value: "health", label: " Health & Beauty" },
+  ];
+  const storeTypeOptions = [
+    { value: "", label: "Select Store Type" },
+    { value: "online", label: "Online Store" },
+    { value: "physical", label: "Physical Store" },
+    { value: "both", label: "Both Online & Physical" },
   ];
 
   const calculateProgress = () => {
@@ -462,6 +470,27 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     disabled={isSubmitting}
                     placeholder="Your store name"
                   />
+                  <FormInput
+                    label="Store Tagline"
+                    name="storeTagline"
+                    value={formData.storeTagline || ""}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    placeholder="Your store tagline"
+                  />
+                  
+                  <FormSelect
+                    label="Store Type"
+                    name="storeType"
+                    value={formData.storeType || ""}
+                    onChange={handleChange}
+                    options={storeTypeOptions}
+                    required
+                    disabled={isSubmitting}
+                  />
+
+
                   <FormSelect
                     label="Category"
                     name="category"
