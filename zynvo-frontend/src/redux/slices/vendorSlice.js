@@ -3,7 +3,9 @@ import axios from "axios";
 
 // Helper function to upload image to Cloudinary
 const uploadToCloudinary = async (file) => {
-  const sigRes = await fetch("http://localhost:5000/api/cloudinary/signature");
+  const sigRes = await fetch("http://localhost:5000/api/cloudinary/signature", {
+    credentials: "include",
+  });
   const { signature, timestamp, apiKey, cloudName } = await sigRes.json();
 
   const formData = new FormData();
@@ -11,7 +13,7 @@ const uploadToCloudinary = async (file) => {
   formData.append("api_key", apiKey);
   formData.append("timestamp", timestamp);
   formData.append("signature", signature);
-  formData.append("upload_preset", "zynvo_Uploads");
+  formData.append("upload_preset", "zynvo_uploads");
 
   const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
@@ -41,7 +43,11 @@ export const sendVendorRequest = createAsyncThunk(
       };
       delete payload.logoFile;
 
-      const response = await axios.post("http://localhost:5000/api/vendor/request", payload);
+      const response = await axios.post(
+        "http://localhost:5000/api/moderator/request",
+        payload,
+        { withCredentials: true }
+      );
       return response.data;
     } catch (error) {
       const errorMessage =

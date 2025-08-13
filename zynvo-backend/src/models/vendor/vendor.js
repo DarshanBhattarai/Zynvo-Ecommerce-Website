@@ -3,51 +3,30 @@ import mongoose from "mongoose";
 
 const vendorSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    businessName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      lowercase: true,
-      trim: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    address: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    status: {
-      type: String,
-      enum: ["pending", "approved", "rejected"],
-      default: "pending",
-    },
-    rejectionReason: {
-      type: String,
-      default: null,
-    },
-    moderator: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Moderator", // link to who reviewed the vendor
-      default: null,
-    },
-    profile: {
-      description: { type: String, trim: true },
-      logoUrl: { type: String, trim: true },
-      website: { type: String, trim: true },
-    },
+    storeName: { type: String, required: true, trim: true },
+    storeTagline: { type: String, trim: true },
+    storeType: { type: String, required: true, enum: ["online", "physical", "both"] },
+    logo: { type: String, required: true }, // Will store file URL or path
+    description: { type: String, required: true },
+    category: { type: String, required: true },
+
+    contactEmail: { type: String, required: true, lowercase: true },
+    phoneNumber: { type: String, required: true },
+
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    postalCode: { type: String, required: true },
+    country: { type: String, required: true },
+
+    website: { type: String },
+    taxId: { type: String, required: true },
+    businessRegistrationNumber: { type: String, required: true },
+    yearsInBusiness: { type: Number },
+    paymentMethod: { type: String, required: true },
+
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" }
   },
   { timestamps: true }
 );

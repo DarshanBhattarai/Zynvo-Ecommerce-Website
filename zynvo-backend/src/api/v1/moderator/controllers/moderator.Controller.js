@@ -1,4 +1,4 @@
-import Vendor from "../../../../models/Users/Vendor.js";
+import Vendor from "../../../../models/vendor/Vendor.js ";
 export const createVendor = async (req, res) => {
   try {
     const {

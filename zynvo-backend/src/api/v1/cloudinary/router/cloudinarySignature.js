@@ -1,10 +1,11 @@
 // routes/cloudinarySignature.js
 import express from "express";
 import cloudinary from "../../../../config/cloudinary.js";
+import {authenticateUser} from "../../auth/middleware/authenticate.js";
 
 const router = express.Router();
 
-router.get("/signature", (req, res) => {
+router.get("/signature", authenticateUser, (req, res) => {
   const timestamp = Math.floor(Date.now() / 1000);
 
   const paramsToSign = {
