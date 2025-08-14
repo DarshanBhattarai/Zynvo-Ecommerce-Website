@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Helper function to upload image to Cloudinary
+// Upload helper
 const uploadToCloudinary = async (file) => {
   const sigRes = await fetch("http://localhost:5000/api/cloudinary/signature", {
     credentials: "include",
@@ -16,31 +16,22 @@ const uploadToCloudinary = async (file) => {
   formData.append("upload_preset", "zynvo_uploads");
 
   const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-
-  const uploadRes = await fetch(uploadUrl, {
-    method: "POST",
-    body: formData,
-  });
+  const uploadRes = await fetch(uploadUrl, { method: "POST", body: formData });
 
   if (!uploadRes.ok) {
     const errorData = await uploadRes.json();
     throw new Error(errorData.error?.message || "Cloudinary upload failed");
   }
-
-  const data = await uploadRes.json();
-  return data.secure_url;
+  return (await uploadRes.json()).secure_url;
 };
 
-// Async thunk to send vendor request
+// Async thunk: send vendor request
 export const sendVendorRequest = createAsyncThunk(
   "vendor/sendRequest",
   async (requestData, { rejectWithValue }) => {
     try {
       const logoUrl = await uploadToCloudinary(requestData.logoFile);
-      const payload = {
-        ...requestData,
-        logo: logoUrl,
-      };
+      const payload = { ...requestData, logo: logoUrl };
       delete payload.logoFile;
 
       const response = await axios.post(
@@ -48,35 +39,29 @@ export const sendVendorRequest = createAsyncThunk(
         payload,
         { withCredentials: true }
       );
-      return response.data;
+      return response.data; // { message, vendor }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Failed to send vendor request";
-      return rejectWithValue(errorMessage);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// Async thunk to fetch vendor profile/data
+// Async thunk: fetch vendor profile
 export const fetchVendorProfile = createAsyncThunk(
   "vendor/fetchProfile",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/vendor/profile/${userId}`);
-      return response.data;
+      const response = await axios.get(
+        `http://localhost:5000/api/moderator/profile/${userId}`,
+        { withCredentials: true }
+      );
+      return response.data; // vendor object
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Failed to fetch vendor profile";
-      return rejectWithValue(errorMessage);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// Slice
 const vendorSlice = createSlice({
   name: "vendor",
   initialState: {
@@ -102,18 +87,21 @@ const vendorSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Send request
       .addCase(sendVendorRequest.pending, (state) => {
         state.requestLoading = true;
         state.requestError = null;
       })
       .addCase(sendVendorRequest.fulfilled, (state, action) => {
         state.requestLoading = false;
-        state.requestStatus = action.payload.vendorStatus;
+        state.requestStatus = action.payload.vendor?.status?.toLowerCase() || null;
       })
       .addCase(sendVendorRequest.rejected, (state, action) => {
         state.requestLoading = false;
         state.requestError = action.payload;
       })
+
+      // Fetch profile
       .addCase(fetchVendorProfile.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -121,6 +109,7 @@ const vendorSlice = createSlice({
       .addCase(fetchVendorProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.profile = action.payload;
+        state.requestStatus = action.payload?.status?.toLowerCase() || null;
       })
       .addCase(fetchVendorProfile.rejected, (state, action) => {
         state.status = "failed";

@@ -80,3 +80,25 @@ export const createVendor = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
+
+// ✅ Get Vendor Profile by User ID
+export const getVendorProfile = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const vendor = await Vendor.findOne({ userId });
+
+    if (!vendor) {
+      return res.status(404).json({ message: "Vendor profile not found." });
+    }
+
+    res.status(200).json(vendor);
+  } catch (error) {
+    logger.error(`Error fetching vendor profile: ${error.stack || error.message}`);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});

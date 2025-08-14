@@ -1,24 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import BecomeVendorModal from "./user/becomeVendor.jsx";
-import { useSelector } from "react-redux";
+import VendorButton from "../components/buttons/user/VendorButton.jsx";
 
 const Home = () => {
   const { auth, logout } = useContext(AuthContext);
-  const { requestStatus } = useSelector((state) => state.vendor); // Redux vendor state
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const showVendorModal = searchParams.get("modal") === "vendor";
-  console.log("Request Status:", requestStatus);
-
-  // Close modal when request is sent (pending or success)
-  useEffect(() => {
-    if (requestStatus === "pending" || requestStatus === "success") {
-      setSearchParams({});
-    }
-  }, [requestStatus, setSearchParams]);
 
   if (!auth) {
     return (
@@ -55,32 +44,17 @@ const Home = () => {
           Logout
         </button>
 
-        {requestStatus === "pending" ? (
-          <button
-            disabled
-            className="px-4 py-2 bg-yellow-500 text-white rounded cursor-not-allowed"
-          >
-            Vendor Request Sent (Pending Approval)
-          </button>
-        ) : requestStatus === "success" ? (
-          <button
-            disabled
-            className="px-4 py-2 bg-green-600 text-white rounded cursor-not-allowed"
-          >
-            Vendor Request Approved
-          </button>
-        ) : (
-          <button
-            onClick={() => setSearchParams({ modal: "vendor" })}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            Become a Vendor
-          </button>
-        )}
+        <VendorButton
+          userId={auth.user._id}
+          openModal={() => setSearchParams({ modal: "vendor" })}
+        />
       </div>
 
       {showVendorModal && (
-        <BecomeVendorModal isOpen={true} onClose={() => setSearchParams({})} />
+        <BecomeVendorModal
+          isOpen={true}
+          onClose={() => setSearchParams({})}
+        />
       )}
     </div>
   );
