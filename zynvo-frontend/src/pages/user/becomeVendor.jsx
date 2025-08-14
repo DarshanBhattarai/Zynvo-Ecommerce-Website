@@ -287,6 +287,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
   const [logoPreview, setLogoPreview] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [vendorSubmitted, setVendorSubmitted] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -303,13 +304,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
       setLogoPreview(null);
     }
   }, [isOpen, dispatch]);
-
-  useEffect(() => {
-    console.log("requestStatus:", requestStatus); // Debug log
-    if (requestStatus === "pending") {
-      setSuccessMsg("Your vendor request is pending approval.");
-    }
-  }, [requestStatus]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -331,15 +325,23 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
     }
 
     setIsSubmitting(true);
-    dispatch(sendVendorRequest(formData)).finally(() => {
-      setIsSubmitting(false);
-    });
+    dispatch(sendVendorRequest(formData))
+      .unwrap()
+      .then(() => {
+        setVendorSubmitted(true);
+        setSuccessMsg("Your vendor request is pending approval.");
+        onClose(); // close modal immediately
+        dispatch(clearVendorState()); // reset redux state after close
+      })
+      .catch((err) => {
+        console.error("Vendor request failed:", err);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
-  const handleClose = () => {
-    dispatch(clearVendorState());
-    onClose();
-  };
+
 
   const categoryOptions = [
     { value: "", label: "Select Category" },
@@ -479,7 +481,7 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     disabled={isSubmitting}
                     placeholder="Your store tagline"
                   />
-                  
+
                   <FormSelect
                     label="Store Type"
                     name="storeType"
@@ -489,7 +491,6 @@ const BecomeVendorModal = ({ isOpen, onClose }) => {
                     required
                     disabled={isSubmitting}
                   />
-
 
                   <FormSelect
                     label="Category"
