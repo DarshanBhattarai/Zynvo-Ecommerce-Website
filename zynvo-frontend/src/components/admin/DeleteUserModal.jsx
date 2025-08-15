@@ -7,7 +7,7 @@ const DeleteUserModal = ({
 }) =>
   showDeleteConfirm && (
     <div className="fixed inset-0 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4 shadow-xl">
+      <div className=" rounded-lg p-6 max-w-sm w-full mx-4 shadow-xl">
         <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Delete</h3>
         <p className="text-sm text-gray-600 mb-6">
           Are you sure you want to delete this user? This action cannot be

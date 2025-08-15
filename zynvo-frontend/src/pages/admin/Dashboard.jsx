@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Users, Crown, Shield, User, Activity } from "lucide-react";
 import {
   fetchAllUsers,
   updateUserRole,
@@ -12,10 +13,12 @@ import StatWidgets from "../../components/admin/StatWidgets";
 import UserTable from "../../components/admin/UserTable";
 import DeleteUserModal from "../../components/admin/DeleteUserModal";
 import RoleChangeModal from "../../components/admin/RoleChangeModal";
+import VendorRequests from "../../components/admin/VendorRequests";
 
 const sidebarItems = [
   { label: "Overview", icon: "LayoutDashboard" },
   { label: "Users", icon: "Users" },
+  { label: "Vendor Requests", icon: "Store" },
   { label: "Analytics", icon: "TrendingUp" },
   { label: "Settings", icon: "Settings" },
 ];
@@ -231,6 +234,8 @@ const Dashboard = () => {
               />
             </div>
           )}
+
+          {activeMenu === "Vendor Requests" && <VendorRequests auth={auth} />}
         </div>
 
         <DeleteUserModal

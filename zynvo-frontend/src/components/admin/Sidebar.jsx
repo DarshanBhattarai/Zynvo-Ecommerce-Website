@@ -1,14 +1,29 @@
-import React from 'react';
-import { LayoutDashboard, Users, TrendingUp, Settings, UserCircle, LogOut } from 'lucide-react';
+import React from "react";
+import {
+  LayoutDashboard,
+  Users,
+  TrendingUp,
+  Settings,
+  UserCircle,
+  LogOut,
+  Store,
+} from "lucide-react";
 
 const sidebarItems = [
   { label: "Overview", icon: <LayoutDashboard size={18} /> },
   { label: "Users", icon: <Users size={18} /> },
+  { label: "Vendor Requests", icon: <Store size={18} /> },
   { label: "Analytics", icon: <TrendingUp size={18} /> },
   { label: "Settings", icon: <Settings size={18} /> },
 ];
 
-const Sidebar = ({ auth, logout, activeMenu, setActiveMenu, isSidebarOpen }) => {
+const Sidebar = ({
+  auth,
+  logout,
+  activeMenu,
+  setActiveMenu,
+  isSidebarOpen,
+}) => {
   return (
     <aside
       className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform ${
